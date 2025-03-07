@@ -110,22 +110,22 @@ a:hover {
   }
 }
 
-/* P4730 */
-.photo-section {
-  text-align: center;
-  margin: 50px 0;
+/* Removed .photo-section CSS rules */
+
+/* Added styles for the language toggle button */
+#language-toggle {
+  background-color: #00796b;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.photo-section img {
-  max-width: 200px;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.photo-section img:hover {
+#language-toggle:hover {
+  background-color: #004d40;
   transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .cv-download {
