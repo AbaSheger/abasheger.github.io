@@ -111,4 +111,78 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Call the function
   updateActiveNav();
+
+  // Add JavaScript code to handle the language toggle feature
+  const languageToggle = document.getElementById('language-toggle');
+  const elementsToTranslate = document.querySelectorAll('[data-translate]');
+
+  const translations = {
+    en: {
+      about: 'About',
+      projects: 'Projects',
+      contact: 'Contact',
+      skills: 'Skills',
+      cv: 'CV',
+      apps: 'Apps',
+      heroTitle: 'Abenezer Anglo',
+      heroSubtitle: 'Java Developer',
+      heroTagline: 'Building scalable, reliable systems for efficient data management',
+      contactMe: 'Contact Me',
+      viewProjects: 'View Projects',
+      aboutTitle: 'About',
+      aboutContent: 'Borlänge, Sverige | 📞 +46764087919 | 📧 merebanglo@yahoo.com',
+      projectsTitle: 'Projects',
+      contactTitle: 'Contact',
+      skillsTitle: 'Skills',
+      cvTitle: 'CV',
+      downloadCV: 'Download CV',
+      uploadCV: 'Upload CV',
+      appsTitle: 'Apps'
+    },
+    sv: {
+      about: 'Om',
+      projects: 'Projekt',
+      contact: 'Kontakt',
+      skills: 'Färdigheter',
+      cv: 'CV',
+      apps: 'Appar',
+      heroTitle: 'Abenezer Anglo',
+      heroSubtitle: 'Java-utvecklare',
+      heroTagline: 'Bygger skalbara, pålitliga system för effektiv datahantering',
+      contactMe: 'Kontakta mig',
+      viewProjects: 'Visa projekt',
+      aboutTitle: 'Om',
+      aboutContent: 'Borlänge, Sverige | 📞 +46764087919 | 📧 merebanglo@yahoo.com',
+      projectsTitle: 'Projekt',
+      contactTitle: 'Kontakt',
+      skillsTitle: 'Färdigheter',
+      cvTitle: 'CV',
+      downloadCV: 'Ladda ner CV',
+      uploadCV: 'Ladda upp CV',
+      appsTitle: 'Appar'
+    }
+  };
+
+  let currentLanguage = 'en';
+
+  languageToggle.addEventListener('click', () => {
+    currentLanguage = currentLanguage === 'en' ? 'sv' : 'en';
+    elementsToTranslate.forEach(element => {
+      const key = element.getAttribute('data-translate');
+      element.textContent = translations[currentLanguage][key];
+    });
+  });
+
+  // Add JavaScript code to handle CV upload
+  const cvUploadInput = document.getElementById('cv-upload');
+  cvUploadInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file && file.type === 'application/pdf') {
+      // Handle the file upload (e.g., send it to the server or display a success message)
+      console.log('CV uploaded:', file.name);
+    } else {
+      alert('Please upload a PDF file.');
+    }
+  });
+
 });
