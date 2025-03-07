@@ -4,132 +4,263 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Abenezer Anglo - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
   <header>
-    <h1>My Portfolio</h1>
+    <div class="logo">
+      <h1>AB</h1>
+    </div>
     <nav>
       <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#cv">CV</a></li>
+        <li><a href="#about" data-translate="about">About</a></li>
+        <li><a href="#projects" data-translate="projects">Projects</a></li>
+        <li><a href="#contact" data-translate="contact">Contact</a></li>
+        <li><a href="#skills" data-translate="skills">Skills</a></li>
+        <li><a href="#cv" data-translate="cv">CV</a></li>
+        <li><a href="#apps" data-translate="apps">Apps</a></li>
       </ul>
     </nav>
-    <button id="language-toggle">Toggle Language</button>
+    <button id="language-toggle" class="lang-toggle">
+      <span class="lang-flag">🇬🇧</span> / <span class="lang-flag">🇸🇪</span>
+    </button>
   </header>
+
   <section id="hero" class="hero-section">
     <div class="hero-content">
-      <h1>Abenezer Anglo</h1>
-      <h2>Java Developer</h2>
-      <p class="tagline">Building scalable, reliable systems for efficient data management</p>
+      <h1 data-translate="heroTitle">Abenezer Anglo</h1>
+      <h2 data-translate="heroSubtitle">Java Developer</h2>
+      <p class="tagline" data-translate="heroTagline">Building scalable, reliable systems for efficient data management</p>
       <div class="hero-buttons">
-        <a href="#contact" class="btn primary-btn">Contact Me</a>
-        <a href="#projects" class="btn secondary-btn">View Projects</a>
+        <a href="#contact" class="btn primary-btn" data-translate="contactMe">Contact Me</a>
+        <a href="#projects" class="btn secondary-btn" data-translate="viewProjects">View Projects</a>
       </div>
     </div>
   </section>
+
   <section id="about">
-    <h2>About</h2>
-    <p>Borlänge, Sverige | 📞 +46764087919 | 📧 merebanglo@yahoo.com</p>
-    <p>🌍 LinkedIn | 💻 GitHub</p>
-    <p>Om Mig</p>
-    <p>Jag är en engagerad Java-utvecklare med ett starkt intresse för att bygga skalbara och pålitliga system för effektiv datahantering. Genom mina projekt och praktik har jag utvecklat kompetens inom backend-utveckling, API-design och systemintegration. Jag har erfarenhet av att arbeta med Java-baserade mikrotjänster, databashantering och molnlösningar. Jag är en lagspelare som trivs i en agil utvecklingsmiljö och brinner för att skapa innovativa och högpresterande mjukvarulösningar.</p>
+    <h2 data-translate="aboutTitle">About</h2>
+    <div class="about-content">
+      <div class="about-info">
+        <p><i class="fas fa-map-marker-alt"></i> Borlänge, Sverige | <i class="fas fa-phone"></i> +46764087919 | <i class="fas fa-envelope"></i> merebanglo@yahoo.com</p>
+        <p>
+          <a href="https://www.linkedin.com/in/abenezer-anglo-537488144/" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a> | 
+          <a href="https://github.com/abasheger" class="social-link"><i class="fab fa-github"></i> GitHub</a>
+        </p>
+      </div>
+      <div class="about-description">
+        <h3 data-translate="aboutMe">About Me</h3>
+        <p data-translate="aboutText" class="about-paragraph">I am a dedicated Java developer with a strong interest in building scalable and reliable systems for efficient data management. Through my projects and internships, I have developed expertise in backend development, API design, and system integration. I have experience working with Java-based microservices, database management, and cloud solutions. I am a team player who thrives in an agile development environment and is passionate about creating innovative and high-performing software solutions.</p>
+        <p data-translate="aboutText_sv" class="about-paragraph hidden">Jag är en engagerad Java-utvecklare med ett starkt intresse för att bygga skalbara och pålitliga system för effektiv datahantering. Genom mina projekt och praktik har jag utvecklat kompetens inom backend-utveckling, API-design och systemintegration. Jag har erfarenhet av att arbeta med Java-baserade mikrotjänster, databashantering och molnlösningar. Jag är en lagspelare som trivs i en agil utvecklingsmiljö och brinner för att skapa innovativa och högpresterande mjukvarulösningar.</p>
+      </div>
+    </div>
   </section>
+
   <section id="projects">
-    <h2>Projects</h2>
-    <ul>
-      <li>Music Analytics Platform: Java-baserad mikrotjänsteplattform (Spring Boot) för musikanalys och rekommendationer. Spårar användaraktivitet och genererar personliga förslag via AI-baserade algoritmer. Innehåller React-frontend, Docker-containerisering och distribution av flera mikrotjänster.</li>
-      <li>Wigell Padel Mikrotjänst: REST API i Java Spring Boot med MySQL för bokningar och kunduppgifter. Implementerade Spring Security (rollerna ADMIN och USER). Byte från Azure-hosting till Docker/Docker Compose.</li>
-      <li>Full-Stack Solution (EduGrade): CI/CD-pipeline i Azure DevOps för React-frontend och Java-baserad REST API-backend. Driftsättning i Azure App Service, hantering av Docker-containers.</li>
-    </ul>
+    <h2 data-translate="projectsTitle">Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <div class="project-header">
+          <h3>Music Analytics Platform</h3>
+          <span class="project-tech">Spring Boot | React | Docker</span>
+        </div>
+        <p data-translate="project1">Java-based microservice platform (Spring Boot) for music analytics and recommendations. Tracks user activity and generates personalized suggestions through AI-based algorithms. Includes React frontend, Docker containerization, and distribution of multiple microservices.</p>
+        <p data-translate="project1_sv" class="hidden">Java-baserad mikrotjänsteplattform (Spring Boot) för musikanalys och rekommendationer. Spårar användaraktivitet och genererar personliga förslag via AI-baserade algoritmer. Innehåller React-frontend, Docker-containerisering och distribution av flera mikrotjänster.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-header">
+          <h3>Wigell Padel Microservice</h3>
+          <span class="project-tech">Spring Boot | MySQL | Spring Security</span>
+        </div>
+        <p data-translate="project2">REST API in Java Spring Boot with MySQL for bookings and customer data. Implemented Spring Security (ADMIN and USER roles). Migrated from Azure hosting to Docker/Docker Compose.</p>
+        <p data-translate="project2_sv" class="hidden">REST API i Java Spring Boot med MySQL för bokningar och kunduppgifter. Implementerade Spring Security (rollerna ADMIN och USER). Byte från Azure-hosting till Docker/Docker Compose.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-header">
+          <h3>Full-Stack Solution (EduGrade)</h3>
+          <span class="project-tech">Azure DevOps | React | Java</span>
+        </div>
+        <p data-translate="project3">CI/CD pipeline in Azure DevOps for React frontend and Java-based REST API backend. Deployment in Azure App Service, handling Docker containers.</p>
+        <p data-translate="project3_sv" class="hidden">CI/CD-pipeline i Azure DevOps för React-frontend och Java-baserad REST API-backend. Driftsättning i Azure App Service, hantering av Docker-containers.</p>
+      </div>
+    </div>
   </section>
+
   <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: merebanglo@yahoo.com</p>
-    <p>Phone: +46764087919</p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/abenezer-anglo-537488144/">Abenezer Anglo</a></p>
+    <h2 data-translate="contactTitle">Contact</h2>
+    <div class="contact-container">
+      <div class="contact-info">
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <p>merebanglo@yahoo.com</p>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <p>+46764087919</p>
+        </div>
+        <div class="contact-item">
+          <i class="fab fa-linkedin"></i>
+          <p><a href="https://www.linkedin.com/in/abenezer-anglo-537488144/">Abenezer Anglo</a></p>
+        </div>
+      </div>
+      <div class="contact-form">
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name" data-translate="formName">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email" data-translate="formEmail">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="message" data-translate="formMessage">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn form-btn" data-translate="formSubmit">Send Message</button>
+        </form>
+      </div>
+    </div>
   </section>
+
   <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li>Programmering & Backend: Java (Spring Boot, REST, Maven), API-design & systemintegration, Databaser: MySQL, H2, SQL, Testning: JUnit, Mockito, TDD</li>
-      <li>DevOps & CI/CD: Docker, Docker Compose, Git, GitHub, Azure DevOps</li>
-      <li>Frontend & UI: React (JavaScript/TypeScript)</li>
-      <li>Agila Metoder & Övrigt: Scrum, Kanban, Grundläggande AI & maskininlärning (MathNet, ML-intro)</li>
-    </ul>
+    <h2 data-translate="skillsTitle">Skills</h2>
+    <div class="skills-container">
+      <div class="skill-category">
+        <h3 data-translate="skillsBackend">Backend & Programming</h3>
+        <div class="skill-items">
+          <div class="skill-item"><span>Java</span></div>
+          <div class="skill-item"><span>Spring Boot</span></div>
+          <div class="skill-item"><span>REST APIs</span></div>
+          <div class="skill-item"><span>Maven</span></div>
+          <div class="skill-item"><span>MySQL</span></div>
+          <div class="skill-item"><span>H2</span></div>
+          <div class="skill-item"><span>JUnit</span></div>
+          <div class="skill-item"><span>Mockito</span></div>
+          <div class="skill-item"><span>TDD</span></div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3 data-translate="skillsDevOps">DevOps & CI/CD</h3>
+        <div class="skill-items">
+          <div class="skill-item"><span>Docker</span></div>
+          <div class="skill-item"><span>Docker Compose</span></div>
+          <div class="skill-item"><span>Git</span></div>
+          <div class="skill-item"><span>GitHub</span></div>
+          <div class="skill-item"><span>Azure DevOps</span></div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3 data-translate="skillsFrontend">Frontend & UI</h3>
+        <div class="skill-items">
+          <div class="skill-item"><span>React</span></div>
+          <div class="skill-item"><span>JavaScript</span></div>
+          <div class="skill-item"><span>TypeScript</span></div>
+          <div class="skill-item"><span>HTML/CSS</span></div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3 data-translate="skillsOther">Agile & Other</h3>
+        <div class="skill-items">
+          <div class="skill-item"><span>Scrum</span></div>
+          <div class="skill-item"><span>Kanban</span></div>
+          <div class="skill-item"><span>AI Basics</span></div>
+          <div class="skill-item"><span>Machine Learning</span></div>
+        </div>
+      </div>
+    </div>
   </section>
+
   <section id="cv">
-    <h2>CV</h2>
-    <div class="cv-download">
-      <a href="path/to/abenezer-anglo-cv.pdf" download>Download CV</a>
-    </div>
-    <div class="cv-upload">
-      <input type="file" id="cv-upload" accept="application/pdf">
+    <h2 data-translate="cvTitle">CV</h2>
+    <div class="cv-container">
+      <div class="cv-download">
+        <i class="fas fa-file-pdf"></i>
+        <a href="path/to/abenezer-anglo-cv.pdf" download data-translate="downloadCV">Download CV</a>
+      </div>
+      <div class="cv-upload">
+        <label for="cv-upload" class="cv-upload-label">
+          <i class="fas fa-upload"></i>
+          <span data-translate="uploadCV">Upload CV</span>
+        </label>
+        <input type="file" id="cv-upload" accept="application/pdf">
+        <p id="upload-status" class="upload-status"></p>
+      </div>
     </div>
   </section>
+
   <section id="apps">
-    <h2>Apps</h2>
+    <h2 data-translate="appsTitle">Apps</h2>
     
     <div class="app-section">
       <div class="app-content">
         <h3>Music Analytics Platform</h3>
-        <p>Java-baserad mikrotjänsteplattform (Spring Boot) för musikanalys och rekommendationer. Spårar användaraktivitet och genererar personliga förslag via AI-baserade algoritmer. Innehåller React-frontend, Docker-containerisering och distribution av flera mikrotjänster.</p>
+        <p data-translate="app1">Java-based microservice platform (Spring Boot) for music analytics and recommendations. Tracks user activity and generates personalized suggestions through AI-based algorithms. Includes React frontend, Docker containerization, and distribution of multiple microservices.</p>
+        <p data-translate="app1_sv" class="hidden">Java-baserad mikrotjänsteplattform (Spring Boot) för musikanalys och rekommendationer. Spårar användaraktivitet och genererar personliga förslag via AI-baserade algoritmer. Innehåller React-frontend, Docker-containerisering och distribution av flera mikrotjänster.</p>
         <div class="app-buttons">
-          <a href="https://live-link-to-music-analytics-platform.com"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-          <a href="https://github.com/abenezer-anglo/music-analytics-platform"><i class="fab fa-github"></i> GitHub Repo</a>
+          <a href="https://live-link-to-music-analytics-platform.com" class="app-btn"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
+          <a href="https://github.com/abenezer-anglo/music-analytics-platform" class="app-btn"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
         </div>
-      </div>
-      <div class="app-image">
-        <img src="path/to/music-analytics-platform/screenshot.jpg" alt="Music Analytics Platform Screenshot">
       </div>
     </div>
     
     <div class="app-section">
-      <h3>Wigell Padel Mikrotjänst</h3>
-      <p>REST API i Java Spring Boot med MySQL för bokningar och kunduppgifter. Implementerade Spring Security (rollerna ADMIN och USER). Byte från Azure-hosting till Docker/Docker Compose.</p>
-      <img src="path/to/wigell-padel-mikrotjanst/screenshot.jpg" alt="Wigell Padel Mikrotjänst Screenshot">
-      <a href="https://live-link-to-wigell-padel-mikrotjanst.com">Live Link</a>
-      <a href="https://github.com/abenezer-anglo/wigell-padel-mikrotjanst">GitHub Repo</a>
+      <div class="app-content">
+        <h3>Wigell Padel Microservice</h3>
+        <p data-translate="app2">REST API in Java Spring Boot with MySQL for bookings and customer data. Implemented Spring Security (ADMIN and USER roles). Migrated from Azure hosting to Docker/Docker Compose.</p>
+        <p data-translate="app2_sv" class="hidden">REST API i Java Spring Boot med MySQL för bokningar och kunduppgifter. Implementerade Spring Security (rollerna ADMIN och USER). Byte från Azure-hosting till Docker/Docker Compose.</p>
+        <div class="app-buttons">
+          <a href="https://live-link-to-wigell-padel-mikrotjanst.com" class="app-btn"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
+          <a href="https://github.com/abenezer-anglo/wigell-padel-mikrotjanst" class="app-btn"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
+        </div>
+      </div>
     </div>
+    
     <div class="app-section">
-      <h3>Full-Stack Solution (EduGrade)</h3>
-      <p>CI/CD-pipeline i Azure DevOps för React-frontend och Java-baserad REST API-backend. Driftsättning i Azure App Service, hantering av Docker-containers.</p>
-      <img src="path/to/full-stack-solution-edugrade/screenshot.jpg" alt="Full-Stack Solution (EduGrade) Screenshot">
-      <a href="https://live-link-to-full-stack-solution-edugrade.com">Live Link</a>
-      <a href="https://github.com/abenezer-anglo/full-stack-solution-edugrade">GitHub Repo</a>
+      <div class="app-content">
+        <h3>Full-Stack Solution (EduGrade)</h3>
+        <p data-translate="app3">CI/CD pipeline in Azure DevOps for React frontend and Java-based REST API backend. Deployment in Azure App Service, handling Docker containers.</p>
+        <p data-translate="app3_sv" class="hidden">CI/CD-pipeline i Azure DevOps för React-frontend och Java-baserad REST API-backend. Driftsättning i Azure App Service, hantering av Docker-containers.</p>
+        <div class="app-buttons">
+          <a href="https://live-link-to-full-stack-solution-edugrade.com" class="app-btn"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
+          <a href="https://github.com/abenezer-anglo/full-stack-solution-edugrade" class="app-btn"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
+        </div>
+      </div>
     </div>
   </section>
+
   <footer>
     <div class="footer-content">
       <div class="footer-section">
         <h3>Abenezer Anglo</h3>
-        <p>Java Developer specializing in scalable systems & effective data management</p>
+        <p data-translate="footerTagline">Java Developer specializing in scalable systems & effective data management</p>
       </div>
       <div class="footer-section">
-        <h3>Quick Links</h3>
+        <h3 data-translate="quickLinks">Quick Links</h3>
         <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#skills">Skills</a></li>
+          <li><a href="#about" data-translate="about">About</a></li>
+          <li><a href="#projects" data-translate="projects">Projects</a></li>
+          <li><a href="#skills" data-translate="skills">Skills</a></li>
         </ul>
       </div>
       <div class="footer-section">
-        <h3>Connect</h3>
+        <h3 data-translate="connect">Connect</h3>
         <div class="social-links">
-          <a href="https://www.linkedin.com/in/abenezer-anglo-537488144/"><i class="fab fa-linkedin"></i></a>
-          <a href="https://github.com/abasheger"><i class="fab fa-github"></i></a>
-          <a href="mailto:merebanglo@yahoo.com"><i class="fas fa-envelope"></i></a>
+          <a href="https://www.linkedin.com/in/abenezer-anglo-537488144/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/abasheger" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="mailto:merebanglo@yahoo.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 Abenezer Anglo. All rights reserved.</p>
+      <p>&copy; 2025 Abenezer Anglo. <span data-translate="allRights">All rights reserved.</span></p>
     </div>
   </footer>
+
   <script src="js/scripts.js"></script>
 </body>
 </html>
