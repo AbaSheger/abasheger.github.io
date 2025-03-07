@@ -1,6 +1,11 @@
+index.html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abenezer Anglo - Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
@@ -17,6 +22,17 @@
       </ul>
     </nav>
   </header>
+  <section id="hero" class="hero-section">
+    <div class="hero-content">
+      <h1>Abenezer Anglo</h1>
+      <h2>Java Developer</h2>
+      <p class="tagline">Building scalable, reliable systems for efficient data management</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn primary-btn">Contact Me</a>
+        <a href="#projects" class="btn secondary-btn">View Projects</a>
+      </div>
+    </div>
+  </section>
   <section id="about">
     <h2>About</h2>
     <p>Borlänge, Sverige | 📞 +46764087919 | 📧 merebanglo@yahoo.com</p>
@@ -61,13 +77,21 @@
   </section>
   <section id="apps">
     <h2>Apps</h2>
+    
     <div class="app-section">
-      <h3>Music Analytics Platform</h3>
-      <p>Java-baserad mikrotjänsteplattform (Spring Boot) för musikanalys och rekommendationer. Spårar användaraktivitet och genererar personliga förslag via AI-baserade algoritmer. Innehåller React-frontend, Docker-containerisering och distribution av flera mikrotjänster.</p>
-      <img src="path/to/music-analytics-platform/screenshot.jpg" alt="Music Analytics Platform Screenshot">
-      <a href="https://live-link-to-music-analytics-platform.com">Live Link</a>
-      <a href="https://github.com/abenezer-anglo/music-analytics-platform">GitHub Repo</a>
+      <div class="app-content">
+        <h3>Music Analytics Platform</h3>
+        <p>Java-baserad mikrotjänsteplattform (Spring Boot) för musikanalys och rekommendationer. Spårar användaraktivitet och genererar personliga förslag via AI-baserade algoritmer. Innehåller React-frontend, Docker-containerisering och distribution av flera mikrotjänster.</p>
+        <div class="app-buttons">
+          <a href="https://live-link-to-music-analytics-platform.com"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+          <a href="https://github.com/abenezer-anglo/music-analytics-platform"><i class="fab fa-github"></i> GitHub Repo</a>
+        </div>
+      </div>
+      <div class="app-image">
+        <img src="path/to/music-analytics-platform/screenshot.jpg" alt="Music Analytics Platform Screenshot">
+      </div>
     </div>
+    
     <div class="app-section">
       <h3>Wigell Padel Mikrotjänst</h3>
       <p>REST API i Java Spring Boot med MySQL för bokningar och kunduppgifter. Implementerade Spring Security (rollerna ADMIN och USER). Byte från Azure-hosting till Docker/Docker Compose.</p>
@@ -83,6 +107,33 @@
       <a href="https://github.com/abenezer-anglo/full-stack-solution-edugrade">GitHub Repo</a>
     </div>
   </section>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Abenezer Anglo</h3>
+        <p>Java Developer specializing in scalable systems & effective data management</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/abenezer-anglo"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/abasheger"><i class="fab fa-github"></i></a>
+          <a href="mailto:merebanglo@yahoo.com"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 Abenezer Anglo. All rights reserved.</p>
+    </div>
+  </footer>
   <script src="js/scripts.js"></script>
 </body>
 </html>
