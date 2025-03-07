@@ -21,5 +21,38 @@ The portfolio now includes a navigation menu with links to different sections:
 - About
 - Projects
 - Contact
+- Skills
+- Photo
+- CV
+- Apps
 
 You can use the navigation menu to quickly jump to any section of the portfolio. Additionally, smooth scrolling has been implemented for a seamless browsing experience.
+
+## Apps Section
+
+The portfolio now includes sections for each app with the following details:
+- Name
+- Description (e.g., "Built with Java Spring Boot and React")
+- Screenshot
+- Live link
+- Optional GitHub repo link
+
+### Example Apps
+
+#### App 1
+- **Description:** Built with Java Spring Boot and React
+- **Screenshot:** ![App 1 Screenshot](path/to/app1/screenshot.jpg)
+- **Live Link:** [Live Link](https://live-link-to-app1.com)
+- **GitHub Repo:** [GitHub Repo](https://github.com/yourusername/app1)
+
+#### App 2
+- **Description:** Built with Python Flask and Vue.js
+- **Screenshot:** ![App 2 Screenshot](path/to/app2/screenshot.jpg)
+- **Live Link:** [Live Link](https://live-link-to-app2.com)
+- **GitHub Repo:** [GitHub Repo](https://github.com/yourusername/app2)
+
+#### App 3
+- **Description:** Built with Node.js and Angular
+- **Screenshot:** ![App 3 Screenshot](path/to/app3/screenshot.jpg)
+- **Live Link:** [Live Link](https://live-link-to-app3.com)
+- **GitHub Repo:** [GitHub Repo](https://github.com/yourusername/app3)
