@@ -63,4 +63,23 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  // Add advanced animations and transitions for interactive elements
+  const animatedElements = document.querySelectorAll('.animated');
+  animatedElements.forEach(element => {
+    element.addEventListener('mouseover', function() {
+      this.classList.add('animate');
+    });
+    element.addEventListener('mouseout', function() {
+      this.classList.remove('animate');
+    });
+  });
+
+  // Implement additional interactive elements for a more engaging user experience
+  const interactiveElements = document.querySelectorAll('.interactive');
+  interactiveElements.forEach(element => {
+    element.addEventListener('click', function() {
+      this.classList.toggle('active');
+    });
+  });
 });
