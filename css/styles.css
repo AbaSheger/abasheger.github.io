@@ -45,3 +45,84 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/* Responsive design */
+@media (max-width: 768px) {
+  header, section {
+    padding: 10px;
+    margin: 10px;
+  }
+
+  h1, h2 {
+    font-size: 1.5em;
+  }
+
+  li {
+    margin: 5px 0;
+    padding: 5px;
+  }
+}
+
+/* New sections: skills, testimonials, and blog */
+#skills, #testimonials, #blog {
+  padding: 20px;
+  margin: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#skills h2, #testimonials h2, #blog h2 {
+  color: #333;
+}
+
+#skills ul, #testimonials ul, #blog ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#skills li, #testimonials li, #blog li {
+  background-color: #f9f9f9;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Advanced layout and design elements */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card {
+  flex: 1 1 calc(33.333% - 20px);
+  margin: 10px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  color: #333;
+}
+
+/* Animations for interactive elements */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Modern UI frameworks or libraries */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
