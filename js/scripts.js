@@ -295,3 +295,34 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// Add sendMessage function to handle form submission
+function sendMessage(event) {
+  event.preventDefault(); // Prevent the default form submission behavior
+
+  // Collect form data
+  const contactForm = document.getElementById('contactForm');
+  const formData = new FormData(contactForm);
+  const data = {};
+  formData.forEach((value, key) => {
+    data[key] = value;
+  });
+
+  // Use the fetch API to send the form data to a server endpoint
+  fetch('https://example.com/contact', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(result => {
+    // Display a success message based on the server response
+    alert('Message sent successfully!');
+  })
+  .catch(error => {
+    // Display an error message based on the server response
+    alert('Error sending message. Please try again later.');
+  });
+}
