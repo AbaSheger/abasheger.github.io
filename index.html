@@ -1,3 +1,4 @@
+index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,6 @@
         <li><a href="#contact" data-translate="contact">Contact</a></li>
         <li><a href="#skills" data-translate="skills">Skills</a></li>
         <li><a href="#cv" data-translate="cv">CV</a></li>
-        <li><a href="#apps" data-translate="apps">Apps</a></li>
       </ul>
     </nav>
     <button id="language-toggle" class="lang-toggle">
@@ -45,6 +45,12 @@
   <section id="about">
     <h2 data-translate="aboutTitle">About</h2>
     <div class="about-content">
+      <div class="profile-image-container">
+        <div class="profile-image">
+          <!-- Add your profile image here -->
+          <img src="assets/profile.jpg" alt="Abenezer Anglo" id="profile-picture">
+        </div>
+      </div>
       <div class="about-info">
         <p><i class="fas fa-map-marker-alt"></i> Borlänge, Sverige | <i class="fas fa-phone"></i> +46764087919 | <i class="fas fa-envelope"></i> merebanglo@yahoo.com</p>
         <p>
@@ -64,28 +70,57 @@
     <h2 data-translate="projectsTitle">Projects</h2>
     <div class="project-grid">
       <div class="project-card">
+        <div class="project-thumbnail">
+          <img src="assets/project-music-analytics.jpg" alt="Music Analytics Platform">
+        </div>
         <div class="project-header">
           <h3>Music Analytics Platform</h3>
           <span class="project-tech">Spring Boot | React | Docker</span>
         </div>
-        <p data-translate="project1">Java-based microservice platform (Spring Boot) for music analytics and recommendations. Tracks user activity and generates personalized suggestions through AI-based algorithms. Includes React frontend, Docker containerization, and distribution of multiple microservices.</p>
-        <p data-translate="project1_sv" class="hidden">Java-baserad mikrotjänsteplattform (Spring Boot) för musikanalys och rekommendationer. Spårar användaraktivitet och genererar personliga förslag via AI-baserade algoritmer. Innehåller React-frontend, Docker-containerisering och distribution av flera mikrotjänster.</p>
+        <div class="project-content">
+          <p data-translate="project1">Java-based microservice platform (Spring Boot) for music analytics and recommendations. Tracks user activity and generates personalized suggestions through AI-based algorithms. Includes React frontend, Docker containerization, and distribution of multiple microservices.</p>
+          <p data-translate="project1_sv" class="hidden">Java-baserad mikrotjänsteplattform (Spring Boot) för musikanalys och rekommendationer. Spårar användaraktivitet och genererar personliga förslag via AI-baserade algoritmer. Innehåller React-frontend, Docker-containerisering och distribution av flera mikrotjänster.</p>
+        </div>
+        <div class="project-buttons">
+          <a href="https://live-link-to-music-analytics-platform.com" class="project-btn"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
+          <a href="https://github.com/abenezer-anglo/music-analytics-platform" class="project-btn"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
+        </div>
       </div>
+      
       <div class="project-card">
+        <div class="project-thumbnail">
+          <img src="assets/project-wigell-padel.jpg" alt="Wigell Padel Microservice">
+        </div>
         <div class="project-header">
           <h3>Wigell Padel Microservice</h3>
           <span class="project-tech">Spring Boot | MySQL | Spring Security</span>
         </div>
-        <p data-translate="project2">REST API in Java Spring Boot with MySQL for bookings and customer data. Implemented Spring Security (ADMIN and USER roles). Migrated from Azure hosting to Docker/Docker Compose.</p>
-        <p data-translate="project2_sv" class="hidden">REST API i Java Spring Boot med MySQL för bokningar och kunduppgifter. Implementerade Spring Security (rollerna ADMIN och USER). Byte från Azure-hosting till Docker/Docker Compose.</p>
+        <div class="project-content">
+          <p data-translate="project2">REST API in Java Spring Boot with MySQL for bookings and customer data. Implemented Spring Security (ADMIN and USER roles). Migrated from Azure hosting to Docker/Docker Compose.</p>
+          <p data-translate="project2_sv" class="hidden">REST API i Java Spring Boot med MySQL för bokningar och kunduppgifter. Implementerade Spring Security (rollerna ADMIN och USER). Byte från Azure-hosting till Docker/Docker Compose.</p>
+        </div>
+        <div class="project-buttons">
+          <a href="https://live-link-to-wigell-padel-mikrotjanst.com" class="project-btn"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
+          <a href="https://github.com/abenezer-anglo/wigell-padel-mikrotjanst" class="project-btn"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
+        </div>
       </div>
+      
       <div class="project-card">
+        <div class="project-thumbnail">
+          <img src="assets/project-edugrade.jpg" alt="Full-Stack Solution (EduGrade)">
+        </div>
         <div class="project-header">
           <h3>Full-Stack Solution (EduGrade)</h3>
           <span class="project-tech">Azure DevOps | React | Java</span>
         </div>
-        <p data-translate="project3">CI/CD pipeline in Azure DevOps for React frontend and Java-based REST API backend. Deployment in Azure App Service, handling Docker containers.</p>
-        <p data-translate="project3_sv" class="hidden">CI/CD-pipeline i Azure DevOps för React-frontend och Java-baserad REST API-backend. Driftsättning i Azure App Service, hantering av Docker-containers.</p>
+        <div class="project-content">
+          <p data-translate="project3">CI/CD pipeline in Azure DevOps for React frontend and Java-based REST API backend. Deployment in Azure App Service, handling Docker containers.</p>
+          <p data-translate="project3_sv" class="hidden">CI/CD-pipeline i Azure DevOps för React-frontend och Java-baserad REST API-backend. Driftsättning i Azure App Service, hantering av Docker-containers.</p>
+        </div>
+        <div class="project-buttons">
+          <a href="https://live-link-to-full-stack-solution-edugrade.com" class="project-btn"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
+          <a href="https://github.com/abenezer-anglo/full-stack-solution-edugrade" class="project-btn"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
+        </div>
       </div>
     </div>
   </section>
@@ -181,46 +216,6 @@
       <div class="cv-download">
         <i class="fas fa-file-pdf"></i>
         <a href="assets/abenezer-anglo-cv.pdf" download data-translate="downloadCV">Download CV</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="apps">
-    <h2 data-translate="appsTitle">Apps</h2>
-    
-    <div class="app-section">
-      <div class="app-content">
-        <h3>Music Analytics Platform</h3>
-        <p data-translate="app1">Java-based microservice platform (Spring Boot) for music analytics and recommendations. Tracks user activity and generates personalized suggestions through AI-based algorithms. Includes React frontend, Docker containerization, and distribution of multiple microservices.</p>
-        <p data-translate="app1_sv" class="hidden">Java-baserad mikrotjänsteplattform (Spring Boot) för musikanalys och rekommendationer. Spårar användaraktivitet och genererar personliga förslag via AI-baserade algoritmer. Innehåller React-frontend, Docker-containerisering och distribution av flera mikrotjänster.</p>
-        <div class="app-buttons">
-          <a href="https://live-link-to-music-analytics-platform.com" class="app-btn"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
-          <a href="https://github.com/abenezer-anglo/music-analytics-platform" class="app-btn"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="app-section">
-      <div class="app-content">
-        <h3>Wigell Padel Microservice</h3>
-        <p data-translate="app2">REST API in Java Spring Boot with MySQL for bookings and customer data. Implemented Spring Security (ADMIN and USER roles). Migrated from Azure hosting to Docker/Docker Compose.</p>
-        <p data-translate="app2_sv" class="hidden">REST API i Java Spring Boot med MySQL för bokningar och kunduppgifter. Implementerade Spring Security (rollerna ADMIN och USER). Byte från Azure-hosting till Docker/Docker Compose.</p>
-        <div class="app-buttons">
-          <a href="https://live-link-to-wigell-padel-mikrotjanst.com" class="app-btn"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
-          <a href="https://github.com/abenezer-anglo/wigell-padel-mikrotjanst" class="app-btn"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="app-section">
-      <div class="app-content">
-        <h3>Full-Stack Solution (EduGrade)</h3>
-        <p data-translate="app3">CI/CD pipeline in Azure DevOps for React frontend and Java-based REST API backend. Deployment in Azure App Service, handling Docker containers.</p>
-        <p data-translate="app3_sv" class="hidden">CI/CD-pipeline i Azure DevOps för React-frontend och Java-baserad REST API-backend. Driftsättning i Azure App Service, hantering av Docker-containers.</p>
-        <div class="app-buttons">
-          <a href="https://live-link-to-full-stack-solution-edugrade.com" class="app-btn"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
-          <a href="https://github.com/abenezer-anglo/full-stack-solution-edugrade" class="app-btn"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
-        </div>
       </div>
     </div>
   </section>
