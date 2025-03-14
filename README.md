@@ -14,6 +14,7 @@ To view the portfolio, open the `index.html` file in a web browser. You can also
 - Enhanced the UI with improved styling, animations, and transitions.
 - Added interactive elements for a more engaging user experience.
 - Created additional pages for a full-fledged portfolio website.
+- Added a new "Apps" section with details about each app.
 
 ## Navigating the Portfolio
 
