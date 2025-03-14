@@ -1,19 +1,22 @@
 /* General styles */
 :root {
-  --primary-color: #6200ee;
-  --primary-variant: #3700b3;
-  --secondary-color: #03dac6;
-  --secondary-variant: #018786;
-  --background: #fafafa;
+  --primary-color: #0a66c2; /* LinkedIn blue */
+  --primary-variant: #004182;
+  --secondary-color: #057642; /* LinkedIn green for success */
+  --secondary-variant: #046236;
+  --background: #f3f2ef; /* LinkedIn light gray background */
   --surface: #ffffff;
   --error: #b00020;
   --on-primary: #ffffff;
-  --on-secondary: #000000;
-  --on-background: #000000;
-  --on-surface: #000000;
+  --on-secondary: #ffffff;
+  --on-background: #1a1a1a;
+  --on-surface: #1a1a1a;
   --on-error: #ffffff;
-  --card-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+  --card-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --border-radius: 8px;
+  --section-padding: 24px;
+  --card-padding: 20px;
 }
 
 * {
@@ -23,12 +26,12 @@
 }
 
 body {
-  font-family: 'Roboto', 'Poppins', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin: 0;
   padding: 0;
   background-color: var(--background);
   color: var(--on-background);
-  line-height: 1.6;
+  line-height: 1.5;
   overflow-x: hidden;
 }
 
@@ -36,11 +39,11 @@ body {
   display: none !important;
 }
 
-/* Header and Navigation */
+/* Header and Navigation - LinkedIn style */
 header {
   background-color: var(--surface);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  padding: 0.75rem 5%;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+  padding: 0.6rem 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,16 +56,15 @@ header {
 }
 
 header.scrolled {
-  padding: 0.5rem 5%;
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .logo h1 {
   color: var(--primary-color);
   font-size: 1.8rem;
-  font-weight: 500;
+  font-weight: 600;
   margin: 0;
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
 }
 
 nav ul {
@@ -72,221 +74,248 @@ nav ul {
 }
 
 nav a {
-  color: var(--on-surface);
+  color: rgba(0,0,0,0.6);
   text-decoration: none;
   font-weight: 500;
-  padding: 0.75rem 0.5rem;
+  padding: 0.5rem;
   position: relative;
   transition: var(--transition);
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 nav a::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  background-color: var(--primary-color);
-  left: 0;
-  bottom: 0;
-  transition: var(--transition);
+  display: none;
 }
 
 nav a:hover, nav a.active {
-  color: var(--primary-color);
+  color: var(--on-surface);
 }
 
-nav a:hover::after, nav a.active::after {
-  width: 100%;
+nav a i {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
 }
 
+/* Language Toggle Button - LinkedIn style */
 .lang-toggle {
   background-color: transparent;
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-  border-radius: 4px;
-  padding: 0.5rem 0.75rem;
+  color: rgba(0,0,0,0.6);
+  border: none;
+  border-radius: 50%;
+  padding: 0.6rem;
   cursor: pointer;
   transition: var(--transition);
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  justify-content: center;
   font-weight: 500;
-  letter-spacing: 0.5px;
+  position: relative;
 }
 
 .lang-toggle:hover {
-  background-color: rgba(98, 0, 238, 0.08);
+  background-color: rgba(0,0,0,0.08);
 }
 
 .lang-flag {
-  font-size: 1rem;
+  font-size: 1.25rem;
 }
 
-/* Hero Section */
+/* Hero Section - LinkedIn cover style */
 .hero-section {
-  height: 90vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1624377632657-3902bfd35958?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+  height: auto;
+  background: var(--surface);
+  margin-top: 56px;
+  padding: 0;
+  position: relative;
+  color: var(--on-surface);
+  box-shadow: var(--card-shadow);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  margin-bottom: 24px;
+}
+
+.hero-background {
+  height: 200px;
+  background: linear-gradient(135deg, #4a76d4, #2a5db0);
   background-size: cover;
   background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #ffffff;
-  padding-top: 70px;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
 .hero-content {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 1200px;
+  margin: -80px auto 0;
   padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.profile-hero {
+  background-color: var(--surface);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: var(--card-padding);
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.profile-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.hero-profile-image {
+  width: 152px;
+  height: 152px;
+  border-radius: 50%;
+  border: 4px solid var(--surface);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+.hero-profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-info {
+  flex-grow: 1;
 }
 
 .hero-content h1 {
-  font-size: 3.5rem;
-  font-weight: 400;
-  margin-bottom: 0.5rem;
-  animation: fadeInUp 0.8s ease;
-  letter-spacing: -0.5px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--on-surface);
 }
 
 .hero-content h2 {
-  font-size: 2rem;
+  font-size: 1.1rem;
   font-weight: 400;
-  margin-bottom: 1rem;
-  color: rgba(255, 255, 255, 0.9);
-  animation: fadeInUp 0.8s ease 0.2s;
-  animation-fill-mode: both;
+  margin-bottom: 0.5rem;
+  color: rgba(0,0,0,0.7);
 }
 
 .tagline {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
   font-weight: 400;
-  animation: fadeInUp 0.8s ease 0.4s;
-  animation-fill-mode: both;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  color: rgba(0,0,0,0.6);
+}
+
+.hero-location {
+  font-size: 0.9rem;
+  color: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 16px;
 }
 
 .hero-buttons {
   display: flex;
-  justify-content: center;
   gap: 1rem;
-  animation: fadeInUp 0.8s ease 0.6s;
-  animation-fill-mode: both;
+  flex-wrap: wrap;
 }
 
 .btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 24px;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   transition: var(--transition);
   cursor: pointer;
-  letter-spacing: 1.25px;
-  text-transform: uppercase;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   position: relative;
   overflow: hidden;
-}
-
-.btn::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1) translate(-50%, -50%);
-  transform-origin: 50% 50%;
-}
-
-.btn:active::after {
-  opacity: 0.3;
-  transform: scale(40) translate(-50%, -50%);
-  transition: transform 0.8s, opacity 0.4s;
+  min-width: 120px;
 }
 
 .primary-btn {
   background-color: var(--primary-color);
   color: var(--on-primary);
   border: none;
-  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
 }
 
 .primary-btn:hover {
   background-color: var(--primary-variant);
-  box-shadow: 0 5px 8px rgba(0,0,0,0.3);
-  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .secondary-btn {
   background-color: transparent;
-  color: var(--on-primary);
-  border: 1px solid white;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
 
 .secondary-btn:hover {
-  background-color: rgba(255,255,255,0.1);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 8px rgba(0,0,0,0.1);
+  background-color: rgba(10, 102, 194, 0.1);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Sections */
+/* Sections - LinkedIn card style */
 section {
-  padding: 4rem 10%;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 1200px;
+  margin-bottom: 24px;
   scroll-margin-top: 70px;
 }
 
+.section-container {
+  background-color: var(--surface);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: var(--card-padding);
+}
+
 section h2 {
-  font-size: 2.125rem;
-  font-weight: 400;
-  color: var(--primary-color);
-  margin-bottom: 2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  margin-bottom: 1.5rem;
   position: relative;
-  display: inline-block;
-  letter-spacing: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 section h2::after {
-  content: '';
-  position: absolute;
-  width: 40%;
-  height: 3px;
-  background-color: var(--primary-color);
-  left: 0;
-  bottom: -8px;
+  display: none;
 }
 
-/* About Section */
+section h2 i {
+  color: var(--primary-color);
+  font-size: 1.3rem;
+}
+
+/* About Section - LinkedIn style */
 .about-content {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
 .about-info {
-  background-color: var(--surface);
-  padding: 2rem;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-  transition: var(--transition);
-  grid-column: span 2;
-}
-
-.about-info:hover {
-  box-shadow: var(--card-shadow);
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  grid-column: span 1;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .about-info p {
@@ -295,14 +324,15 @@ section h2::after {
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
+  color: rgba(0,0,0,0.7);
 }
 
 .about-info i {
-  color: var(--primary-color);
+  color: rgba(0,0,0,0.6);
 }
 
 .social-link {
-  color: var(--on-surface);
+  color: var(--primary-color);
   text-decoration: none;
   transition: var(--transition);
   display: inline-flex;
@@ -311,137 +341,132 @@ section h2::after {
   margin-right: 1rem;
   padding: 0.5rem;
   border-radius: 4px;
+  font-weight: 600;
 }
 
 .social-link:hover {
-  color: var(--primary-color);
-  background-color: rgba(98, 0, 238, 0.08);
-}
-
-/* Profile Image */
-.profile-image-container {
-  text-align: center;
-  margin-bottom: 0;
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.profile-image {
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 0 auto;
-  border: none;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  position: relative;
-}
-
-.profile-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.profile-image:hover img {
-  transform: scale(1.05);
+  text-decoration: underline;
+  background-color: transparent;
 }
 
 .about-description {
-  background-color: var(--surface);
-  padding: 2rem;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-  transition: var(--transition);
-  grid-column: 2;
-  grid-row: 2;
-}
-
-.about-description:hover {
-  box-shadow: var(--card-shadow);
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  grid-column: span 1;
 }
 
 .about-description h3 {
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  font-weight: 400;
+  display: none;
 }
 
 .about-paragraph {
-  line-height: 1.8;
+  line-height: 1.6;
+  color: rgba(0,0,0,0.9);
 }
 
-/* Project Section */
+/* Project Section - LinkedIn experience style */
 .project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .project-card {
-  background-color: var(--surface);
-  border-radius: 4px;
+  background-color: transparent;
+  border-radius: 0;
   padding: 0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-  transition: var(--transition);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
+  box-shadow: none;
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 1rem;
+  height: auto;
+  overflow: visible;
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding-bottom: 1.5rem;
+}
+
+.project-card:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .project-card:hover {
-  box-shadow: var(--card-shadow);
-  transform: translateY(-5px);
+  box-shadow: none;
+  transform: none;
+}
+
+.project-thumbnail {
+  height: 72px;
+  width: 72px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  grid-row: span 2;
+}
+
+.project-card:hover .project-thumbnail img {
+  transform: none;
 }
 
 .project-header {
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 0;
+  grid-column: 2;
 }
 
 .project-header h3 {
   color: var(--on-surface);
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
 .project-tech {
-  font-size: 0.85rem;
-  color: rgba(0, 0, 0, 0.6);
-  font-weight: 400;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.project-thumbnail {
-  height: 200px;
-  overflow: hidden;
+.project-tech-item {
+  background-color: transparent;
+  color: rgba(0,0,0,0.6);
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.95rem;
+  position: relative;
+  padding-right: 0.5rem;
 }
 
-.project-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.project-card:hover .project-thumbnail img {
-  transform: scale(1.05);
+.project-tech-item:not(:last-child)::after {
+  content: '•';
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .project-content {
-  flex-grow: 1;
-  padding: 1.5rem;
+  grid-column: 2;
+  padding: 0;
+}
+
+.project-content p {
+  margin-bottom: 1rem;
+  color: rgba(0,0,0,0.9);
+  font-size: 0.95rem;
 }
 
 .project-buttons {
   display: flex;
-  gap: 1rem;
-  padding: 0 1.5rem 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0;
+  background-color: transparent;
+  border-top: none;
+  margin-top: 0.5rem;
 }
 
 .project-btn {
@@ -449,55 +474,63 @@ section h2::after {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: var(--primary-color);
-  color: var(--on-primary);
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 24px;
   text-decoration: none;
   font-size: 0.875rem;
   transition: var(--transition);
   white-space: nowrap;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  font-weight: 600;
 }
 
-.project-btn:hover {
+.project-btn-primary {
+  background-color: var(--primary-color);
+  color: var(--on-primary);
+  box-shadow: none;
+}
+
+.project-btn-primary:hover {
   background-color: var(--primary-variant);
-  box-shadow: 0 3px 5px rgba(0,0,0,0.3);
-  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Skills Section */
+.project-btn-secondary {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.project-btn-secondary:hover {
+  background-color: rgba(10, 102, 194, 0.1);
+}
+
+/* Skills Section - LinkedIn style */
 .skills-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 .skill-category {
-  background-color: var(--surface);
-  padding: 1.5rem;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
   transition: var(--transition);
 }
 
 .skill-category:hover {
-  box-shadow: var(--card-shadow);
-  transform: translateY(-3px);
+  box-shadow: none;
+  transform: none;
 }
 
 .skill-category h3 {
-  color: var(--primary-color);
+  color: var(--on-surface);
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  font-weight: 500;
-  font-size: 1.1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  font-weight: 600;
+  font-size: 1.05rem;
 }
 
 .skill-items {
@@ -507,40 +540,45 @@ section h2::after {
 }
 
 .skill-item {
-  background-color: rgba(98, 0, 238, 0.08);
+  background-color: rgba(0,0,0,0.08);
   padding: 0.5rem 0.75rem;
-  border-radius: 16px;
+  border-radius: 4px;
   font-size: 0.9rem;
   transition: var(--transition);
+  color: rgba(0,0,0,0.9);
 }
 
 .skill-item:hover {
-  background-color: var(--primary-color);
-  color: var(--on-primary);
-  transform: translateY(-3px);
-  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.12);
+  color: var(--on-surface);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Contact Section */
+/* Contact Section - LinkedIn style */
 .contact-container {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 .contact-info {
-  background-color: var(--surface);
-  padding: 2rem;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .contact-item {
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.contact-item:last-child {
+  border-bottom: none;
 }
 
 .contact-item i {
@@ -552,10 +590,10 @@ section h2::after {
 }
 
 .contact-form {
-  background-color: var(--surface);
-  padding: 2rem;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .form-group {
@@ -566,7 +604,7 @@ section h2::after {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: var(--on-surface);
+  color: rgba(0,0,0,0.6);
   font-weight: 500;
   font-size: 0.9rem;
 }
@@ -575,20 +613,19 @@ section h2::after {
 .form-group textarea {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0,0,0,0.3);
   border-radius: 4px;
   font-family: inherit;
   font-size: 1rem;
   transition: var(--transition);
-  background-color: rgba(0,0,0,0.02);
+  background-color: var(--surface);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(98, 0, 238, 0.2);
-  background-color: white;
+  box-shadow: 0 0 0 1px var(--primary-color);
 }
 
 .form-btn {
@@ -596,28 +633,26 @@ section h2::after {
   color: var(--on-primary);
   padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 24px;
   cursor: pointer;
   transition: var(--transition);
-  text-transform: uppercase;
-  letter-spacing: 1.25px;
-  font-weight: 500;
-  font-size: 0.875rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: none;
 }
 
 .form-btn:hover {
   background-color: var(--primary-variant);
-  box-shadow: 0 3px 5px rgba(0,0,0,0.3);
-  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Footer */
+/* Footer - LinkedIn style */
 footer {
-  background-color: #303030;
-  color: rgba(255,255,255,0.87);
-  padding: 60px 20px 20px;
-  margin-top: 80px;
+  background-color: var(--surface);
+  color: rgba(0,0,0,0.6);
+  padding: 40px 20px 20px;
+  margin-top: 60px;
+  border-top: 1px solid rgba(0,0,0,0.08);
 }
 
 .footer-content {
@@ -629,26 +664,21 @@ footer {
 }
 
 .footer-section h3 {
-  color: white;
-  margin-bottom: 20px;
-  font-size: 1.2rem;
+  color: var(--on-surface);
+  margin-bottom: 16px;
+  font-size: 1rem;
   position: relative;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .footer-section h3:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  width: 40px;
-  height: 2px;
-  background-color: var(--primary-color);
+  display: none;
 }
 
 .footer-section p {
   margin-bottom: 15px;
   line-height: 1.6;
+  font-size: 0.9rem;
 }
 
 .footer-section ul {
@@ -657,97 +687,96 @@ footer {
 }
 
 .footer-section ul li {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .footer-section a {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0,0,0,0.6);
   text-decoration: none;
   transition: var(--transition);
+  font-size: 0.9rem;
 }
 
 .footer-section a:hover {
-  color: white;
+  color: var(--primary-color);
+  text-decoration: underline;
 }
 
 .social-links {
   display: flex;
-  gap: 15px;
+  gap: 12px;
 }
 
 .social-links a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  background-color: rgba(255, 255, 255, 0.1);
+  width: 36px;
+  height: 36px;
+  background-color: rgba(0,0,0,0.08);
   border-radius: 50%;
-  color: white;
+  color: rgba(0,0,0,0.6);
   transition: var(--transition);
 }
 
 .social-links a:hover {
   background-color: var(--primary-color);
-  transform: translateY(-3px);
+  color: var(--on-primary);
+  transform: translateY(-2px);
+  text-decoration: none;
 }
 
 .footer-bottom {
   margin-top: 40px;
   text-align: center;
   padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0,0,0,0.08);
+  font-size: 0.85rem;
 }
 
-/* CV Section - Simplified */
+/* CV Section - LinkedIn style */
 .cv-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: var(--surface);
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-  transition: var(--transition);
-}
-
-.cv-container:hover {
-  box-shadow: var(--card-shadow);
+  padding: 0;
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .cv-download {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .cv-download i {
-  font-size: 3rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #E2574C;
+  margin-bottom: 0;
 }
 
 .cv-download a {
-  display: inline-block;
-  color: var(--on-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--on-primary);
   text-decoration: none;
-  font-weight: 500;
-  margin-top: 1rem;
+  font-weight: 600;
+  margin-top: 0;
   transition: var(--transition);
   background-color: var(--primary-color);
-  color: var(--on-primary);
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 1.25px;
-  font-size: 0.875rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  padding: 0.6rem 1.25rem;
+  border-radius: 24px;
+  font-size: 0.95rem;
+  box-shadow: none;
 }
 
 .cv-download a:hover {
   background-color: var(--primary-variant);
-  transform: translateY(-2px);
-  box-shadow: 0 3px 5px rgba(0,0,0,0.3);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* Animations */
@@ -884,6 +913,34 @@ footer {
     text-align: center;
     justify-content: center;
   }
+
+  .project-buttons {
+    flex-direction: column;
+  }
+  
+  .project-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .project-thumbnail {
+    height: 180px;
+  }
+  
+  .project-tech {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  
+  .project-tech-item {
+    display: inline-block;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .lang-toggle {
+    padding: 0.4rem 0.8rem;
+  }
 }
 
 @media (max-width: 576px) {
@@ -924,9 +981,5 @@ footer {
   
   .form-btn {
     width: 100%;
-  }
-  
-  .project-buttons {
-    flex-direction: column;
   }
 }

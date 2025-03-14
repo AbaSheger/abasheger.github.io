@@ -122,9 +122,11 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Update flag display
       if (currentLang === 'en') {
-        languageToggle.innerHTML = '<span class="lang-flag">🇬🇧</span> / <span class="lang-flag">🇸🇪</span>';
+        languageToggle.innerHTML = '<span class="lang-flag">🇬🇧</span><span class="lang-flag">🇸🇪</span>';
+        languageToggle.setAttribute('aria-label', 'Switch to Swedish');
       } else {
-        languageToggle.innerHTML = '<span class="lang-flag">🇸🇪</span> / <span class="lang-flag">🇬🇧</span>';
+        languageToggle.innerHTML = '<span class="lang-flag">🇸🇪</span><span class="lang-flag">🇬🇧</span>';
+        languageToggle.setAttribute('aria-label', 'Switch to English');
       }
       
       // Update all translatable elements
@@ -146,9 +148,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
       
-      // Translation for navigation
+      // Translation for navigation with icons
       if (currentLang === 'sv') {
-        document.querySelector('[data-translate="about"]').textContent = 'Om Mig';
+        document.querySelectorAll('[data-translate="about"]').forEach(el => {
+          if (el.tagName === 'A') {
+            const icon = el.querySelector('i');
+            if (icon) {
+              el.innerHTML = '';
+              el.appendChild(icon);
+              el.appendChild(document.createTextNode(' Om Mig'));
+            } else {
+              el.textContent = 'Om Mig';
+            }
+          } else {
+            el.textContent = 'Om Mig';
+          }
+        });
+        
+        // Similar pattern for other navigation items
         document.querySelector('[data-translate="projects"]').textContent = 'Projekt';
         document.querySelector('[data-translate="contact"]').textContent = 'Kontakt';
         document.querySelector('[data-translate="skills"]').textContent = 'Färdigheter';
@@ -178,7 +195,22 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('[data-translate="connect"]').textContent = 'Anslut';
         document.querySelector('[data-translate="allRights"]').textContent = 'Alla rättigheter förbehållna.';
       } else {
-        document.querySelector('[data-translate="about"]').textContent = 'About';
+        document.querySelectorAll('[data-translate="about"]').forEach(el => {
+          if (el.tagName === 'A') {
+            const icon = el.querySelector('i');
+            if (icon) {
+              el.innerHTML = '';
+              el.appendChild(icon);
+              el.appendChild(document.createTextNode(' About'));
+            } else {
+              el.textContent = 'About';
+            }
+          } else {
+            el.textContent = 'About';
+          }
+        });
+        
+        // Similar pattern for other navigation items
         document.querySelector('[data-translate="projects"]').textContent = 'Projects';
         document.querySelector('[data-translate="contact"]').textContent = 'Contact';
         document.querySelector('[data-translate="skills"]').textContent = 'Skills';
