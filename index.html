@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mui/material@5.0.0/dist/material-ui.min.css">
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </head>
-<body>
+<body class="light-mode">
   <header>
     <div class="logo">
       <h1>AB</h1>
@@ -28,6 +28,9 @@
     </nav>
     <button id="language-toggle" class="lang-toggle">
       <span class="lang-flag">🇬🇧</span> / <span class="lang-flag">🇸🇪</span>
+    </button>
+    <button id="mode-toggle" class="mode-toggle">
+      <span class="mode-icon">🌞</span> / <span class="mode-icon">🌜</span>
     </button>
   </header>
 
@@ -260,5 +263,16 @@
   </footer>
 
   <script src="js/scripts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const modeToggle = document.getElementById('mode-toggle');
+      const body = document.body;
+
+      modeToggle.addEventListener('click', function() {
+        body.classList.toggle('dark-mode');
+        body.classList.toggle('light-mode');
+      });
+    });
+  </script>
 </body>
 </html>

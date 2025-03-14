@@ -294,6 +294,15 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
+
+  // Add event listener for dark mode/light mode toggle button
+  const modeToggle = document.getElementById('mode-toggle');
+  const body = document.body;
+
+  modeToggle.addEventListener('click', function() {
+    body.classList.toggle('dark-mode');
+    body.classList.toggle('light-mode');
+  });
 });
 
 // Add sendMessage function to handle form submission

@@ -1,0 +1,140 @@
+body.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+header {
+  background-color: var(--header-bg-color);
+  color: var(--header-text-color);
+}
+
+header.scrolled {
+  background-color: var(--header-bg-color-scrolled);
+}
+
+.mode-toggle {
+  background-color: var(--toggle-bg-color);
+  color: var(--toggle-text-color);
+}
+
+.mode-toggle .mode-icon {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.hero-section {
+  background: var(--hero-bg);
+  color: var(--hero-text-color);
+}
+
+.hero-section .hero-content h1,
+.hero-section .hero-content h2,
+.hero-section .hero-content p {
+  color: var(--hero-text-color);
+}
+
+.hero-section .hero-buttons .btn {
+  background-color: var(--btn-bg-color);
+  color: var(--btn-text-color);
+}
+
+.about-content {
+  background-color: var(--about-bg-color);
+  color: var(--about-text-color);
+}
+
+.project-card {
+  background-color: var(--project-card-bg-color);
+  color: var(--project-card-text-color);
+}
+
+.contact-container {
+  background-color: var(--contact-bg-color);
+  color: var(--contact-text-color);
+}
+
+.skills-container {
+  background-color: var(--skills-bg-color);
+  color: var(--skills-text-color);
+}
+
+.cv-container {
+  background-color: var(--cv-bg-color);
+  color: var(--cv-text-color);
+}
+
+.app-section {
+  background-color: var(--app-section-bg-color);
+  color: var(--app-section-text-color);
+}
+
+footer {
+  background-color: var(--footer-bg-color);
+  color: var(--footer-text-color);
+}
+
+footer .footer-bottom {
+  background-color: var(--footer-bottom-bg-color);
+  color: var(--footer-bottom-text-color);
+}
+
+:root {
+  --header-bg-color: #ffffff;
+  --header-text-color: #000000;
+  --header-bg-color-scrolled: #f1f1f1;
+  --toggle-bg-color: #e0e0e0;
+  --toggle-text-color: #000000;
+  --hero-bg: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://new-dark-image-url.com');
+  --hero-text-color: #ffffff;
+  --btn-bg-color: #007bff;
+  --btn-text-color: #ffffff;
+  --about-bg-color: #ffffff;
+  --about-text-color: #000000;
+  --project-card-bg-color: #ffffff;
+  --project-card-text-color: #000000;
+  --contact-bg-color: #ffffff;
+  --contact-text-color: #000000;
+  --skills-bg-color: #ffffff;
+  --skills-text-color: #000000;
+  --cv-bg-color: #ffffff;
+  --cv-text-color: #000000;
+  --app-section-bg-color: #ffffff;
+  --app-section-text-color: #000000;
+  --footer-bg-color: #ffffff;
+  --footer-text-color: #000000;
+  --footer-bottom-bg-color: #f1f1f1;
+  --footer-bottom-text-color: #000000;
+}
+
+body.dark-mode {
+  --header-bg-color: #121212;
+  --header-text-color: #ffffff;
+  --header-bg-color-scrolled: #1e1e1e;
+  --toggle-bg-color: #333333;
+  --toggle-text-color: #ffffff;
+  --hero-bg: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://new-dark-image-url.com');
+  --hero-text-color: #ffffff;
+  --btn-bg-color: #007bff;
+  --btn-text-color: #ffffff;
+  --about-bg-color: #121212;
+  --about-text-color: #ffffff;
+  --project-card-bg-color: #1e1e1e;
+  --project-card-text-color: #ffffff;
+  --contact-bg-color: #121212;
+  --contact-text-color: #ffffff;
+  --skills-bg-color: #121212;
+  --skills-text-color: #ffffff;
+  --cv-bg-color: #121212;
+  --cv-text-color: #ffffff;
+  --app-section-bg-color: #121212;
+  --app-section-text-color: #ffffff;
+  --footer-bg-color: #121212;
+  --footer-text-color: #ffffff;
+  --footer-bottom-bg-color: #1e1e1e;
+  --footer-bottom-text-color: #ffffff;
+}
