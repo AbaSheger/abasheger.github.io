@@ -18,6 +18,7 @@ To view the portfolio, open the `index.html` file in a web browser. You can also
 - Added a language toggle feature for English and Swedish.
 - Added a CV upload feature.
 - Added a contact form submission feature.
+- Added new CSS styles for the whole site, including light and dark mode.
 
 ## Navigating the Portfolio
 
