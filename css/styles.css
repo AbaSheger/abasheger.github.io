@@ -13,6 +13,7 @@ body.dark-mode {
 header {
   background-color: var(--header-bg-color);
   color: var(--header-text-color);
+  transition: background-color 0.3s ease-in-out; /* P0a97 */
 }
 
 header.scrolled {
@@ -22,6 +23,7 @@ header.scrolled {
 .mode-toggle {
   background-color: var(--toggle-bg-color);
   color: var(--toggle-text-color);
+  transition: background-color 0.3s ease-in-out; /* P0a97 */
 }
 
 .mode-toggle .mode-icon {
@@ -32,57 +34,68 @@ header.scrolled {
 .hero-section {
   background: var(--hero-bg);
   color: var(--hero-text-color);
+  transition: background 0.3s ease-in-out; /* P0a97 */
 }
 
 .hero-section .hero-content h1,
 .hero-section .hero-content h2,
 .hero-section .hero-content p {
   color: var(--hero-text-color);
+  transition: color 0.3s ease-in-out; /* P0a97 */
 }
 
 .hero-section .hero-buttons .btn {
   background-color: var(--btn-bg-color);
   color: var(--btn-text-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* P0a97 */
 }
 
 .about-content {
   background-color: var(--about-bg-color);
   color: var(--about-text-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* P0a97 */
 }
 
 .project-card {
   background-color: var(--project-card-bg-color);
   color: var(--project-card-text-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* P0a97 */
 }
 
 .contact-container {
   background-color: var(--contact-bg-color);
   color: var(--contact-text-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* P0a97 */
 }
 
 .skills-container {
   background-color: var(--skills-bg-color);
   color: var(--skills-text-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* P0a97 */
 }
 
 .cv-container {
   background-color: var(--cv-bg-color);
   color: var(--cv-text-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* P0a97 */
 }
 
 .app-section {
   background-color: var(--app-section-bg-color);
   color: var(--app-section-text-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* P0a97 */
 }
 
 footer {
   background-color: var(--footer-bg-color);
   color: var(--footer-text-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* P0a97 */
 }
 
 footer .footer-bottom {
   background-color: var(--footer-bottom-bg-color);
   color: var(--footer-bottom-text-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* P0a97 */
 }
 
 :root {
@@ -139,4 +152,93 @@ body.dark-mode {
   --footer-text-color: #ffffff;
   --footer-bottom-bg-color: #1e1e1e;
   --footer-bottom-text-color: #ffffff;
+}
+
+/* P8d08 */
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 10px;
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+p {
+  margin: 0 0 15px;
+  transition: color 0.3s ease-in-out;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.btn.primary-btn {
+  background-color: var(--primary-btn-bg-color);
+  color: var(--primary-btn-text-color);
+}
+
+.btn.secondary-btn {
+  background-color: var(--secondary-btn-bg-color);
+  color: var(--secondary-btn-text-color);
+}
+
+.btn:hover {
+  background-color: var(--btn-hover-bg-color);
+  color: var(--btn-hover-text-color);
+}
+
+.nav a {
+  padding: 10px 15px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.nav a:hover {
+  background-color: var(--nav-hover-bg-color);
+  color: var(--nav-hover-text-color);
+}
+
+.nav a.active {
+  background-color: var(--nav-active-bg-color);
+  color: var(--nav-active-text-color);
+}
+
+/* Pa5cb */
+.animated {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.animated:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+.interactive {
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.interactive.active {
+  background-color: var(--interactive-active-bg-color);
+  color: var(--interactive-active-text-color);
 }
