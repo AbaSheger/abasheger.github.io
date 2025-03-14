@@ -194,6 +194,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('[data-translate="quickLinks"]').textContent = 'Snabblänkar';
         document.querySelector('[data-translate="connect"]').textContent = 'Anslut';
         document.querySelector('[data-translate="allRights"]').textContent = 'Alla rättigheter förbehållna.';
+        document.querySelector('[data-translate="contactCta"]').classList.add('hidden');
+        document.querySelector('[data-translate="contactCta_sv"]').classList.remove('hidden');
+        document.querySelector('[data-translate="emailMe"]').textContent = 'Mejla mig';
       } else {
         document.querySelectorAll('[data-translate="about"]').forEach(el => {
           if (el.tagName === 'A') {
@@ -239,6 +242,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('[data-translate="quickLinks"]').textContent = 'Quick Links';
         document.querySelector('[data-translate="connect"]').textContent = 'Connect';
         document.querySelector('[data-translate="allRights"]').textContent = 'All rights reserved.';
+        document.querySelector('[data-translate="contactCta"]').classList.remove('hidden');
+        if (document.querySelector('[data-translate="contactCta_sv"]')) {
+          document.querySelector('[data-translate="contactCta_sv"]').classList.add('hidden');
+        }
+        document.querySelector('[data-translate="emailMe"]').textContent = 'Email Me';
       }
     });
   }
@@ -293,4 +301,59 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   highlightNavigation();
+
+  // Theme toggle functionality
+  const themeToggle = document.getElementById('theme-toggle');
+  const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+  
+  // Initialize theme based on user preference or saved preference
+  function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.body.setAttribute('data-theme', savedTheme);
+      updateThemeIcon(savedTheme);
+    } else if (prefersDarkScheme.matches) {
+      document.body.setAttribute('data-theme', 'dark');
+      updateThemeIcon('dark');
+    }
+  }
+  
+  function updateThemeIcon(theme) {
+    const icon = themeToggle.querySelector('i');
+    if (theme === 'dark') {
+      icon.className = 'fas fa-moon';
+      themeToggle.setAttribute('aria-label', 'Switch to light mode');
+    } else {
+      icon.className = 'fas fa-sun';
+      themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+    }
+  }
+  
+  // Initialize theme on page load
+  initializeTheme();
+  
+  // Handle theme toggle click
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = document.body.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      // Update theme
+      document.body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // Update icon
+      updateThemeIcon(newTheme);
+    });
+  }
+  
+  // Listen for system theme changes
+  prefersDarkScheme.addEventListener('change', e => {
+    const newColorScheme = e.matches ? 'dark' : 'light';
+    // Only apply if user hasn't manually selected a theme
+    if (!localStorage.getItem('theme')) {
+      document.body.setAttribute('data-theme', newColorScheme);
+      updateThemeIcon(newColorScheme);
+    }
+  });
 });
