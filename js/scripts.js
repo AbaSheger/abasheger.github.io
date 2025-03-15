@@ -74,6 +74,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+  // Add subtle animations for interactive elements
+  animatedElements.forEach(element => {
+    element.addEventListener('mouseenter', function() {
+      this.classList.add('animate-pulse');
+    });
+    element.addEventListener('mouseleave', function() {
+      this.classList.remove('animate-pulse');
+    });
+  });
+
+  // Implement hover effects for project cards
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.classList.add('scale-[1.01]');
+      this.style.transition = 'transform 0.3s ease';
+    });
+    card.addEventListener('mouseleave', function() {
+      this.classList.remove('scale-[1.01]');
+    });
+  });
+
   // Implement additional interactive elements for a more engaging user experience
   const interactiveElements = document.querySelectorAll('.interactive');
   interactiveElements.forEach(element => {
