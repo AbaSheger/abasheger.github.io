@@ -302,5 +302,14 @@ document.addEventListener('DOMContentLoaded', function() {
   
   highlightNavigation();
 
+  // New interactive scroll effect for hero video
+  window.addEventListener('scroll', () => {
+    const heroVideo = document.querySelector('.hero-video');
+    if (heroVideo) {
+      const opacity = Math.max(0.5, 1 - window.scrollY / 500);
+      heroVideo.style.opacity = opacity;
+    }
+  });
+
   // Remove theme toggle functionality
 });
