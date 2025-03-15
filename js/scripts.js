@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Call the function
   updateActiveNav();
 
-  // Add JavaScript code to handle the language toggle feature
+  // Add JavaScript code to handle the improved language toggle feature
   const languageToggle = document.getElementById('language-toggle');
   let currentLang = 'en'; // Default language
   
@@ -120,12 +120,12 @@ document.addEventListener('DOMContentLoaded', function() {
       // Toggle language
       currentLang = currentLang === 'en' ? 'sv' : 'en';
       
-      // Update flag display
+      // Update button display
       if (currentLang === 'en') {
-        languageToggle.innerHTML = '<span class="lang-flag">🇬🇧</span><span class="lang-flag">🇸🇪</span>';
+        languageToggle.innerHTML = '<span class="lang-flag">🇬🇧</span><span class="lang-text">English</span><i class="fas fa-chevron-down" aria-hidden="true"></i>';
         languageToggle.setAttribute('aria-label', 'Switch to Swedish');
       } else {
-        languageToggle.innerHTML = '<span class="lang-flag">🇸🇪</span><span class="lang-flag">🇬🇧</span>';
+        languageToggle.innerHTML = '<span class="lang-flag">🇸🇪</span><span class="lang-text">Svenska</span><i class="fas fa-chevron-down" aria-hidden="true"></i>';
         languageToggle.setAttribute('aria-label', 'Switch to English');
       }
       
@@ -302,58 +302,5 @@ document.addEventListener('DOMContentLoaded', function() {
   
   highlightNavigation();
 
-  // Theme toggle functionality
-  const themeToggle = document.getElementById('theme-toggle');
-  const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-  
-  // Initialize theme based on user preference or saved preference
-  function initializeTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      document.body.setAttribute('data-theme', savedTheme);
-      updateThemeIcon(savedTheme);
-    } else if (prefersDarkScheme.matches) {
-      document.body.setAttribute('data-theme', 'dark');
-      updateThemeIcon('dark');
-    }
-  }
-  
-  function updateThemeIcon(theme) {
-    const icon = themeToggle.querySelector('i');
-    if (theme === 'dark') {
-      icon.className = 'fas fa-moon';
-      themeToggle.setAttribute('aria-label', 'Switch to light mode');
-    } else {
-      icon.className = 'fas fa-sun';
-      themeToggle.setAttribute('aria-label', 'Switch to dark mode');
-    }
-  }
-  
-  // Initialize theme on page load
-  initializeTheme();
-  
-  // Handle theme toggle click
-  if (themeToggle) {
-    themeToggle.addEventListener('click', function() {
-      const currentTheme = document.body.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      
-      // Update theme
-      document.body.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      
-      // Update icon
-      updateThemeIcon(newTheme);
-    });
-  }
-  
-  // Listen for system theme changes
-  prefersDarkScheme.addEventListener('change', e => {
-    const newColorScheme = e.matches ? 'dark' : 'light';
-    // Only apply if user hasn't manually selected a theme
-    if (!localStorage.getItem('theme')) {
-      document.body.setAttribute('data-theme', newColorScheme);
-      updateThemeIcon(newColorScheme);
-    }
-  });
+  // Remove theme toggle functionality
 });
