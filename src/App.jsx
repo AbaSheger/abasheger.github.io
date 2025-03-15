@@ -184,6 +184,9 @@ const App = () => {
               </div>
             </div>
           </div>
+          <Suspense fallback={<div>Loading...</div>}>
+            <ParticleBackground />
+          </Suspense>
         </section>
 
         {/* Projects Section with Filtering */}
@@ -195,83 +198,9 @@ const App = () => {
             
             {/* Project Grid - Mobile First */}
             <div className="space-y-16 md:space-y-24">
-              {/* Project 1 */}
-              <div className="grid md:grid-cols-12 gap-6">
-                <div className="md:col-span-7 md:order-2">
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <img 
-                      src="assets/project1.jpg" 
-                      alt="Project One" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="md:col-span-5 md:order-1 flex flex-col justify-center">
-                  <p className="text-blue-600 dark:text-blue-400 font-mono mb-1">Featured Project</p>
-                  <h4 className="text-xl sm:text-2xl font-bold mb-4">Project One</h4>
-                  <div className="bg-white dark:bg-gray-900 p-5 rounded-md shadow-md mb-4">
-                    <p className="text-gray-700 dark:text-gray-300">
-                      A modern microservice platform using Java and React. Scalable architecture with robust backend APIs and intuitive UI.
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-3 mb-4 text-sm text-gray-600 dark:text-gray-400">
-                    <span>Spring Boot</span>
-                    <span>React</span>
-                    <span>Docker</span>
-                  </div>
-                  <div className="flex gap-4">
-                    <a href="#" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                      </svg>
-                    </a>
-                    <a href="#" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path fillRule="evenodd" d="M12 2C6.477 2 0 6.484 0 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd"/>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Project 2 */}
-              <div className="grid md:grid-cols-12 gap-6">
-                <div className="md:col-span-7">
-                  <div className="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <img 
-                      src="assets/project2.jpg" 
-                      alt="Project Two" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="md:col-span-5 flex flex-col justify-center">
-                  <p className="text-blue-600 dark:text-blue-400 font-mono mb-1">Featured Project</p>
-                  <h4 className="text-xl sm:text-2xl font-bold mb-4">Project Two</h4>
-                  <div className="bg-white dark:bg-gray-900 p-5 rounded-md shadow-md mb-4">
-                    <p className="text-gray-700 dark:text-gray-300">
-                      A scalable REST API with cutting-edge cloud integration. Optimized for high traffic and reliability.
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-3 mb-4 text-sm text-gray-600 dark:text-gray-400">
-                    <span>Java</span>
-                    <span>Spring</span>
-                    <span>AWS</span>
-                  </div>
-                  <div className="flex gap-4">
-                    <a href="#" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                      </svg>
-                    </a>
-                    <a href="#" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path fillRule="evenodd" d="M12 2C6.477 2 0 6.484 0 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" clipRule="evenodd"/>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
+              {filteredProjects.map(project => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
             </div>
           </div>
         </section>
