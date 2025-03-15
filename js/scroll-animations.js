@@ -65,4 +65,29 @@ document.addEventListener('DOMContentLoaded', function() {
       profilePicture.classList.toggle('float-animation');
     }, 3000);
   }
+  
+  // Add contact card functionality
+  initContactCards();
 });
+
+// Add contact card flip functionality
+function initContactCards() {
+  const contactCards = document.querySelectorAll('.contact-card');
+  
+  contactCards.forEach(card => {
+    const flipBtn = card.querySelector('.contact-card-flip-btn');
+    const flipBackBtn = card.querySelector('.contact-card-flip-back-btn');
+    
+    if (flipBtn) {
+      flipBtn.addEventListener('click', () => {
+        card.classList.add('flipped');
+      });
+    }
+    
+    if (flipBackBtn) {
+      flipBackBtn.addEventListener('click', () => {
+        card.classList.remove('flipped');
+      });
+    }
+  });
+}

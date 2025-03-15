@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Smooth scrolling for anchor links with improved mobile support
+  // Enhanced smooth scrolling
   const links = document.querySelectorAll('a[href^="#"]');
   for (const link of links) {
     link.addEventListener('click', function(event) {
@@ -124,6 +124,49 @@ document.addEventListener('DOMContentLoaded', function() {
     card.addEventListener('mouseleave', function() {
       this.classList.remove('scale-[1.01]');
     });
+  });
+
+  // Enhanced 3D project card flip animation
+  projectCards.forEach(card => {
+    const flipBtnFront = card.querySelector('.project-btn-flip');
+    const flipBtnBack = card.querySelector('.project-btn-flip-back');
+    
+    if (flipBtnFront) {
+      flipBtnFront.addEventListener('click', function() {
+        card.classList.add('flipped');
+      });
+    }
+    
+    if (flipBtnBack) {
+      flipBtnBack.addEventListener('click', function() {
+        card.classList.remove('flipped');
+      });
+    }
+    
+    // Add 3D tilt effect on mouse movement
+    if (window.innerWidth > 768) {  // Only on desktop
+      card.addEventListener('mousemove', function(e) {
+        if (!card.classList.contains('flipped')) {
+          const cardRect = card.getBoundingClientRect();
+          const cardCenterX = cardRect.left + cardRect.width / 2;
+          const cardCenterY = cardRect.top + cardRect.height / 2;
+          
+          const mouseX = e.clientX;
+          const mouseY = e.clientY;
+          
+          // Calculate tilt values (max tilt: 10 degrees)
+          const tiltX = (mouseY - cardCenterY) / (cardRect.height / 2) * 5;
+          const tiltY = -((mouseX - cardCenterX) / (cardRect.width / 2)) * 5;
+          
+          // Apply transform
+          this.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(10px)`;
+        }
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+      });
+    }
   });
 
   // Implement additional interactive elements for a more engaging user experience

@@ -40,41 +40,66 @@
     </div>
   </header>
 
-  <!-- LinkedIn-style hero section with background and profile -->
+  <!-- Creative asymmetrical hero section with dynamic background -->
   <section id="hero" class="hero-section">
-    <div class="hero-background"></div>
+    <div class="hero-background">
+      <canvas id="particles-canvas" class="particles-canvas"></canvas>
+      <div class="shapes-container">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+      </div>
+    </div>
     <div class="hero-content">
-      <div class="profile-hero">
-        <div class="profile-top">
-          <div class="hero-profile-image">
+      <div class="profile-hero asymmetric-layout">
+        <div class="profile-side">
+          <div class="hero-profile-image float-animation">
             <img src="assets/profile.jpg" alt="Abenezer Anglo" id="profile-picture">
           </div>
-          <div class="hero-info">
-            <h1 data-translate="heroTitle">Abenezer Anglo</h1>
-            <h2 data-translate="heroSubtitle">Java Developer</h2>
-            <p class="tagline" data-translate="heroTagline">Building scalable, reliable systems for efficient data management</p>
-            <p class="hero-location"><i class="fas fa-map-marker-alt"></i> Borlänge, Sverige</p>
-            <div class="hero-buttons">
-              <a href="#contact" class="btn primary-btn" data-translate="contactMe">Contact Me</a>
-              <a href="#projects" class="btn secondary-btn" data-translate="viewProjects">View Projects</a>
-            </div>
+          <div class="social-badges">
+            <a href="https://www.linkedin.com/in/abenezer-anglo-537488144/" class="social-badge"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/abasheger" class="social-badge"><i class="fab fa-github"></i></a>
+            <a href="mailto:merebanglo@yahoo.com" class="social-badge"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+        <div class="hero-info">
+          <div class="title-box">
+            <span class="subtitle-accent">Java Developer</span>
+            <h1 data-translate="heroTitle" class="animate-on-scroll">Abenezer Anglo</h1>
+            <h2 data-translate="heroSubtitle">Backend Expert</h2>
+          </div>
+          <p class="tagline" data-translate="heroTagline">Building scalable, reliable systems for efficient data management</p>
+          <p class="hero-location"><i class="fas fa-map-marker-alt"></i> Borlänge, Sverige</p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn primary-btn" data-translate="contactMe">Contact Me</a>
+            <a href="#projects" class="btn secondary-btn" data-translate="viewProjects">View Projects</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- About Section - LinkedIn style -->
+  <!-- About Section - With modern styling -->
   <section id="about">
     <div class="section-container">
       <h2 data-translate="aboutTitle"><i class="fas fa-user"></i> About</h2>
-      <div class="about-content">
+      <div class="about-content modern-grid">
         <div class="about-info">
-          <p><i class="fas fa-phone"></i> +46764087919 | <i class="fas fa-envelope"></i> merebanglo@yahoo.com</p>
-          <p>
-            <a href="https://www.linkedin.com/in/abenezer-anglo-537488144/" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a> | 
+          <div class="contact-quick-info">
+            <div class="contact-quick-item">
+              <i class="fas fa-phone"></i>
+              <span>+46764087919</span>
+            </div>
+            <div class="contact-quick-item">
+              <i class="fas fa-envelope"></i>
+              <span>merebanglo@yahoo.com</span>
+            </div>
+          </div>
+          <div class="social-links-horizontal">
+            <a href="https://www.linkedin.com/in/abenezer-anglo-537488144/" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a> 
             <a href="https://github.com/abasheger" class="social-link"><i class="fab fa-github"></i> GitHub</a>
-          </p>
+          </div>
         </div>
         <div class="about-description">
           <h3 data-translate="aboutMe">About Me</h3>
@@ -85,73 +110,176 @@
     </div>
   </section>
 
-  <!-- Projects Section - LinkedIn style -->
+  <!-- Projects Section with Enhanced Interactive Cards -->
   <section id="projects">
     <div class="section-container">
       <h2 data-translate="projectsTitle"><i class="fas fa-briefcase"></i> Projects</h2>
+      
       <div class="project-grid">
-        <div class="project-card">
-          <div class="project-thumbnail">
-            <img src="assets/project-music-analytics.jpg" alt="Music Analytics Platform">
-          </div>
-          <div class="project-header">
-            <h3>Music Analytics Platform</h3>
-            <div class="project-tech">
-              <span class="project-tech-item">Spring Boot</span>
-              <span class="project-tech-item">React</span>
-              <span class="project-tech-item">Docker</span>
+        <div class="project-card tilt-effect">
+          <div class="project-card-inner">
+            <div class="project-front">
+              <div class="project-thumbnail">
+                <img src="assets/project-music-analytics.jpg" alt="Music Analytics Platform">
+                <div class="project-overlay">
+                  <div class="project-tech">
+                    <span class="project-tech-item">Spring Boot</span>
+                    <span class="project-tech-item">React</span>
+                    <span class="project-tech-item">Docker</span>
+                  </div>
+                </div>
+              </div>
+              <div class="project-header">
+                <h3>Music Analytics Platform</h3>
+              </div>
+              <div class="project-content">
+                <p data-translate="project1">Java-based microservice platform (Spring Boot) for music analytics and recommendations. Tracks user activity and generates personalized suggestions through AI-based algorithms. Includes React frontend, Docker containerization, and distribution of multiple microservices.</p>
+                <p data-translate="project1_sv" class="hidden">Java-baserad mikrotjänsteplattform (Spring Boot) för musikanalys och rekommendationer. Spårar användaraktivitet och genererar personliga förslag via AI-baserade algoritmer. Innehåller React-frontend, Docker-containerisering och distribution av flera mikrotjänster.</p>
+              </div>
+              <div class="project-buttons">
+                <button class="project-btn project-btn-flip"><i class="fas fa-info-circle"></i> <span>Details</span></button>
+              </div>
             </div>
-          </div>
-          <div class="project-content">
-            <p data-translate="project1">Java-based microservice platform (Spring Boot) for music analytics and recommendations. Tracks user activity and generates personalized suggestions through AI-based algorithms. Includes React frontend, Docker containerization, and distribution of multiple microservices.</p>
-            <p data-translate="project1_sv" class="hidden">Java-baserad mikrotjänsteplattform (Spring Boot) för musikanalys och rekommendationer. Spårar användaraktivitet och genererar personliga förslag via AI-baserade algoritmer. Innehåller React-frontend, Docker-containerisering och distribution av flera mikrotjänster.</p>
-            <div class="project-buttons">
-              <a href="https://live-link-to-music-analytics-platform.com" class="project-btn project-btn-primary"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
-              <a href="https://github.com/abenezer-anglo/music-analytics-platform" class="project-btn project-btn-secondary"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
+            <div class="project-back">
+              <div class="project-back-content">
+                <h3>Music Analytics Platform</h3>
+                <div class="project-details">
+                  <div class="project-detail-item">
+                    <span class="detail-label">Role:</span>
+                    <span class="detail-value">Lead Backend Developer</span>
+                  </div>
+                  <div class="project-detail-item">
+                    <span class="detail-label">Duration:</span>
+                    <span class="detail-value">6 months</span>
+                  </div>
+                  <div class="project-detail-item">
+                    <span class="detail-label">Key Features:</span>
+                    <ul class="detail-list">
+                      <li>Real-time analytics processing</li>
+                      <li>User behavior tracking</li>
+                      <li>Recommendation engine</li>
+                      <li>Microservice architecture</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="project-buttons">
+                  <a href="https://live-link-to-music-analytics-platform.com" class="project-btn project-btn-primary"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
+                  <a href="https://github.com/abenezer-anglo/music-analytics-platform" class="project-btn project-btn-secondary"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
+                  <button class="project-btn project-btn-flip-back"><i class="fas fa-arrow-left"></i> <span>Back</span></button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         
-        <div class="project-card">
-          <div class="project-thumbnail">
-            <img src="assets/project-wigell-padel.jpg" alt="Wigell Padel Microservice">
-          </div>
-          <div class="project-header">
-            <h3>Wigell Padel Microservice</h3>
-            <div class="project-tech">
-              <span class="project-tech-item">Spring Boot</span>
-              <span class="project-tech-item">MySQL</span>
-              <span class="project-tech-item">Spring Security</span>
+        <div class="project-card tilt-effect">
+          <div class="project-card-inner">
+            <div class="project-front">
+              <div class="project-thumbnail">
+                <img src="assets/project-wigell-padel.jpg" alt="Wigell Padel Microservice">
+                <div class="project-overlay">
+                  <div class="project-tech">
+                    <span class="project-tech-item">Spring Boot</span>
+                    <span class="project-tech-item">MySQL</span>
+                    <span class="project-tech-item">Spring Security</span>
+                  </div>
+                </div>
+              </div>
+              <div class="project-header">
+                <h3>Wigell Padel Microservice</h3>
+              </div>
+              <div class="project-content">
+                <p data-translate="project2">REST API in Java Spring Boot with MySQL for bookings and customer data. Implemented Spring Security (ADMIN and USER roles). Migrated from Azure hosting to Docker/Docker Compose.</p>
+                <p data-translate="project2_sv" class="hidden">REST API i Java Spring Boot med MySQL för bokningar och kunduppgifter. Implementerade Spring Security (rollerna ADMIN och USER). Byte från Azure-hosting till Docker/Docker Compose.</p>
+              </div>
+              <div class="project-buttons">
+                <button class="project-btn project-btn-flip"><i class="fas fa-info-circle"></i> <span>Details</span></button>
+              </div>
             </div>
-          </div>
-          <div class="project-content">
-            <p data-translate="project2">REST API in Java Spring Boot with MySQL for bookings and customer data. Implemented Spring Security (ADMIN and USER roles). Migrated from Azure hosting to Docker/Docker Compose.</p>
-            <p data-translate="project2_sv" class="hidden">REST API i Java Spring Boot med MySQL för bokningar och kunduppgifter. Implementerade Spring Security (rollerna ADMIN och USER). Byte från Azure-hosting till Docker/Docker Compose.</p>
-            <div class="project-buttons">
-              <a href="https://live-link-to-wigell-padel-mikrotjanst.com" class="project-btn project-btn-primary"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
-              <a href="https://github.com/abenezer-anglo/wigell-padel-mikrotjanst" class="project-btn project-btn-secondary"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
+            <div class="project-back">
+              <div class="project-back-content">
+                <h3>Wigell Padel Microservice</h3>
+                <div class="project-details">
+                  <div class="project-detail-item">
+                    <span class="detail-label">Role:</span>
+                    <span class="detail-value">Backend Developer</span>
+                  </div>
+                  <div class="project-detail-item">
+                    <span class="detail-label">Duration:</span>
+                    <span class="detail-value">3 months</span>
+                  </div>
+                  <div class="project-detail-item">
+                    <span class="detail-label">Key Features:</span>
+                    <ul class="detail-list">
+                      <li>RESTful API design</li>
+                      <li>User authentication</li>
+                      <li>Booking system</li>
+                      <li>Docker deployment</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="project-buttons">
+                  <a href="https://live-link-to-wigell-padel-mikrotjanst.com" class="project-btn project-btn-primary"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
+                  <a href="https://github.com/abenezer-anglo/wigell-padel-mikrotjanst" class="project-btn project-btn-secondary"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
+                  <button class="project-btn project-btn-flip-back"><i class="fas fa-arrow-left"></i> <span>Back</span></button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         
-        <div class="project-card">
-          <div class="project-thumbnail">
-            <img src="assets/project-edugrade.jpg" alt="Full-Stack Solution (EduGrade)">
-          </div>
-          <div class="project-header">
-            <h3>Full-Stack Solution (EduGrade)</h3>
-            <div class="project-tech">
-              <span class="project-tech-item">Azure DevOps</span>
-              <span class="project-tech-item">React</span>
-              <span class="project-tech-item">Java</span>
+        <div class="project-card tilt-effect">
+          <div class="project-card-inner">
+            <div class="project-front">
+              <div class="project-thumbnail">
+                <img src="assets/project-edugrade.jpg" alt="Full-Stack Solution (EduGrade)">
+                <div class="project-overlay">
+                  <div class="project-tech">
+                    <span class="project-tech-item">Azure DevOps</span>
+                    <span class="project-tech-item">React</span>
+                    <span class="project-tech-item">Java</span>
+                  </div>
+                </div>
+              </div>
+              <div class="project-header">
+                <h3>Full-Stack Solution (EduGrade)</h3>
+              </div>
+              <div class="project-content">
+                <p data-translate="project3">CI/CD pipeline in Azure DevOps for React frontend and Java-based REST API backend. Deployment in Azure App Service, handling Docker containers.</p>
+                <p data-translate="project3_sv" class="hidden">CI/CD-pipeline i Azure DevOps för React-frontend och Java-baserad REST API-backend. Driftsättning i Azure App Service, hantering av Docker-containers.</p>
+              </div>
+              <div class="project-buttons">
+                <button class="project-btn project-btn-flip"><i class="fas fa-info-circle"></i> <span>Details</span></button>
+              </div>
             </div>
-          </div>
-          <div class="project-content">
-            <p data-translate="project3">CI/CD pipeline in Azure DevOps for React frontend and Java-based REST API backend. Deployment in Azure App Service, handling Docker containers.</p>
-            <p data-translate="project3_sv" class="hidden">CI/CD-pipeline i Azure DevOps för React-frontend och Java-baserad REST API-backend. Driftsättning i Azure App Service, hantering av Docker-containers.</p>
-            <div class="project-buttons">
-              <a href="https://live-link-to-full-stack-solution-edugrade.com" class="project-btn project-btn-primary"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
-              <a href="https://github.com/abenezer-anglo/full-stack-solution-edugrade" class="project-btn project-btn-secondary"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
+            <div class="project-back">
+              <div class="project-back-content">
+                <h3>Full-Stack Solution (EduGrade)</h3>
+                <div class="project-details">
+                  <div class="project-detail-item">
+                    <span class="detail-label">Role:</span>
+                    <span class="detail-value">DevOps Engineer</span>
+                  </div>
+                  <div class="project-detail-item">
+                    <span class="detail-label">Duration:</span>
+                    <span class="detail-value">4 months</span>
+                  </div>
+                  <div class="project-detail-item">
+                    <span class="detail-label">Key Features:</span>
+                    <ul class="detail-list">
+                      <li>Automated CI/CD pipeline</li>
+                      <li>Infrastructure as code</li>
+                      <li>Containerization</li>
+                      <li>Cloud deployment</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="project-buttons">
+                  <a href="https://live-link-to-full-stack-solution-edugrade.com" class="project-btn project-btn-primary"><i class="fas fa-external-link-alt"></i> <span data-translate="liveDemo">Live Demo</span></a>
+                  <a href="https://github.com/abenezer-anglo/full-stack-solution-edugrade" class="project-btn project-btn-secondary"><i class="fab fa-github"></i> <span data-translate="githubRepo">GitHub Repo</span></a>
+                  <button class="project-btn project-btn-flip-back"><i class="fas fa-arrow-left"></i> <span>Back</span></button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -159,99 +287,204 @@
     </div>
   </section>
 
-  <!-- Skills Section - LinkedIn style -->
+  <!-- Skills Section with Interactive Visualization -->
   <section id="skills">
     <div class="section-container">
       <h2 data-translate="skillsTitle"><i class="fas fa-tools"></i> Skills</h2>
+      
+      <!-- Interactive skill network visualization -->
+      <div class="skill-network-container">
+        <canvas id="skillNetworkCanvas"></canvas>
+      </div>
+      
+      <!-- Original skill tiles with enhanced styling -->
       <div class="skills-container">
         <div class="skill-category">
           <h3 data-translate="skillsBackend">Backend & Programming</h3>
           <div class="skill-items">
-            <div class="skill-item"><span>Java</span></div>
-            <div class="skill-item"><span>Spring Boot</span></div>
-            <div class="skill-item"><span>REST APIs</span></div>
-            <div class="skill-item"><span>Maven</span></div>
-            <div class="skill-item"><span>MySQL</span></div>
-            <div class="skill-item"><span>H2</span></div>
-            <div class="skill-item"><span>JUnit</span></div>
-            <div class="skill-item"><span>Mockito</span></div>
-            <div class="skill-item"><span>TDD</span></div>
+            <div class="skill-item" data-level="95"><span>Java</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="90"><span>Spring Boot</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="85"><span>REST APIs</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="80"><span>Maven</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="85"><span>MySQL</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="75"><span>H2</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="80"><span>JUnit</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="75"><span>Mockito</span><div class="skill-bar"></div></div>
+            <div class "skill-item" data-level="80"><span>TDD</span><div class="skill-bar"></div></div>
           </div>
         </div>
         <div class="skill-category">
           <h3 data-translate="skillsDevOps">DevOps & CI/CD</h3>
           <div class="skill-items">
-            <div class="skill-item"><span>Docker</span></div>
-            <div class="skill-item"><span>Docker Compose</span></div>
-            <div class="skill-item"><span>Git</span></div>
-            <div class="skill-item"><span>GitHub</span></div>
-            <div class="skill-item"><span>Azure DevOps</span></div>
+            <div class="skill-item" data-level="85"><span>Docker</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="80"><span>Docker Compose</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="85"><span>Git</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="80"><span>GitHub</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="85"><span>Azure DevOps</span><div class="skill-bar"></div></div>
           </div>
         </div>
         <div class="skill-category">
           <h3 data-translate="skillsFrontend">Frontend & UI</h3>
           <div class="skill-items">
-            <div class="skill-item"><span>React</span></div>
-            <div class="skill-item"><span>JavaScript</span></div>
-            <div class="skill-item"><span>TypeScript</span></div>
-            <div class="skill-item"><span>HTML/CSS</span></div>
+            <div class="skill-item" data-level="70"><span>React</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="75"><span>JavaScript</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="70"><span>TypeScript</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="80"><span>HTML/CSS</span><div class="skill-bar"></div></div>
           </div>
         </div>
         <div class="skill-category">
           <h3 data-translate="skillsOther">Agile & Other</h3>
           <div class="skill-items">
-            <div class="skill-item"><span>Scrum</span></div>
-            <div class="skill-item"><span>Kanban</span></div>
-            <div class="skill-item"><span>AI Basics</span></div>
-            <div class="skill-item"><span>Machine Learning</span></div>
+            <div class="skill-item" data-level="80"><span>Scrum</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="75"><span>Kanban</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="65"><span>AI Basics</span><div class="skill-bar"></div></div>
+            <div class="skill-item" data-level="60"><span>Machine Learning</span><div class="skill-bar"></div></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section - LinkedIn style (Modified: Removed form) -->
+  <!-- Enhanced Contact Section with 3D-Flip Cards -->
   <section id="contact">
     <div class="section-container">
       <h2 data-translate="contactTitle"><i class="fas fa-envelope"></i> Contact</h2>
       <div class="contact-container">
-        <div class="contact-info">
-          <div class="contact-item">
-            <i class="fas fa-envelope"></i>
-            <p>merebanglo@yahoo.com</p>
+        <div class="contact-cards">
+          <div class="contact-card-wrapper">
+            <div class="contact-card">
+              <div class="contact-card-inner">
+                <div class="contact-card-front">
+                  <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                  </div>
+                  <h3>Email</h3>
+                  <p>Send me a message anytime</p>
+                  <button class="contact-card-flip-btn">Details</button>
+                </div>
+                <div class="contact-card-back">
+                  <h3>Email Me</h3>
+                  <p class="contact-detail">merebanglo@yahoo.com</p>
+                  <a href="mailto:merebanglo@yahoo.com" class="contact-action-btn">
+                    <i class="fas fa-paper-plane"></i> Send Email
+                  </a>
+                  <button class="contact-card-flip-back-btn">Back</button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="contact-item">
-            <i class="fas fa-phone"></i>
-            <p>+46764087919</p>
+          
+          <div class="contact-card-wrapper">
+            <div class="contact-card">
+              <div class="contact-card-inner">
+                <div class="contact-card-front">
+                  <div class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                  </div>
+                  <h3>Phone</h3>
+                  <p>Let's have a conversation</p>
+                  <button class="contact-card-flip-btn">Details</button>
+                </div>
+                <div class="contact-card-back">
+                  <h3>Call Me</h3>
+                  <p class="contact-detail">+46764087919</p>
+                  <a href="tel:+46764087919" class="contact-action-btn">
+                    <i class="fas fa-phone"></i> Call Now
+                  </a>
+                  <button class="contact-card-flip-back-btn">Back</button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="contact-item">
-            <i class="fab fa-linkedin"></i>
-            <p><a href="https://www.linkedin.com/in/abenezer-anglo-537488144/">Abenezer Anglo</a></p>
-          </div>
-          <div class="contact-item">
-            <i class="fab fa-github"></i>
-            <p><a href="https://github.com/abasheger">github.com/abasheger</a></p>
+          
+          <div class="contact-card-wrapper">
+            <div class="contact-card">
+              <div class="contact-card-inner">
+                <div class="contact-card-front">
+                  <div class="contact-icon">
+                    <i class="fab fa-linkedin"></i>
+                  </div>
+                  <h3>LinkedIn</h3>
+                  <p>Let's connect professionally</p>
+                  <button class="contact-card-flip-btn">Details</button>
+                </div>
+                <div class="contact-card-back">
+                  <h3>My Profile</h3>
+                  <p class="contact-detail">Abenezer Anglo</p>
+                  <a href="https://www.linkedin.com/in/abenezer-anglo-537488144/" class="contact-action-btn" target="_blank">
+                    <i class="fab fa-linkedin"></i> View Profile
+                  </a>
+                  <button class="contact-card-flip-back-btn">Back</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        
         <div class="contact-cta">
           <p data-translate="contactCta">Interested in working together? Feel free to reach out through any of the channels above.</p>
           <p data-translate="contactCta_sv" class="hidden">Intresserad av att arbeta tillsammans? Kontakta mig gärna via någon av kanalerna ovan.</p>
-          <a href="mailto:merebanglo@yahoo.com" class="btn primary-btn">
-            <i class="fas fa-envelope"></i> <span data-translate="emailMe">Email Me</span>
-          </a>
+          <div class="cta-animation">
+            <i class="fas fa-arrow-up bounce-animation"></i>
+            <span>Choose a contact method above</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CV Section - LinkedIn style -->
+  <!-- Enhanced CV Section with Creative Design -->
   <section id="cv">
     <div class="section-container">
       <h2 data-translate="cvTitle"><i class="fas fa-file-alt"></i> CV</h2>
       <div class="cv-container">
-        <div class="cv-download">
-          <i class="fas fa-file-pdf"></i>
-          <a href="assets/abenezer-anglo-cv.pdf" download data-translate="downloadCV">Download CV</a>
+        <div class="cv-card">
+          <div class="cv-card-inner">
+            <div class="cv-icon-container">
+              <div class="cv-icon">
+                <i class="fas fa-file-pdf"></i>
+              </div>
+              <div class="cv-pulse-ring"></div>
+            </div>
+            <h3>My Resume</h3>
+            <p>Download my complete resume to learn more about my experience, education, and skills.</p>
+            <div class="cv-actions">
+              <a href="assets/abenezer-anglo-cv.pdf" download class="cv-download-btn" data-translate="downloadCV">
+                <i class="fas fa-download"></i> Download CV
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="cv-timeline">
+          <div class="timeline-header">
+            <h3>Professional Timeline</h3>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-date">2023 - Present</div>
+              <div class="timeline-body">
+                <h4>Backend Developer</h4>
+                <p>Java Developer building scalable backend solutions</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-date">2022 - 2023</div>
+              <div class="timeline-body">
+                <h4>Junior Java Developer</h4>
+                <p>Working with microservices and MySQL databases</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-date">2021 - 2022</div>
+              <div class="timeline-body">
+                <h4>DevOps Intern</h4>
+                <p>Learning CI/CD pipelines and Docker containerization</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
