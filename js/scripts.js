@@ -1,5 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Smooth scrolling for anchor links
+  // Mobile menu toggle functionality
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const navMenu = document.getElementById('navMenu');
+  
+  if (mobileMenuToggle && navMenu) {
+    mobileMenuToggle.addEventListener('click', function() {
+      this.classList.toggle('active');
+      navMenu.classList.toggle('show');
+    });
+    
+    // Close mobile menu when clicking a link
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        mobileMenuToggle.classList.remove('active');
+        navMenu.classList.remove('show');
+      });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!navMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+        mobileMenuToggle.classList.remove('active');
+        navMenu.classList.remove('show');
+      }
+    });
+  }
+  
+  // Smooth scrolling for anchor links with improved mobile support
   const links = document.querySelectorAll('a[href^="#"]');
   for (const link of links) {
     link.addEventListener('click', function(event) {
@@ -7,8 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
       const targetId = this.getAttribute('href').substring(1);
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
+        // Adjust offset based on screen size
+        const headerHeight = window.innerWidth <= 768 ? 60 : 70;
         window.scrollTo({
-          top: targetElement.offsetTop - 70, // Offset for fixed header
+          top: targetElement.offsetTop - headerHeight,
           behavior: 'smooth'
         });
       }
@@ -142,12 +172,12 @@ document.addEventListener('DOMContentLoaded', function() {
       // Toggle language
       currentLang = currentLang === 'en' ? 'sv' : 'en';
       
-      // Update button display
+      // Update button display - Simplified for mobile
       if (currentLang === 'en') {
-        languageToggle.innerHTML = '<span class="lang-flag">🇬🇧</span><span class="lang-text">English</span><i class="fas fa-chevron-down" aria-hidden="true"></i>';
+        languageToggle.innerHTML = '<span class="lang-flag">🇬🇧</span><span class="lang-text">EN</span>';
         languageToggle.setAttribute('aria-label', 'Switch to Swedish');
       } else {
-        languageToggle.innerHTML = '<span class="lang-flag">🇸🇪</span><span class="lang-text">Svenska</span><i class="fas fa-chevron-down" aria-hidden="true"></i>';
+        languageToggle.innerHTML = '<span class="lang-flag">🇸🇪</span><span class="lang-text">SV</span>';
         languageToggle.setAttribute('aria-label', 'Switch to English');
       }
       
@@ -287,36 +317,45 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Header scroll effect
+  // Header scroll effect with improved performance
   const header = document.querySelector('header');
+  let lastScrollTop = 0;
+  const scrollThreshold = 5;
+  
   window.addEventListener('scroll', function() {
-    if (window.scrollY > 100) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Only update class if we've scrolled enough (performance optimization)
+    if (Math.abs(lastScrollTop - scrollTop) > scrollThreshold) {
+      if (scrollTop > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      lastScrollTop = scrollTop;
     }
   });
 
-  // Active navigation link highlighting
+  // More responsive active navigation link highlighting
   function highlightNavigation() {
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('nav a');
     
     window.addEventListener('scroll', () => {
-      let current = '';
+      const scrollPosition = window.scrollY + (window.innerHeight / 3);
       
       sections.forEach(section => {
-        const sectionTop = section.offsetTop - 200;
+        const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop) {
-          current = section.getAttribute('id');
-        }
-      });
-      
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-          link.classList.add('active');
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          const id = section.getAttribute('id');
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('active');
+            }
+          });
         }
       });
     });
@@ -334,4 +373,118 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Remove theme toggle functionality
+
+  // Add micro-interactions to various elements
+  function addMicroInteractions() {
+    // Add ripple effect to buttons
+    const buttons = document.querySelectorAll('.btn, .project-btn');
+    buttons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple-effect');
+        
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size/2;
+        const y = e.clientY - rect.top - size/2;
+        
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+    
+    // Add tilt effect to project cards
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+      card.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const tiltX = (y - centerY) / 20;
+        const tiltY = -(x - centerX) / 20;
+        
+        this.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-10px) scale(1.02)`;
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 200);
+      });
+    });
+    
+    // Add hover effect to skill items
+    const skillItems = document.querySelectorAll('.skill-item');
+    skillItems.forEach(item => {
+      item.addEventListener('mouseenter', function() {
+        // Create a subtle pulse effect on sibling items
+        const siblings = Array.from(this.parentNode.children).filter(sibling => sibling !== this);
+        siblings.forEach(sibling => {
+          sibling.style.transform = 'scale(0.95)';
+          sibling.style.opacity = '0.7';
+        });
+      });
+      
+      item.addEventListener('mouseleave', function() {
+        // Reset siblings
+        const siblings = Array.from(this.parentNode.children);
+        siblings.forEach(sibling => {
+          sibling.style.transform = '';
+          sibling.style.opacity = '';
+        });
+      });
+    });
+  }
+
+  // Call the new function
+  addMicroInteractions();
+
+  // Create a scroll progress indicator
+  function createScrollProgressIndicator() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    progressBar.style.position = 'fixed';
+    progressBar.style.top = '0';
+    progressBar.style.left = '0';
+    progressBar.style.height = '4px';
+    progressBar.style.background = 'linear-gradient(90deg, var(--primary-color), var(--accent-color))';
+    progressBar.style.width = '0%';
+    progressBar.style.zIndex = '1002';
+    progressBar.style.transition = 'width 0.1s';
+    document.body.appendChild(progressBar);
+    
+    window.addEventListener('scroll', () => {
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (window.scrollY / windowHeight) * 100;
+      progressBar.style.width = `${scrolled}%`;
+    });
+  }
+  
+  createScrollProgressIndicator();
+
+  // Add focus styles to form inputs for better accessibility
+  const formInputs = document.querySelectorAll('input, textarea');
+  formInputs.forEach(input => {
+    input.addEventListener('focus', function() {
+      this.parentNode.classList.add('input-focused');
+    });
+    
+    input.addEventListener('blur', function() {
+      if (!this.value) {
+        this.parentNode.classList.remove('input-focused');
+      }
+    });
+  });
 });
