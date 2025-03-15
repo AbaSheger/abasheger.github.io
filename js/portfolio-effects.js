@@ -1,73 +1,23 @@
 // Add some interactive elements to the portfolio
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Animate skill bars on scroll
-  const skillsSection = document.getElementById('skills');
-  
-  if (skillsSection) {
-    const skillItems = skillsSection.querySelectorAll('.skill-item');
-    
-    // Create a subtle animation when hovering over skill categories
-    const skillCategories = skillsSection.querySelectorAll('.skill-category');
-    skillCategories.forEach(category => {
-      category.addEventListener('mouseenter', () => {
-        const items = category.querySelectorAll('.skill-item');
-        items.forEach((item, index) => {
-          item.style.transitionDelay = `${index * 50}ms`;
-          item.classList.add('skill-highlight');
-        });
-      });
-      
-      category.addEventListener('mouseleave', () => {
-        const items = category.querySelectorAll('.skill-item');
-        items.forEach(item => {
-          item.style.transitionDelay = '0ms';
-          item.classList.remove('skill-highlight');
-        });
-      });
-    });
-  }
-  
-  // Add a subtle parallax effect to the hero background
-  const heroBackground = document.querySelector('.hero-background');
-  if (heroBackground) {
-    window.addEventListener('scroll', () => {
-      const scrollPosition = window.scrollY;
-      if (scrollPosition < 600) {
-        heroBackground.style.transform = `translateY(${scrollPosition * 0.4}px)`;
-      }
-    });
-  }
-  
-  // Make project cards interactive
-  const projectCards = document.querySelectorAll('.project-card');
-  projectCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      card.classList.add('active');
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      card.classList.remove('active');
-    });
-  });
-  
-  // Add subtle interactions to navigation links
-  const navLinks = document.querySelectorAll('nav a');
-  navLinks.forEach(link => {
-    link.addEventListener('mouseenter', () => {
-      link.style.transform = 'translateY(-2px)';
-    });
-    
-    link.addEventListener('mouseleave', () => {
-      link.style.transform = 'translateY(0)';
-    });
-  });
-
-  // Initialize skill network visualization
+  // Customize skill network nodes based on CV skills
   initializeSkillNetwork();
+  
+  // Initialize project card interactions
+  initializeProjectCards();
+  
+  // Initialize contact card interactions
+  initializeContactCards();
+  
+  // Initialize language toggle
+  initializeLanguageToggle();
+  
+  // Initialize scroll animations
+  initializeScrollAnimations();
 });
 
-// Create and initialize skill network visualization
+// Create and initialize skill network visualization based on CV skills
 function initializeSkillNetwork() {
   const canvas = document.getElementById('skillNetworkCanvas');
   if (!canvas) return;
@@ -84,34 +34,63 @@ function initializeSkillNetwork() {
   setCanvasDimensions();
   window.addEventListener('resize', setCanvasDimensions);
   
-  // Get all skill items and create nodes
-  const skillItems = document.querySelectorAll('.skill-item');
+  // Skills from CV, organized by category
+  const skillsData = [
+    // Backend & Programming
+    { name: "Java", level: 95, category: "Backend" },
+    { name: "Spring Boot", level: 90, category: "Backend" },
+    { name: "REST APIs", level: 85, category: "Backend" },
+    { name: "Maven", level: 80, category: "Backend" },
+    { name: "MySQL", level: 85, category: "Backend" },
+    { name: "H2", level: 75, category: "Backend" },
+    { name: "JUnit", level: 80, category: "Backend" },
+    { name: "Mockito", level: 75, category: "Backend" },
+    { name: "TDD", level: 80, category: "Backend" },
+    { name: "API Design", level: 85, category: "Backend" },
+    
+    // DevOps & CI/CD
+    { name: "Docker", level: 85, category: "DevOps" },
+    { name: "Docker Compose", level: 80, category: "DevOps" },
+    { name: "Git", level: 85, category: "DevOps" },
+    { name: "GitHub", level: 80, category: "DevOps" },
+    { name: "Azure DevOps", level: 85, category: "DevOps" },
+    
+    // Frontend & UI
+    { name: "React", level: 70, category: "Frontend" },
+    { name: "JavaScript", level: 75, category: "Frontend" },
+    { name: "TypeScript", level: 70, category: "Frontend" },
+    { name: "HTML/CSS", level: 80, category: "Frontend" },
+    
+    // Agile & Other
+    { name: "Scrum", level: 80, category: "Agile" },
+    { name: "Kanban", level: 75, category: "Agile" },
+    { name: "AI Basics", level: 65, category: "Agile" },
+    { name: "Machine Learning", level: 60, category: "Agile" }
+  ];
+  
+  // Create nodes
   const nodes = [];
   
-  skillItems.forEach(item => {
-    const skillName = item.querySelector('span').textContent;
-    const skillLevel = parseInt(item.getAttribute('data-level')) || 80;
-    const category = item.closest('.skill-category').querySelector('h3').textContent;
-    
+  skillsData.forEach(skill => {
     // Create node
     nodes.push({
-      name: skillName,
-      level: skillLevel,
-      category: category,
+      name: skill.name,
+      level: skill.level,
+      category: skill.category,
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      radius: skillLevel / 10 + 10, // Size based on skill level
+      radius: skill.level / 10 + 10, // Size based on skill level
       vx: (Math.random() - 0.5) * 0.8,
       vy: (Math.random() - 0.5) * 0.8,
-      color: getColorForCategory(category)
+      color: getColorForCategory(skill.category)
     });
   });
   
   // Colors for different skill categories
   function getColorForCategory(category) {
-    if (category.includes('Backend')) return '#6c63ff';
-    if (category.includes('DevOps')) return '#00d9c0';
-    if (category.includes('Frontend')) return '#ff6b6b';
+    if (category === 'Backend') return '#6c63ff';
+    if (category === 'DevOps') return '#00d9c0';
+    if (category === 'Frontend') return '#ff6b6b';
     return '#ffb347'; // Default color for other categories
   }
   
@@ -130,8 +109,8 @@ function initializeSkillNetwork() {
   }
   
   function connectCategoryNodes(category1, category2) {
-    const cat1Nodes = nodes.filter(node => node.category.includes(category1));
-    const cat2Nodes = nodes.filter(node => node.category.includes(category2));
+    const cat1Nodes = nodes.filter(node => node.category === category1);
+    const cat2Nodes = nodes.filter(node => node.category === category2);
     
     cat1Nodes.forEach(node1 => {
       cat2Nodes.forEach(node2 => {
@@ -152,7 +131,7 @@ function initializeSkillNetwork() {
   }
   
   function connectWithinCategory(category) {
-    const catNodes = nodes.filter(node => node.category.includes(category));
+    const catNodes = nodes.filter(node => node.category === category);
     
     for (let i = 0; i < catNodes.length; i++) {
       for (let j = i + 1; j < catNodes.length; j++) {
@@ -171,7 +150,7 @@ function initializeSkillNetwork() {
           ctx.lineTo(node2.x, node2.y);
           ctx.stroke();
         }
-      }
+      });
     }
   }
   
@@ -338,3 +317,241 @@ function initializeSkillNetwork() {
     });
   }, 300);
 }
+
+// Initialize project card interactions
+function initializeProjectCards() {
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach(card => {
+    const flipBtnFront = card.querySelector('.project-btn-flip');
+    const flipBtnBack = card.querySelector('.project-btn-flip-back');
+    
+    if (flipBtnFront) {
+      flipBtnFront.addEventListener('click', function() {
+        card.classList.add('flipped');
+      });
+    }
+    
+    if (flipBtnBack) {
+      flipBtnBack.addEventListener('click', function() {
+        card.classList.remove('flipped');
+      });
+    }
+    
+    // Add 3D tilt effect on mouse movement
+    if (window.innerWidth > 768) {  // Only on desktop
+      card.addEventListener('mousemove', function(e) {
+        if (!card.classList.contains('flipped')) {
+          const cardRect = card.getBoundingClientRect();
+          const cardCenterX = cardRect.left + cardRect.width / 2;
+          const cardCenterY = cardRect.top + cardRect.height / 2;
+          
+          const mouseX = e.clientX;
+          const mouseY = e.clientY;
+          
+          // Calculate tilt values (max tilt: 10 degrees)
+          const tiltX = (mouseY - cardCenterY) / (cardRect.height / 2) * 5;
+          const tiltY = -((mouseX - cardCenterX) / (cardRect.width / 2)) * 5;
+          
+          // Apply transform
+          this.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(10px)`;
+        }
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+      });
+    }
+  });
+}
+
+// Initialize contact card interactions
+function initializeContactCards() {
+  const contactCards = document.querySelectorAll('.contact-card');
+  
+  contactCards.forEach(card => {
+    const flipBtn = card.querySelector('.contact-card-flip-btn');
+    const flipBackBtn = card.querySelector('.contact-card-flip-back-btn');
+    
+    if (flipBtn) {
+      flipBtn.addEventListener('click', () => {
+        card.classList.add('flipped');
+      });
+    }
+    
+    if (flipBackBtn) {
+      flipBackBtn.addEventListener('click', () => {
+        card.classList.remove('flipped');
+      });
+    }
+  });
+}
+
+// Initialize language toggle
+function initializeLanguageToggle() {
+  const languageToggle = document.getElementById('language-toggle');
+  let currentLang = 'en'; // Default language
+  
+  if (languageToggle) {
+    languageToggle.addEventListener('click', function() {
+      // Toggle language
+      currentLang = currentLang === 'en' ? 'sv' : 'en';
+      
+      // Update button display
+      if (currentLang === 'en') {
+        languageToggle.innerHTML = '<span class="lang-flag">🇬🇧</span><span class="lang-text">EN</span>';
+        languageToggle.setAttribute('aria-label', 'Switch to Swedish');
+      } else {
+        languageToggle.innerHTML = '<span class="lang-flag">🇸🇪</span><span class="lang-text">SV</span>';
+        languageToggle.setAttribute('aria-label', 'Switch to English');
+      }
+      
+      // Update all translatable elements
+      const translatableElements = document.querySelectorAll('[data-translate]');
+      
+      translatableElements.forEach(element => {
+        const key = element.getAttribute('data-translate');
+        
+        // For text elements, directly update the text
+        if (!key.includes('_sv')) {
+          if (currentLang === 'sv' && document.querySelector(`[data-translate="${key}_sv"]`)) {
+            element.classList.add('hidden');
+            document.querySelector(`[data-translate="${key}_sv"]`).classList.remove('hidden');
+          } else if (currentLang === 'en') {
+            element.classList.remove('hidden');
+            const svElement = document.querySelector(`[data-translate="${key}_sv"]`);
+            if (svElement) svElement.classList.add('hidden');
+          }
+        }
+      });
+      
+      // Update timeline content based on language
+      updateTimelineContent(currentLang);
+    });
+  }
+}
+
+// Update CV timeline content based on language
+function updateTimelineContent(lang) {
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  
+  if (lang === 'sv') {
+    // Update to Swedish
+    if (timelineItems.length >= 1) {
+      timelineItems[0].querySelector('h4').textContent = 'Systemutvecklare';
+      timelineItems[0].querySelector('p').textContent = 'Java-utvecklare som bygger skalbara backend-lösningar';
+    }
+    if (timelineItems.length >= 2) {
+      timelineItems[1].querySelector('h4').textContent = 'Junior Java-utvecklare';
+      timelineItems[1].querySelector('p').textContent = 'Arbete med mikrotjänster och MySQL-databaser';
+    }
+    if (timelineItems.length >= 3) {
+      timelineItems[2].querySelector('h4').textContent = 'DevOps-praktikant';
+      timelineItems[2].querySelector('p').textContent = 'Lärde mig CI/CD-pipelines och Docker-containerisering';
+    }
+    
+    // Update timeline header
+    const timelineHeader = document.querySelector('.timeline-header h3');
+    if (timelineHeader) {
+      timelineHeader.textContent = 'Professionell Tidslinje';
+    }
+    
+    // Update CV card content
+    const cvCardTitle = document.querySelector('.cv-card h3');
+    const cvCardText = document.querySelector('.cv-card p');
+    
+    if (cvCardTitle) cvCardTitle.textContent = 'Mitt CV';
+    if (cvCardText) cvCardText.textContent = 'Ladda ner mitt kompletta CV för att lära dig mer om min erfarenhet, utbildning och kompetenser.';
+  } else {
+    // Update to English
+    if (timelineItems.length >= 1) {
+      timelineItems[0].querySelector('h4').textContent = 'Backend Developer';
+      timelineItems[0].querySelector('p').textContent = 'Java Developer building scalable backend solutions';
+    }
+    if (timelineItems.length >= 2) {
+      timelineItems[1].querySelector('h4').textContent = 'Junior Java Developer';
+      timelineItems[1].querySelector('p').textContent = 'Working with microservices and MySQL databases';
+    }
+    if (timelineItems.length >= 3) {
+      timelineItems[2].querySelector('h4').textContent = 'DevOps Intern';
+      timelineItems[2].querySelector('p').textContent = 'Learning CI/CD pipelines and Docker containerization';
+    }
+    
+    // Update timeline header
+    const timelineHeader = document.querySelector('.timeline-header h3');
+    if (timelineHeader) {
+      timelineHeader.textContent = 'Professional Timeline';
+    }
+    
+    // Update CV card content
+    const cvCardTitle = document.querySelector('.cv-card h3');
+    const cvCardText = document.querySelector('.cv-card p');
+    
+    if (cvCardTitle) cvCardTitle.textContent = 'My Resume';
+    if (cvCardText) cvCardText.textContent = 'Download my complete resume to learn more about my experience, education, and skills.';
+  }
+}
+
+// Initialize scroll animations
+function initializeScrollAnimations() {
+  // Create an animation for elements appearing on scroll
+  function createScrollAnimationObserver(elements, animationClass, threshold = 0.2) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(animationClass);
+          // Unobserve after animation is added
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold });
+    
+    elements.forEach(el => observer.observe(el));
+  }
+  
+  // Section titles animation
+  const sectionTitles = document.querySelectorAll('section h2');
+  createScrollAnimationObserver(sectionTitles, 'animate-title');
+  
+  // Project cards animation with staggered delay
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transitionDelay = `${index * 0.1}s`;
+  });
+  createScrollAnimationObserver(projectCards, 'animate-card');
+  
+  // Skill categories with staggered animation
+  const skillCategories = document.querySelectorAll('.skill-category');
+  skillCategories.forEach((category, index) => {
+    category.style.opacity = '0';
+    category.style.transitionDelay = `${index * 0.1}s`;
+  });
+  createScrollAnimationObserver(skillCategories, 'animate-skill-category');
+  
+  // Contact items animation
+  const contactItems = document.querySelectorAll('.contact-item, .contact-card-wrapper');
+  contactItems.forEach((item, index) => {
+    item.style.opacity = '0';
+    item.style.transitionDelay = `${index * 0.1}s`;
+  });
+  createScrollAnimationObserver(contactItems, 'animate-contact-item');
+  
+  // Timeline items with staggered animation
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  timelineItems.forEach((item, index) => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateX(30px)';
+    item.style.transitionDelay = `${index * 0.15}s`;
+  });
+  createScrollAnimationObserver(timelineItems, 'animate-timeline-item');
+}
+
+// Add global header scroll effect
+document.addEventListener('scroll', function() {
+  const header = document.querySelector('header');
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
