@@ -15,6 +15,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize scroll animations
   initializeScrollAnimations();
+  
+  // Initialize all animations and effects
+  initFloatingElements();
+  initProfileInteractions();
+  initScrollAnimations();
+  
+  // Theme toggling if present
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+  }
 });
 
 // Create and initialize skill network visualization based on CV skills
@@ -555,3 +566,193 @@ document.addEventListener('scroll', function() {
     header.classList.remove('scrolled');
   }
 });
+
+// Float animation for elements with float-animation class
+function initFloatingElements() {
+  const floatingElements = document.querySelectorAll('.float-animation');
+  
+  floatingElements.forEach(element => {
+    // Add a random initial delay for each element to create variety
+    const delay = Math.random() * 2;
+    element.style.animationDelay = `${delay}s`;
+  });
+}
+
+// Profile picture special effects and interactions
+function initProfileInteractions() {
+  const profilePicture = document.getElementById('profile-picture');
+  const profileContainer = document.querySelector('.hero-profile-image');
+  
+  if (!profilePicture || !profileContainer) return;
+  
+  // Click effect for profile picture
+  profileContainer.addEventListener('click', function(e) {
+    // Add clicked class for animation
+    profileContainer.classList.add('clicked');
+    
+    // Create ripple effect
+    const ripple = document.createElement('div');
+    ripple.classList.add('profile-ripple');
+    profileContainer.appendChild(ripple);
+    
+    // Create particles bursting from the click point
+    createProfileParticles(e, profileContainer);
+    
+    // Remove clicked class after animation completes
+    setTimeout(() => {
+      profileContainer.classList.remove('clicked');
+    }, 600);
+    
+    // Remove ripple element after animation
+    setTimeout(() => {
+      ripple.remove();
+    }, 1000);
+  });
+  
+  // Hover effect for subtle rotation
+  profileContainer.addEventListener('mouseenter', function() {
+    profilePicture.style.transform = 'scale(1.05) rotate(2deg)';
+  });
+  
+  profileContainer.addEventListener('mouseleave', function() {
+    profilePicture.style.transform = 'scale(1) rotate(0deg)';
+  });
+  
+  // Mobile touch support
+  profileContainer.addEventListener('touchstart', function(e) {
+    // Prevent default touch behavior
+    e.preventDefault();
+    
+    // Trigger the click effect
+    profileContainer.classList.add('clicked');
+    
+    // Create touch ripple
+    const touch = e.touches[0];
+    const rect = profileContainer.getBoundingClientRect();
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+    
+    // Create ripple at touch point
+    const ripple = document.createElement('div');
+    ripple.classList.add('profile-ripple');
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+    profileContainer.appendChild(ripple);
+    
+    // Create particles from touch point
+    createProfileParticles(e, profileContainer, x, y);
+    
+    // Cleanup
+    setTimeout(() => {
+      profileContainer.classList.remove('clicked');
+    }, 600);
+    
+    setTimeout(() => {
+      ripple.remove();
+    }, 1000);
+  });
+  
+  profileContainer.addEventListener('touchend', function() {
+    profilePicture.style.transform = 'scale(1) rotate(0deg)';
+  });
+}
+
+// Create particle burst effect for profile picture
+function createProfileParticles(event, container, x, y) {
+  // Number of particles to create
+  const particleCount = 15;
+  
+  // Get click/touch position relative to the container
+  let posX, posY;
+  
+  if (x !== undefined && y !== undefined) {
+    // Use provided coordinates (for touch events)
+    posX = x;
+    posY = y;
+  } else {
+    // Calculate from mouse event
+    const rect = container.getBoundingClientRect();
+    posX = event.clientX - rect.left;
+    posY = event.clientY - rect.top;
+  }
+  
+  // Create particles
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('profile-particle');
+    
+    // Randomize particle properties
+    const size = Math.random() * 8 + 4;
+    const angle = Math.random() * 360;
+    const distance = Math.random() * 100 + 50;
+    const duration = Math.random() * 0.5 + 1;
+    
+    // Set styles
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${posX}px`;
+    particle.style.top = `${posY}px`;
+    particle.style.backgroundColor = getRandomColor();
+    particle.style.animationDuration = `${duration}s`;
+    
+    // Set unique trajectory for each particle
+    particle.style.transform = `translate(0, 0) rotate(0deg)`;
+    particle.style.setProperty('--end-x', `${Math.cos(angle) * distance}px`);
+    particle.style.setProperty('--end-y', `${Math.sin(angle) * distance}px`);
+    
+    // Add to container
+    container.appendChild(particle);
+    
+    // Remove after animation completes
+    setTimeout(() => {
+      particle.remove();
+    }, duration * 1000);
+  }
+}
+
+// Helper function to get random colors in the theme palette
+function getRandomColor() {
+  const colors = [
+    'var(--primary-color)',
+    'var(--secondary-color)',
+    'var(--accent-color)',
+    'rgba(var(--primary-rgb), 0.8)',
+    'rgba(var(--secondary-rgb), 0.8)'
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// Scroll animations
+function initScrollAnimations() {
+  // Add scroll animation observers here
+  const animatedElements = document.querySelectorAll('.fade-in, .slide-in, .zoom-in');
+  
+  if (animatedElements.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    
+    animatedElements.forEach(element => {
+      observer.observe(element);
+    });
+  }
+}
+
+// Theme toggling functionality
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+  const isDarkMode = document.body.classList.contains('dark-theme');
+  
+  // Save theme preference to localStorage
+  localStorage.setItem('darkMode', isDarkMode);
+  
+  // Update toggle icon if needed
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.innerHTML = isDarkMode ? '☀️' : '🌙';
+  }
+}

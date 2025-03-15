@@ -27,6 +27,95 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Enhanced profile picture interactions
+  const profilePicture = document.getElementById('profile-picture');
+  const profileContainer = document.querySelector('.hero-profile-image');
+  
+  if (profilePicture && profileContainer) {
+    // Add enhanced hover effects
+    profileContainer.addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(1.03) rotate(2deg)';
+      profilePicture.style.transform = 'scale(1.1)';
+    });
+    
+    profileContainer.addEventListener('mouseleave', function() {
+      this.style.transform = '';
+      profilePicture.style.transform = '';
+    });
+    
+    // Add click/tap interaction
+    profileContainer.addEventListener('click', function() {
+      this.classList.add('clicked');
+      
+      // Create a ripple effect
+      const ripple = document.createElement('div');
+      ripple.classList.add('profile-ripple');
+      this.appendChild(ripple);
+      
+      // Add confetti-like particles on click
+      for (let i = 0; i < 10; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('profile-particle');
+        
+        // Random position, color and size
+        const size = Math.random() * 10 + 5;
+        const xPos = (Math.random() - 0.5) * 100;
+        const yPos = (Math.random() - 0.5) * 100;
+        const rotation = Math.random() * 360;
+        const delay = Math.random() * 0.5;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `calc(50% + ${xPos}px)`;
+        particle.style.top = `calc(50% + ${yPos}px)`;
+        particle.style.transform = `rotate(${rotation}deg)`;
+        particle.style.animationDelay = `${delay}s`;
+        
+        // Random color from palette
+        const colors = ['#6c63ff', '#ff6b6b', '#00d9c0'];
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        this.appendChild(particle);
+        
+        // Clean up particles after animation
+        setTimeout(() => {
+          particle.remove();
+        }, 2000);
+      }
+      
+      // Reset the clicked state after animation
+      setTimeout(() => {
+        this.classList.remove('clicked');
+        if (ripple) ripple.remove();
+      }, 1000);
+    });
+  }
+  
+  // Add profile picture interactions
+  const profilePicture = document.getElementById('profile-picture');
+    
+  if (profilePicture) {
+      // Mouse hover effect
+      profilePicture.addEventListener('mouseenter', () => {
+          profilePicture.parentElement.style.animationPlayState = 'paused';
+          profilePicture.style.transform = 'scale(1.05)';
+          profilePicture.style.transition = 'transform 0.3s ease';
+      });
+      
+      profilePicture.addEventListener('mouseleave', () => {
+          profilePicture.parentElement.style.animationPlayState = 'running';
+          profilePicture.style.transform = 'scale(1)';
+      });
+      
+      // Click effect
+      profilePicture.addEventListener('click', () => {
+          profilePicture.classList.add('profile-spin');
+          setTimeout(() => {
+              profilePicture.classList.remove('profile-spin');
+          }, 1000);
+      });
+  }
+
   // Enhanced smooth scrolling
   const links = document.querySelectorAll('a[href^="#"]');
   for (const link of links) {
@@ -530,4 +619,201 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+});
+
+// Profile Picture Animation Effects
+document.addEventListener('DOMContentLoaded', () => {
+  const profilePicture = document.getElementById('profile-picture');
+  if (profilePicture) {
+    // Click effect - spin and particles
+    profilePicture.addEventListener('click', function(e) {
+      this.classList.add('profile-spin');
+      createRippleEffect(e);
+      createParticleEffect(e);
+      
+      setTimeout(() => {
+        this.classList.remove('profile-spin');
+      }, 1000);
+    });
+
+    // Hover effect - enhanced float
+    const profileContainer = profilePicture.parentElement;
+    profileContainer.addEventListener('mouseenter', function() {
+      this.style.animation = 'float 2s ease-in-out infinite';
+      this.style.animationDuration = '2s';
+    });
+    
+    profileContainer.addEventListener('mouseleave', function() {
+      this.style.animation = 'float 4s ease-in-out infinite';
+      this.style.animationDuration = '4s';
+    });
+  }
+});
+
+// Creates a ripple effect when clicking on the profile picture
+function createRippleEffect(e) {
+  const container = e.target.parentElement;
+  const ripple = document.createElement('div');
+  ripple.className = 'profile-ripple';
+  container.appendChild(ripple);
+  
+  setTimeout(() => {
+    ripple.remove();
+  }, 1000);
+}
+
+// Creates a particle burst effect when clicking on the profile picture
+function createParticleEffect(e) {
+  const container = e.target.parentElement;
+  const rect = e.target.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  
+  for (let i = 0; i < 12; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'profile-particle';
+    
+    // Random properties for each particle
+    const size = Math.random() * 8 + 4;
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 100 + 50;
+    const hue = Math.random() * 60 + 200; // Blue-ish colors
+    
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.backgroundColor = `hsl(${hue}, 70%, 60%)`;
+    particle.style.left = `${rect.width / 2}px`;
+    particle.style.top = `${rect.height / 2}px`;
+    
+    // Set custom properties for the animation
+    particle.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+    particle.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+    particle.style.setProperty('--r', `${Math.random() * 360}deg`);
+    
+    container.appendChild(particle);
+    
+    setTimeout(() => {
+      particle.remove();
+    }, 2000);
+  }
+}
+
+// Add profile picture interactions
+document.addEventListener('DOMContentLoaded', function() {
+  const profilePicture = document.getElementById('profile-picture');
+  const profileContainer = document.querySelector('.hero-profile-image');
+  
+  if (profilePicture && profileContainer) {
+    // Click effect - spin animation
+    profileContainer.addEventListener('click', function() {
+      // Remove existing animation classes
+      profileContainer.classList.remove('profile-pulse');
+      profileContainer.classList.remove('profile-spin');
+      
+      // Force reflow to restart animation
+      void profileContainer.offsetWidth;
+      
+      // Add spin animation
+      profileContainer.classList.add('profile-spin');
+      
+      // Create ripple effect with particles if particles.js is available
+      if (typeof createParticleExplosion === 'function') {
+        const rect = profileContainer.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        createParticleExplosion(centerX, centerY, 30, ['#6c63ff', '#9c95ff', '#4b45b2']);
+      }
+    });
+    
+    // Hover effect - pulse animation
+    profileContainer.addEventListener('mouseenter', function() {
+      profileContainer.classList.add('profile-pulse');
+    });
+    
+    profileContainer.addEventListener('mouseleave', function() {
+      profileContainer.classList.remove('profile-pulse');
+    });
+  }
+});
+
+// Helper function to create particle explosion effect
+function createParticleExplosion(x, y, numParticles, colors) {
+  // Only create this function if it doesn't already exist
+  if (typeof window.createParticleExplosion !== 'function') {
+    for (let i = 0; i < numParticles; i++) {
+      const particle = document.createElement('div');
+      particle.style.position = 'fixed';
+      particle.style.width = '8px';
+      particle.style.height = '8px';
+      particle.style.borderRadius = '50%';
+      particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.zIndex = '9999';
+      particle.style.pointerEvents = 'none';
+      
+      // Random direction
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 5 + Math.random() * 15;
+      const vx = Math.cos(angle) * speed;
+      const vy = Math.sin(angle) * speed;
+      
+      // Position at center of click
+      particle.style.left = `${x}px`;
+      particle.style.top = `${y}px`;
+      
+      document.body.appendChild(particle);
+      
+      // Animate particle
+      let posX = x;
+      let posY = y;
+      let opacity = 1;
+      let scale = 1;
+      
+      const animate = () => {
+        posX += vx;
+        posY += vy;
+        opacity -= 0.02;
+        scale -= 0.01;
+        
+        particle.style.left = `${posX}px`;
+        particle.style.top = `${posY}px`;
+        particle.style.opacity = opacity;
+        particle.style.transform = `scale(${scale})`;
+        
+        if (opacity > 0) {
+          requestAnimationFrame(animate);
+        } else {
+          document.body.removeChild(particle);
+        }
+      };
+      
+      requestAnimationFrame(animate);
+    }
+  }
+}
+
+// Profile picture interactive effects
+document.addEventListener('DOMContentLoaded', function() {
+  const profilePicture = document.getElementById('profile-picture');
+  
+  if (profilePicture) {
+    // Add pulse effect on hover
+    profilePicture.addEventListener('mouseenter', function() {
+      profilePicture.parentElement.classList.add('profile-pulse');
+    });
+    
+    profilePicture.addEventListener('mouseleave', function() {
+      profilePicture.parentElement.classList.remove('profile-pulse');
+    });
+    
+    // Add spin effect on click
+    profilePicture.addEventListener('click', function() {
+      profilePicture.parentElement.classList.remove('profile-pulse'); // Remove pulse if active
+      profilePicture.parentElement.classList.add('profile-spin');
+      
+      // Remove the spin class after animation completes
+      setTimeout(function() {
+        profilePicture.parentElement.classList.remove('profile-spin');
+      }, 1000);
+    });
+  }
 });

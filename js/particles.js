@@ -1,221 +1,259 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Only initialize if hero section exists
-  const heroSection = document.querySelector('.hero-background');
-  if (!heroSection) return;
+  createParticles();
   
-  // Create canvas element for particles
-  const canvas = document.querySelector('.particles-canvas');
-  if (!canvas) return;
+  // Add event listener for profile picture interaction
+  const profilePicture = document.getElementById('profile-picture');
+  if (profilePicture) {
+    profilePicture.addEventListener('click', function(e) {
+      // Create particle explosion from profile picture
+      const rect = this.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      // Create particle burst
+      createParticleBurst(centerX, centerY, 30);
+    });
+  }
+});
+
+// Main function to create the particle background
+function createParticles() {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'particle-canvas';
+  canvas.style.position = 'fixed';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = '-1';
+  document.body.appendChild(canvas);
   
-  // Get canvas context
   const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
   
-  // Set canvas dimensions
-  const setCanvasDimensions = () => {
-    canvas.width = heroSection.offsetWidth;
-    canvas.height = heroSection.offsetHeight;
-  };
-  
-  // Call on load and on resize
-  setCanvasDimensions();
-  window.addEventListener('resize', setCanvasDimensions);
-  
-  // Updated particle settings for a more creative effect
-  const particleCount = 60;
-  const particleColors = [
-    'rgba(108, 99, 255, 0.6)',   // Primary color (purple)
-    'rgba(0, 217, 192, 0.5)',    // Secondary color (turquoise)
-    'rgba(255, 107, 107, 0.5)',  // Accent color (coral)
-    'rgba(255, 255, 255, 0.3)'   // White
-  ];
-  const minSize = 2;
-  const maxSize = 6;
-  const minSpeed = 0.2;
-  const maxSpeed = 0.8;
-  const connectionDistance = 120;
-  const connectionOpacity = 0.2;
-  
-  // Particle array
+  // Particle settings
+  const particleCount = 100;
   const particles = [];
+  const particleBaseRadius = 2;
+  const particleVariance = 1;
+  const particleBaseSpeed = 0.2;
+  const lineWidth = 0.5;
+  const lineDistance = 150;
+  const colors = ['#6c63ff', '#9c95ff', '#4b45b2'];
   
-  // Create particles with more variety
+  // Create particles
   for (let i = 0; i < particleCount; i++) {
     particles.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      size: minSize + Math.random() * (maxSize - minSize),
-      color: particleColors[Math.floor(Math.random() * particleColors.length)],
-      speedX: (Math.random() - 0.5) * (maxSpeed - minSpeed) + minSpeed,
-      speedY: (Math.random() - 0.5) * (maxSpeed - minSpeed) + minSpeed,
-      // Add rotation for more dynamic movement
-      angle: Math.random() * 360,
-      rotationSpeed: (Math.random() - 0.5) * 0.5,
-      // Add pulse effect
-      pulseSize: 0,
-      pulseSpeed: 0.03 + Math.random() * 0.03,
-      pulseDirection: 1
+      speed: particleBaseSpeed + Math.random() * 0.5,
+      directionX: Math.random() - 0.5,
+      directionY: Math.random() - 0.5,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      radius: particleBaseRadius + Math.random() * particleVariance,
+      opacity: 0.1 + Math.random() * 0.5
     });
   }
   
-  // Update particles with improved animation
-  function updateParticles() {
+  // Mouse position tracking for interaction
+  let mouseX = 0;
+  let mouseY = 0;
+  let mouseRadius = 150;
+  let isMouseOver = false;
+  
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    isMouseOver = true;
+  });
+  
+  document.addEventListener('mouseout', function() {
+    isMouseOver = false;
+  });
+  
+  // Special effect when near profile picture
+  let profileRect = null;
+  const profilePicture = document.getElementById('profile-picture');
+  if (profilePicture) {
+    profileRect = profilePicture.getBoundingClientRect();
+    
+    // Update profile rect on resize
+    window.addEventListener('resize', function() {
+      profileRect = profilePicture.getBoundingClientRect();
+    });
+  }
+  
+  // Animation loop
+  function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // First draw connections
-    ctx.lineWidth = 1;
-    
+    // Update and draw particles
     for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
+      const p = particles[i];
+      
+      // Move particles
+      p.x += p.directionX * p.speed;
+      p.y += p.directionY * p.speed;
+      
+      // Bounce off edges
+      if (p.x < 0 || p.x > canvas.width) {
+        p.directionX *= -1;
+      }
+      
+      if (p.y < 0 || p.y > canvas.height) {
+        p.directionY *= -1;
+      }
+      
+      // Mouse interaction - attraction to mouse
+      if (isMouseOver) {
+        const dx = mouseX - p.x;
+        const dy = mouseY - p.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < connectionDistance) {
-          // Get the base color for connection
-          const particleColor = particles[i].color;
-          const rgbaMatch = particleColor.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([.\d]+)\)/);
-          const connectionColor = rgbaMatch ? 
-            `rgba(${rgbaMatch[1]}, ${rgbaMatch[2]}, ${rgbaMatch[3]}, ${connectionOpacity * (1 - distance / connectionDistance)})` :
-            `rgba(255, 255, 255, ${connectionOpacity * (1 - distance / connectionDistance)})`;
-            
+        if (distance < mouseRadius) {
+          const force = (mouseRadius - distance) / mouseRadius;
+          p.directionX += dx * force * 0.01;
+          p.directionY += dy * force * 0.01;
+        }
+      }
+      
+      // Profile picture interaction - orbit around profile
+      if (profileRect) {
+        const profileCenterX = profileRect.left + profileRect.width / 2;
+        const profileCenterY = profileRect.top + profileRect.height / 2;
+        const dx = profileCenterX - p.x;
+        const dy = profileCenterY - p.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < profileRect.width * 1.5) {
+          // Create orbital effect
+          const force = (profileRect.width * 1.5 - distance) / (profileRect.width * 1.5);
+          const angle = Math.atan2(dy, dx);
+          p.directionX += Math.cos(angle + Math.PI/2) * force * 0.02;
+          p.directionY += Math.sin(angle + Math.PI/2) * force * 0.02;
+        }
+      }
+      
+      // Limit speed
+      const speed = Math.sqrt(p.directionX * p.directionX + p.directionY * p.directionY);
+      if (speed > 1.5) {
+        p.directionX = (p.directionX / speed) * 1.5;
+        p.directionY = (p.directionY / speed) * 1.5;
+      }
+      
+      // Draw particle
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.opacity;
+      ctx.fill();
+      
+      // Draw connections between nearby particles
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const dx = p.x - p2.x;
+        const dy = p.y - p2.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < lineDistance) {
           ctx.beginPath();
-          ctx.strokeStyle = connectionColor;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = p.color;
+          ctx.globalAlpha = (lineDistance - distance) / lineDistance * 0.2;
+          ctx.lineWidth = lineWidth;
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
           ctx.stroke();
         }
       }
     }
     
-    // Then draw particles with enhanced effects
-    particles.forEach(particle => {
-      // Calculate pulse effect
-      particle.pulseSize += particle.pulseSpeed * particle.pulseDirection;
-      if (particle.pulseSize > 0.5 || particle.pulseSize < 0) {
-        particle.pulseDirection *= -1;
-      }
-      
-      const currentSize = particle.size * (1 + particle.pulseSize * 0.3);
-      
-      // Draw particle with gradient
-      ctx.beginPath();
-      const gradient = ctx.createRadialGradient(
-        particle.x, particle.y, 0,
-        particle.x, particle.y, currentSize
-      );
-      
-      // Extract base color for gradient
-      const rgbaMatch = particle.color.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([.\d]+)\)/);
-      if (rgbaMatch) {
-        const r = parseInt(rgbaMatch[1]);
-        const g = parseInt(rgbaMatch[2]);
-        const b = parseInt(rgbaMatch[3]);
-        const a = parseFloat(rgbaMatch[4]);
-        
-        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${a})`);
-        gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
-      } else {
-        gradient.addColorStop(0, particle.color);
-        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-      }
-      
-      ctx.fillStyle = gradient;
-      ctx.arc(particle.x, particle.y, currentSize, 0, Math.PI * 2);
-      ctx.fill();
-      
-      // Update rotation
-      particle.angle += particle.rotationSpeed;
-      
-      // Update position with slight wave motion
-      particle.x += particle.speedX + Math.sin(particle.angle * Math.PI / 180) * 0.2;
-      particle.y += particle.speedY + Math.cos(particle.angle * Math.PI / 180) * 0.2;
-      
-      // Bounce off edges with slight randomization
-      if (particle.x < 0 || particle.x > canvas.width) {
-        particle.speedX *= -1;
-        particle.speedX += (Math.random() - 0.5) * 0.1; // Add slight randomization
-      }
-      if (particle.y < 0 || particle.y > canvas.height) {
-        particle.speedY *= -1;
-        particle.speedY += (Math.random() - 0.5) * 0.1; // Add slight randomization
-      }
-    });
-    
-    requestAnimationFrame(updateParticles);
+    requestAnimationFrame(animate);
   }
   
-  // Start animation
-  updateParticles();
+  animate();
   
-  // Add mouse interaction with improved effects
-  let mouse = {
-    x: null,
-    y: null,
-    radius: 100
-  };
-  
-  heroSection.addEventListener('mousemove', function(event) {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = event.clientX - rect.left;
-    mouse.y = event.clientY - rect.top;
-    
-    // Add a ripple effect on mouse move
-    particles.forEach(particle => {
-      const dx = particle.x - mouse.x;
-      const dy = particle.y - mouse.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      
-      if (distance < mouse.radius) {
-        // Repel particles from mouse cursor
-        const force = (mouse.radius - distance) / mouse.radius;
-        const directionX = dx / distance || 0;
-        const directionY = dy / distance || 0;
-        
-        particle.x += directionX * force * 2;
-        particle.y += directionY * force * 2;
-        
-        // Increase pulse effect
-        particle.pulseSize = Math.min(1, particle.pulseSize + 0.3);
-      }
-    });
+  // Resize handler
+  window.addEventListener('resize', function() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   });
+}
+
+// Function to create a burst of particles from a point
+function createParticleBurst(x, y, count) {
+  const burstCanvas = document.createElement('canvas');
+  const burstCtx = burstCanvas.getContext('2d');
   
-  heroSection.addEventListener('click', function(event) {
-    const rect = canvas.getBoundingClientRect();
-    const clickX = event.clientX - rect.left;
-    const clickY = event.clientY - rect.top;
+  burstCanvas.style.position = 'fixed';
+  burstCanvas.style.top = '0';
+  burstCanvas.style.left = '0';
+  burstCanvas.style.width = '100%';
+  burstCanvas.style.height = '100%';
+  burstCanvas.style.pointerEvents = 'none';
+  burstCanvas.style.zIndex = '100';
+  burstCanvas.width = window.innerWidth;
+  burstCanvas.height = window.innerHeight;
+  
+  document.body.appendChild(burstCanvas);
+  
+  const particles = [];
+  const colors = ['#6c63ff', '#9c95ff', '#4b45b2', '#8d86ff'];
+  
+  // Create particles
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 2 + Math.random() * 5;
     
-    // Create burst effect on click
-    for (let i = 0; i < 10; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = 1 + Math.random() * 2;
+    particles.push({
+      x: x,
+      y: y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      radius: 3 + Math.random() * 4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      opacity: 1,
+      life: 1
+    });
+  }
+  
+  function animateBurst() {
+    burstCtx.clearRect(0, 0, burstCanvas.width, burstCanvas.height);
+    
+    let particlesAlive = false;
+    
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
       
-      particles.push({
-        x: clickX,
-        y: clickY,
-        size: minSize + Math.random() * (maxSize - minSize),
-        color: particleColors[Math.floor(Math.random() * particleColors.length)],
-        speedX: Math.cos(angle) * speed,
-        speedY: Math.sin(angle) * speed,
-        angle: Math.random() * 360,
-        rotationSpeed: (Math.random() - 0.5) * 0.5,
-        pulseSize: 0.5,
-        pulseSpeed: 0.05 + Math.random() * 0.05,
-        pulseDirection: 1,
-        // Give these particles limited lifetime
-        lifetime: 100,
-        age: 0
-      });
-      
-      // Remove older particles to prevent unlimited growth
-      if (particles.length > 100) {
-        particles.shift();
+      if (p.life > 0) {
+        particlesAlive = true;
+        
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.1; // Gravity
+        p.life -= 0.02;
+        p.opacity = p.life;
+        
+        burstCtx.beginPath();
+        burstCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        burstCtx.fillStyle = p.color;
+        burstCtx.globalAlpha = p.opacity;
+        burstCtx.fill();
       }
     }
-  });
+    
+    if (particlesAlive) {
+      requestAnimationFrame(animateBurst);
+    } else {
+      document.body.removeChild(burstCanvas);
+    }
+  }
   
-  heroSection.addEventListener('mouseleave', function() {
-    mouse.x = null;
-    mouse.y = null;
-  });
-});
+  animateBurst();
+}
+
+// Make the createParticleBurst function globally available
+window.createParticleExplosion = function(x, y, count, colors) {
+  createParticleBurst(x, y, count || 30, colors || ['#6c63ff', '#9c95ff', '#4b45b2']);
+};
