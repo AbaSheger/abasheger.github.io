@@ -21,6 +21,29 @@
   }
 }
 
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Additional animations */
 @keyframes gradient {
   0% { background-position: 0% 50%; }
@@ -31,4 +54,53 @@
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient 15s ease infinite;
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .animate-slideIn {
+    animation: slideInFromLeft 0.4s ease-out forwards;
+  }
+  
+  .shadow-soft {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Dark mode colors */
+@layer base {
+  :root {
+    --color-primary: 37 99 235;
+    --color-secondary: 79 70 229;
+    --color-accent: 245 158 11;
+  }
+  
+  .dark {
+    --color-dark-900: 17 24 39;
+    --color-dark-800: 31 41 55;
+    --color-dark-700: 55 65 81;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  @apply bg-blue-600/20 text-blue-800 dark:bg-blue-400/20 dark:text-blue-200;
+}
+
+/* Remove default focus outline and add custom one */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  @apply ring-2 ring-blue-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
 }

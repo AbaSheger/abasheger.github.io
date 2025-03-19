@@ -2,29 +2,28 @@
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html",
   ],
   darkMode: 'class', // Enable dark mode with class strategy
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter var', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
         display: ['Poppins', 'sans-serif'],
       },
       colors: {
         // Custom distinctive color palette
         primary: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-          700: '#6d28d9', // Primary color
-          800: '#5b21b6',
-          900: '#4c1d95',
+          50: 'rgb(var(--color-primary) / 0.05)',
+          100: 'rgb(var(--color-primary) / 0.1)',
+          200: 'rgb(var(--color-primary) / 0.2)',
+          300: 'rgb(var(--color-primary) / 0.3)',
+          400: 'rgb(var(--color-primary) / 0.4)',
+          500: 'rgb(var(--color-primary) / 0.6)',
+          600: 'rgb(var(--color-primary) / 0.7)',
+          700: 'rgb(var(--color-primary) / 0.8)',
+          800: 'rgb(var(--color-primary) / 0.9)',
+          900: 'rgb(var(--color-primary) / 1)',
         },
         secondary: {
           50: '#ecfeff',
@@ -58,17 +57,18 @@ module.exports = {
           400: '#94a3b8',
           500: '#64748b',
           600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a', // Dark background
+          700: 'rgb(var(--color-dark-700) / 1)',
+          800: 'rgb(var(--color-dark-800) / 1)',
+          900: 'rgb(var(--color-dark-900) / 1)',
         }
       },
       animation: {
-        fadeIn: 'fadeIn 0.8s ease-in-out forwards',
+        fadeIn: 'fadeIn 0.6s ease-out forwards',
+        slideIn: 'slideInFromLeft 0.4s ease-out forwards',
+        gradient: 'gradient 15s ease infinite',
         slideDown: 'slideDown 0.5s ease-out',
         slideUp: 'slideUp 0.5s ease-out',
         float: 'float 3s ease-in-out infinite',
-        gradient: 'gradient 15s ease infinite',
         'spin-slow': 'spin 6s linear infinite',
         wiggle: 'wiggle 2s ease-in-out infinite',
         'fade-in-down': 'fade-in-down 0.5s ease-out forwards',
@@ -76,8 +76,12 @@ module.exports = {
       },
       keyframes: {
         fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' }
+        },
+        slideInFromLeft: {
+          '0%': { opacity: '0', transform: 'translateX(-30px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' }
         },
         slideDown: {
           '0%': { transform: 'translateY(-10px)', opacity: '0' },
@@ -92,9 +96,8 @@ module.exports = {
           '50%': { transform: 'translateY(-10px)' }
         },
         gradient: {
-          '0%': { backgroundPosition: '0% 50%' },
+          '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
-          '100%': { backgroundPosition: '0% 50%' }
         },
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
