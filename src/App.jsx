@@ -5,9 +5,8 @@ import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
 import { Contact } from './components/Contact';
 import ThemeToggle from './components/ThemeToggle';
-import { useLanguage } from './context/LanguageContext';
+import { useLanguage } from './contexts/LanguageContext';
 import { CV } from './components/CV';
-import { translations } from './data/translations';
 
 // Lazy load the ParticleBackground for better performance
 const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
@@ -17,7 +16,7 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [visibleSection, setVisibleSection] = useState('hero');
-  const { language, text, toggleLanguage } = useLanguage();
+  const { language, toggleLanguage, text } = useLanguage();
 
   // Toggle functions
   const toggleDarkMode = () => setDarkMode(!darkMode);
