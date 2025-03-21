@@ -66,8 +66,6 @@ const App = () => {
     return () => prefersDarkScheme.removeEventListener('change', handleChange);
   }, []);
 
-  const text = translations.en; // or based on your language selection
-
   return (
     <div className={darkMode ? 'dark' : ''}>
       <div className="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-dark-900 text-gray-800 dark:text-gray-100">
