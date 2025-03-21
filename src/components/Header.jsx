@@ -28,8 +28,8 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
           <a href="#about" className={getLinkClasses('about')}>{navItems.about}</a>
           <a href="#projects" className={getLinkClasses('projects')}>{navItems.projects}</a>
           <a href="#skills" className={getLinkClasses('skills')}>{navItems.skills}</a>
-          <a href="#contact" className={getLinkClasses('contact')}>{navItems.contact}</a>
           <a href="#cv" className={getLinkClasses('cv')}>{navItems.cv}</a>
+          <a href="#contact" className={getLinkClasses('contact')}>{navItems.contact}</a>
           <LanguageToggle language={language} toggleLanguage={toggleLanguage} />
           <ThemeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         </nav>
@@ -41,8 +41,8 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
           <a href="#about" className={getLinkClasses('about')} onClick={toggleMenu}>{navItems.about}</a>
           <a href="#projects" className={getLinkClasses('projects')} onClick={toggleMenu}>{navItems.projects}</a>
           <a href="#skills" className={getLinkClasses('skills')} onClick={toggleMenu}>{navItems.skills}</a>
-          <a href="#contact" className={getLinkClasses('contact')} onClick={toggleMenu}>{navItems.contact}</a>
           <a href="#cv" className={getLinkClasses('cv')} onClick={toggleMenu}>{navItems.cv}</a>
+          <a href="#contact" className={getLinkClasses('contact')} onClick={toggleMenu}>{navItems.contact}</a>
           <div className="flex items-center justify-between py-2">
             <LanguageToggle language={language} toggleLanguage={toggleLanguage} isMobile />
             <ThemeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} isMobile />

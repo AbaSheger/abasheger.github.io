@@ -1,0 +1,62 @@
+@media print {
+  /* Hide unnecessary elements when printing */
+  nav, 
+  button,
+  .download-btn {
+    display: none !important;
+  }
+
+  /* Ensure proper page breaks */
+  #tech-skills,
+  #education,
+  #projects {
+    page-break-before: always;
+  }
+
+  /* Adjust colors for printing */
+  * {
+    color: black !important;
+    background: white !important;
+  }
+
+  /* Ensure full width when printing */
+  .max-w-5xl {
+    max-width: none !important;
+  }
+
+  /* Additional print optimizations */
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  section#cv {
+    padding: 0 !important;
+  }
+
+  /* Hide preview and interactive elements */
+  .fixed,
+  [data-aos] {
+    display: none !important;
+  }
+
+  /* Improve text readability for print */
+  p, li {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: 16pt;
+  }
+
+  h3 {
+    font-size: 14pt;
+  }
+
+  /* Remove hover effects and transitions */
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+} 

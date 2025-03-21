@@ -18,8 +18,9 @@ export const Projects = ({ text }) => {
   return (
     <section id="projects" className="py-20 px-4 bg-white dark:bg-dark-800/20">
       <div className="max-w-5xl mx-auto animate-fadeIn">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-12 flex items-center">
-          <span className="text-blue-600 dark:text-blue-400 mr-2 font-mono">02.</span> {text.sectionTitle}
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 flex items-center">
+          <span className="text-blue-600 dark:text-blue-400 mr-2 font-mono w-8">02.</span>
+          {text.sectionTitle}
         </h2>
 
         {/* Filter Buttons */}

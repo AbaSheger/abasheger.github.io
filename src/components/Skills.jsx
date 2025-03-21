@@ -45,8 +45,9 @@ export const Skills = ({ text }) => {
   return (
     <section id="skills" className="py-20 px-4 bg-white dark:bg-dark-800/20">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-12 flex items-center">
-          <span className="text-blue-600 dark:text-blue-400 mr-2 font-mono">03.</span> {text.sectionTitle}
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 flex items-center">
+          <span className="text-blue-600 dark:text-blue-400 mr-2 font-mono w-8">03.</span>
+          {text.sectionTitle}
         </h2>
         
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">

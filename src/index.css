@@ -104,3 +104,5 @@ html {
 :focus-visible {
   @apply ring-2 ring-blue-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
 }
+
+@import './styles/cv-print.css';

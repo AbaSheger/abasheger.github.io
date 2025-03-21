@@ -1,4 +1,6 @@
-import musicAnalyticsImage from "../assets/music-analytics.png";
+const musicAnalyticsImage = '/assets/music-analytics.png';
+const jmailerImage = '/assets/jmailer.png'; // You'll need to add a screenshot of the project
+const stagefinderImage = '/assets/stagefinder.png'; // You'll need to add this image
 
 // Use an online placeholder service for projects without images
 const onlinePlaceholder = "https://via.placeholder.com/800x400?text=Coming+Soon";
@@ -33,5 +35,27 @@ export const projects = [
     description: "CI/CD pipeline in Azure DevOps for React frontend and Java-based REST API backend.",
     liveLink: "https://live-link-to-full-stack-solution-edugrade.com",
     githubLink: "https://github.com/abenezer-anglo/full-stack-solution-edugrade"
+  },
+  {
+    id: 4,
+    title: "JMailer Spring Boot",
+    category: "backend",
+    technologies: ["Spring Boot", "Java", "Email Service", "Open Source"],
+    image: jmailerImage,
+    description: "Contributed to an open-source email service built with Spring Boot. JMailer provides a robust solution for sending emails in Spring Boot applications.",
+    liveLink: "https://jmailer.josdem.io/",
+    githubLink: "https://github.com/josdem/jmailer-spring-boot?tab=readme-ov-file",
+    isOpenSource: true,
+    contribution: true
+  },
+  {
+    id: 5,
+    title: "StageFinder",
+    category: "fullstack",
+    technologies: ["React", "Node.js", "Express", "Material UI", "Groq AI"],
+    image: stagefinderImage, // Changed from onlinePlaceholder to stagefinderImage
+    description: "AI-powered event platform built with React and Node.js. Features include speaker matching, event management, and role-based authentication. Integrates Groq API for intelligent content generation.",
+    githubLink: "https://github.com/Lia-hub-Intern/the-event-portal",
+    isInternship: true
   }
 ];

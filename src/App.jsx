@@ -6,6 +6,7 @@ import { Projects } from './components/Projects';
 import { Contact } from './components/Contact';
 import ThemeToggle from './components/ThemeToggle';
 import { useLanguage } from './context/LanguageContext';
+import { CV } from './components/CV';
 
 // Lazy load the ParticleBackground for better performance
 const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
@@ -120,6 +121,7 @@ const App = () => {
           <About text={text.about} />
           <Projects text={text.projects} />
           <Skills text={text.skills} />
+          <CV text={text.cv} />
           <Contact text={text.contact} />
         </main>
 

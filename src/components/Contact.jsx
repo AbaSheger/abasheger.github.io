@@ -4,8 +4,8 @@ export const Contact = ({ text }) => {
   return (
     <section id="contact" className="py-20 px-4 bg-gray-50 dark:bg-dark-900">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-12 flex items-center">
-          <span className="text-blue-600 dark:text-blue-400 mr-2 font-mono">04.</span>
+        <h2 id="contact-title" className="text-2xl sm:text-3xl font-bold mb-8 flex items-center">
+          <span className="text-blue-600 dark:text-blue-400 mr-2 font-mono w-8">05.</span>
           {text.sectionTitle}
         </h2>
         
@@ -21,42 +21,36 @@ export const Contact = ({ text }) => {
               title={text.email}
               value="merebanglo@yahoo.com"
               href="mailto:merebanglo@yahoo.com"
+              icon={
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              }
             />
             <ContactCard
               type="phone"
               title={text.phone}
               value="+46 76 408 79 19"
               href="tel:+46764087919"
+              icon={
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+              }
             />
           </div>
           
-          <div className="space-y-4">
-            <SocialLinks />
-            <a 
-              href="mailto:merebanglo@yahoo.com" 
-              className="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-all duration-300 mt-4"
-            >
-              {text.messageBtn}
-            </a>
-          </div>
+          <SocialLinks />
         </div>
       </div>
     </section>
   );
 };
 
-const ContactCard = ({ type, title, value, href }) => (
+const ContactCard = ({ type, title, value, href, icon }) => (
   <a href={href} className="flex items-center group bg-white dark:bg-dark-700 p-4 rounded-lg hover:shadow-md transition-all duration-300">
     <div className="mr-4 flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform">
-      {type === 'email' ? (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-        </svg>
-      ) : (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-        </svg>
-      )}
+      {icon}
     </div>
     <div className="text-left">
       <h4 className="text-sm uppercase font-semibold text-gray-500 dark:text-gray-400 mb-1">{title}</h4>
