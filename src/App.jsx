@@ -7,6 +7,7 @@ import { Contact } from './components/Contact';
 import ThemeToggle from './components/ThemeToggle';
 import { useLanguage } from './context/LanguageContext';
 import { CV } from './components/CV';
+import { translations } from './data/translations';
 
 // Lazy load the ParticleBackground for better performance
 const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
@@ -64,6 +65,8 @@ const App = () => {
     
     return () => prefersDarkScheme.removeEventListener('change', handleChange);
   }, []);
+
+  const text = translations.en; // or based on your language selection
 
   return (
     <div className={darkMode ? 'dark' : ''}>
