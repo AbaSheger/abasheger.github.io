@@ -1,7 +1,7 @@
 const musicAnalyticsImage = '/assets/music-analytics.png';
 const jmailerImage = '/assets/jmailer.png'; // You'll need to add a screenshot of the project
 const stagefinderImage = '/assets/stagefinder.png'; // You'll need to add this image
-
+const wigellPadelImage = '/assets/wigell-padel.png';
 // Use an online placeholder service for projects without images
 const onlinePlaceholder = "https://via.placeholder.com/800x400?text=Coming+Soon";
 
@@ -21,10 +21,10 @@ export const projects = [
     title: "Wigell Padel Microservice",
     category: "backend",
     technologies: ["Spring Boot", "MySQL", "Spring Security"],
-    image: onlinePlaceholder, // Online placeholder instead of local file
+    image: wigellPadelImage,
     description: "REST API in Java Spring Boot with MySQL for bookings and customer data with secure authentication.",
     liveLink: "https://live-link-to-wigell-padel-mikrotjanst.com",
-    githubLink: "https://github.com/abenezer-anglo/wigell-padel-mikrotjanst"
+    githubLink: "https://github.com/AbaSheger/wigell-padel-portfolio.git"
   },
   {
     id: 3,
