@@ -1,7 +1,7 @@
-const musicAnalyticsImage = '/assets/music-analytics.png';
-const jmailerImage = '/assets/jmailer.png'; // You'll need to add a screenshot of the project
-const stagefinderImage = '/assets/stagefinder.png'; // You'll need to add this image
-const wigellPadelImage = '/assets/wigell-padel.png';
+const musicAnalyticsImage = './assets/music-analytics.png';
+const jmailerImage = './assets/jmailer.png'; // You'll need to add a screenshot of the project
+const stagefinderImage = './assets/stagefinder.png'; // You'll need to add this image
+const wigellPadelImage = './assets/wigell-padel.png';
 // Use an online placeholder service for projects without images
 const onlinePlaceholder = "https://via.placeholder.com/800x400?text=Coming+Soon";
 
