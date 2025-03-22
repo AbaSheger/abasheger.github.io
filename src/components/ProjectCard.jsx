@@ -17,28 +17,29 @@ export const ProjectCard = ({ project, isReversed, featuredText }) => {
     <div className={`grid md:grid-cols-12 gap-8 ${isReversed ? '' : 'md:rtl'}`}>
       <div className="md:col-span-7 md:order-2">
         <div className="relative group">
-          <div className="rounded-xl overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300">
+          <div className="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
             <img 
               src={image} 
               alt={title}
+              loading="lazy"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
         </div>
       </div>
       
       <div className="md:col-span-5 md:order-1 md:ltr">
         <div className="flex flex-col h-full justify-center space-y-6">
-          <div className="flex items-center gap-3 mb-2">
-            <p className="text-blue-600 dark:text-blue-400 font-mono text-sm">{featuredText}</p>
+          <div className="flex items-center gap-3">
+            <p className="text-blue-600 dark:text-blue-400 font-mono text-sm tracking-wider">{featuredText}</p>
             {isOpenSource && (
-              <span className="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded-full">
+              <span className="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded-full shadow-sm">
                 {isInternship ? "Internship Project" : "Open Source"}
               </span>
             )}
             {isDesktopApp && (
-              <span className="px-3 py-1 text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400 rounded-full">
+              <span className="px-3 py-1 text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400 rounded-full shadow-sm">
                 Desktop App
               </span>
             )}
@@ -56,7 +57,7 @@ export const ProjectCard = ({ project, isReversed, featuredText }) => {
             {technologies.map((tech) => (
               <span 
                 key={tech}
-                className="text-sm px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+                className="text-sm px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-sm hover:shadow-md transition-shadow duration-300"
               >
                 {tech}
               </span>

@@ -67,7 +67,7 @@ const App = () => {
 
   return (
     <div className={darkMode ? 'dark' : ''}>
-      <div className="min-h-screen transition-colors duration-300 bg-gray-50 dark:bg-dark-900 text-gray-800 dark:text-gray-100">
+      <div className="min-h-screen bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
         <Header 
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}

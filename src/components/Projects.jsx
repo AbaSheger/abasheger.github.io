@@ -24,15 +24,15 @@ export const Projects = ({ text }) => {
         </h2>
 
         {/* Filter Buttons */}
-        <div className="flex flex-wrap gap-3 mb-12">
+        <div className="flex flex-wrap gap-4 mb-12 justify-center sm:justify-start">
           {projectCategories.map(category => (
             <button
               key={category.id}
               onClick={() => setActiveFilter(category.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200
+              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 transform hover:-translate-y-0.5
                 ${activeFilter === category.id
-                  ? 'bg-blue-600 text-white dark:bg-blue-500'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+                  ? 'bg-blue-600 text-white dark:bg-blue-500 shadow-lg'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 hover:shadow-md'
                 }`}
             >
               {text[category.label]}
@@ -43,12 +43,13 @@ export const Projects = ({ text }) => {
         {/* Projects Grid */}
         <div className="space-y-16 md:space-y-24">
           {filteredProjects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              isReversed={index % 2 !== 0}
-              featuredText={text.featuredProject}
-            />
+            <div key={project.id} className="opacity-0 animate-fadeIn">
+              <ProjectCard
+                project={project}
+                isReversed={index % 2 !== 0}
+                featuredText={text.featuredProject}
+              />
+            </div>
           ))}
         </div>
       </div>

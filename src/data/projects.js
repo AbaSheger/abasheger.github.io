@@ -34,9 +34,8 @@ export const projects = [
     title: "Full-Stack Solution (EduGrade)",
     category: "cloud",
     technologies: ["Azure DevOps", "React", "Java"],
-    image: DevOpsImage, // Online placeholder instead of local file
+    image: DevOpsImage,
     description: "CI/CD pipeline in Azure DevOps for React frontend and Java-based REST API backend.",
-   // liveLink: "https://live-link-to-full-stack-solution-edugrade.com",
     githubLink: "https://github.com/abenezer-anglo/full-stack-solution-edugrade"
   },
   {
