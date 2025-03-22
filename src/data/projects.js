@@ -2,8 +2,11 @@ const musicAnalyticsImage = './assets/music-analytics.png';
 const jmailerImage = './assets/jmailer.png'; // You'll need to add a screenshot of the project
 const stagefinderImage = './assets/stagefinder.png'; // You'll need to add this image
 const wigellPadelImage = './assets/wigell-padel.png';
-// Use an online placeholder service for projects without images
+const DevOpsImage = './assets/DevOps.png';
+const eventOrganizerImage = './assets/event-organizer.png'; // You'll need to add this image
 const onlinePlaceholder = "https://via.placeholder.com/800x400?text=Coming+Soon";
+// Use an online placeholder service for projects without images
+
 
 export const projects = [
   {
@@ -23,7 +26,7 @@ export const projects = [
     technologies: ["Spring Boot", "MySQL", "Spring Security"],
     image: wigellPadelImage,
     description: "REST API in Java Spring Boot with MySQL for bookings and customer data with secure authentication.",
-    liveLink: "https://live-link-to-wigell-padel-mikrotjanst.com",
+    //liveLink: "https://live-link-to-wigell-padel-mikrotjanst.com",
     githubLink: "https://github.com/AbaSheger/wigell-padel-portfolio.git"
   },
   {
@@ -31,9 +34,9 @@ export const projects = [
     title: "Full-Stack Solution (EduGrade)",
     category: "cloud",
     technologies: ["Azure DevOps", "React", "Java"],
-    image: onlinePlaceholder, // Online placeholder instead of local file
+    image: DevOpsImage, // Online placeholder instead of local file
     description: "CI/CD pipeline in Azure DevOps for React frontend and Java-based REST API backend.",
-    liveLink: "https://live-link-to-full-stack-solution-edugrade.com",
+   // liveLink: "https://live-link-to-full-stack-solution-edugrade.com",
     githubLink: "https://github.com/abenezer-anglo/full-stack-solution-edugrade"
   },
   {
@@ -57,5 +60,15 @@ export const projects = [
     description: "AI-powered event platform built with React and Node.js. Features include speaker matching, event management, and role-based authentication. Integrates Groq API for intelligent content generation.",
     githubLink: "https://github.com/Lia-hub-Intern/the-event-portal",
     isInternship: true
+  },
+  {
+    id: 6,
+    title: "Event Organizer",
+    category: "backend",
+    technologies: ["C#", ".NET", "Windows Forms"],
+    image: eventOrganizerImage,
+    description: "A Windows desktop application for managing events and participants. Features include event creation, participant management, and financial calculations for event planning.",
+    githubLink: "https://github.com/AbaSheger/Eventorganizer",
+    isDesktopApp: true // Add this flag to indicate it's a desktop app
   }
 ];

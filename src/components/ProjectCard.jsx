@@ -1,7 +1,17 @@
 import React from 'react';
 
 export const ProjectCard = ({ project, isReversed, featuredText }) => {
-  const { title, description, technologies, image, liveLink, githubLink, isOpenSource, isInternship } = project;
+  const { 
+    title, 
+    description, 
+    technologies, 
+    image, 
+    liveLink, 
+    githubLink, 
+    isOpenSource, 
+    isInternship,
+    isDesktopApp 
+  } = project;
   
   return (
     <div className={`grid md:grid-cols-12 gap-8 ${isReversed ? '' : 'md:rtl'}`}>
@@ -20,11 +30,16 @@ export const ProjectCard = ({ project, isReversed, featuredText }) => {
       
       <div className="md:col-span-5 md:order-1 md:ltr">
         <div className="flex flex-col h-full justify-center space-y-6">
-          <div className="flex items-center gap-4">
-            <p className="text-blue-600 dark:text-blue-400 font-mono text-sm whitespace-nowrap">{featuredText}</p>
+          <div className="flex items-center gap-3 mb-2">
+            <p className="text-blue-600 dark:text-blue-400 font-mono text-sm">{featuredText}</p>
             {isOpenSource && (
-              <span className="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded-full whitespace-nowrap">
+              <span className="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded-full">
                 {isInternship ? "Internship Project" : "Open Source"}
+              </span>
+            )}
+            {isDesktopApp && (
+              <span className="px-3 py-1 text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400 rounded-full">
+                Desktop App
               </span>
             )}
           </div>
@@ -49,7 +64,7 @@ export const ProjectCard = ({ project, isReversed, featuredText }) => {
           </div>
           
           <div className="flex gap-6 pt-2">
-            {liveLink && (
+            {liveLink && !isDesktopApp && (
               <a 
                 href={liveLink}
                 target="_blank"
