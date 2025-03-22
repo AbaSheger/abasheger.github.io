@@ -187,7 +187,7 @@ const App = () => {
         {/* Add offline banner if needed */}
         {!isOnline && (
           <div className="fixed bottom-0 left-0 right-0 bg-yellow-500 text-white p-2 text-center">
-            You are currently offline
+            {text.weather.offline}
           </div>
         )}
       </div>

@@ -18,7 +18,18 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
       )}
       
       <div className="max-w-7xl mx-auto flex justify-between items-center h-16 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">AB</h1>
+        <h1 className="relative group">
+          <a 
+            href="#" 
+            className="text-2xl font-bold flex items-center"
+            aria-label={language === 'en' ? "Back to top" : "Tillbaka till toppen"}
+          >
+            <span className="relative z-10 flex items-center justify-center w-10 h-10 bg-blue-600 dark:bg-blue-500 text-white rounded-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+              AB
+            </span>
+            <span className="absolute -inset-2 bg-blue-600/20 dark:bg-blue-500/20 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </a>
+        </h1>
         
         {/* Mobile Menu Button */}
         <button 

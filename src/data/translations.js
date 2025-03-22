@@ -66,6 +66,13 @@ export const translations = {
     // Footer
     footer: {
       copyright: "All rights reserved."
+    },
+    
+    weather: {
+      updated: "Last updated at",
+      offline: "You are currently offline",
+      loading: "Loading weather...",
+      error: "Weather unavailable"
     }
   },
   
@@ -136,6 +143,13 @@ export const translations = {
     // Footer
     footer: {
       copyright: "Alla rättigheter förbehållna."
+    },
+    
+    weather: {
+      updated: "Senast uppdaterad",
+      offline: "Du är offline",
+      loading: "Laddar väder...",
+      error: "Väder ej tillgängligt"
     }
   }
 };
