@@ -41,6 +41,22 @@ const SkillCard = ({ title, icon, skills }) => {
   );
 };
 
+// Add skill level indicators
+const SkillItem = ({ name, level }) => (
+  <div className="w-full">
+    <div className="flex justify-between mb-1">
+      <span>{name}</span>
+      <span>{level}%</span>
+    </div>
+    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+      <div 
+        className="h-full bg-blue-600 dark:bg-blue-400 rounded-full"
+        style={{ width: `${level}%` }}
+      />
+    </div>
+  </div>
+);
+
 export const Skills = ({ text }) => {
   return (
     <section id="skills" className="py-20 px-4 bg-white dark:bg-dark-800/20">
@@ -60,6 +76,28 @@ export const Skills = ({ text }) => {
             />
           ))}
         </div>
+      </div>
+    </section>
+  );
+};
+
+const Blog = () => {
+  return (
+    <section id="blog" className="py-20">
+      <h2 className="text-3xl font-bold mb-8">Latest Articles</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Blog post cards */}
+      </div>
+    </section>
+  );
+};
+
+const Testimonials = () => {
+  return (
+    <section id="testimonials" className="py-20 bg-gray-50 dark:bg-gray-900">
+      <h2 className="text-3xl font-bold mb-8">What People Say</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Testimonial cards */}
       </div>
     </section>
   );

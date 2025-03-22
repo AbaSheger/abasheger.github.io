@@ -7,6 +7,7 @@ import { Contact } from './components/Contact';
 import ThemeToggle from './components/ThemeToggle';
 import { useLanguage } from './contexts/LanguageContext';
 import { CV } from './components/CV';
+import { Location } from './components/Location';
 
 // Lazy load the ParticleBackground for better performance
 const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
@@ -17,6 +18,7 @@ const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [visibleSection, setVisibleSection] = useState('hero');
   const { language, toggleLanguage, text } = useLanguage();
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   // Toggle functions
   const toggleDarkMode = () => setDarkMode(!darkMode);
@@ -65,6 +67,48 @@ const App = () => {
     return () => prefersDarkScheme.removeEventListener('change', handleChange);
   }, []);
 
+  // Add smooth scroll behavior
+  useEffect(() => {
+    const handleNavClick = (e) => {
+      const href = e.currentTarget.getAttribute('href');
+      if (href?.startsWith('#')) {
+        e.preventDefault();
+        const element = document.querySelector(href);
+        if (element) {
+          const offset = 80; // Header height + some padding
+          const top = element.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({
+            top,
+            behavior: 'smooth'
+          });
+        }
+      }
+    };
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', handleNavClick);
+    });
+
+    return () => {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.removeEventListener('click', handleNavClick);
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
   return (
     <div className={darkMode ? 'dark' : ''}>
       <div className="min-h-screen bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
@@ -86,6 +130,9 @@ const App = () => {
               <span className="text-blue-600 dark:text-blue-400 font-mono mb-4 block">{text.hero.greeting}</span>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
                 Abenezer Anglo<span className="text-blue-600 dark:text-blue-400">.</span>
+                <div className="mt-2 text-base">
+                  <Location />
+                </div>
               </h1>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 text-gray-600 dark:text-gray-400">
                 {text.hero.title}
@@ -136,6 +183,13 @@ const App = () => {
             </div>
           </div>
         </footer>
+
+        {/* Add offline banner if needed */}
+        {!isOnline && (
+          <div className="fixed bottom-0 left-0 right-0 bg-yellow-500 text-white p-2 text-center">
+            You are currently offline
+          </div>
+        )}
       </div>
     </div>
   );

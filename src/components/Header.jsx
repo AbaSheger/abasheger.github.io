@@ -9,6 +9,14 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
 
   return (
     <header className="fixed w-full top-0 z-50 bg-white/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-gray-100 dark:border-dark-700">
+      {/* Add overlay for mobile menu */}
+      {menuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm md:hidden" 
+          onClick={toggleMenu}
+        />
+      )}
+      
       <div className="max-w-7xl mx-auto flex justify-between items-center h-16 px-4 sm:px-6 lg:px-8">
         <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">AB</h1>
         
@@ -36,7 +44,9 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
       </div>
       
       {/* Mobile Navigation */}
-      <div className={`md:hidden absolute left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 transition-all duration-300 ${menuOpen ? 'max-h-screen opacity-100 visible' : 'max-h-0 opacity-0 invisible overflow-hidden'}`}>
+      <div className={`md:hidden fixed top-16 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 transform transition-transform duration-300 ${
+        menuOpen ? 'translate-y-0' : '-translate-y-full'
+      }`}>
         <nav className="flex flex-col px-4 py-3 space-y-3">
           <a href="#about" className={getLinkClasses('about')} onClick={toggleMenu}>{navItems.about}</a>
           <a href="#projects" className={getLinkClasses('projects')} onClick={toggleMenu}>{navItems.projects}</a>
