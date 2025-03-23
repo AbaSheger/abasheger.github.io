@@ -32,56 +32,54 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
             className="text-2xl font-bold flex items-center"
             aria-label={language === 'en' ? "Back to top" : "Tillbaka till toppen"}
           >
-            <div className="relative group flex items-center justify-center w-10 h-10">
+            <div className="relative group flex items-center justify-center w-16 h-12">
               {/* Main logo container */}
-              <div className="relative z-10 w-10 h-10 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+              <div className="relative z-10 w-16 h-12 transform transition-all duration-300 group-hover:scale-105">
                 <svg 
-                  viewBox="0 0 100 100" 
+                  viewBox="0 0 160 120" 
                   className="w-full h-full"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  {/* Background shape - rotating gradient */}
+                  {/* Gradients */}
                   <defs>
-                    <linearGradient id="logoGradient" gradientTransform="rotate(45)">
-                      <stop offset="0%" className="stop-color-primary" style={{ stopColor: '#2563EB' }} />
-                      <stop offset="100%" className="stop-color-secondary" style={{ stopColor: '#1D4ED8' }} />
+                    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style={{ stopColor: '#3B82F6' }} />
+                      <stop offset="100%" style={{ stopColor: '#2563EB' }} />
                     </linearGradient>
                   </defs>
                   
-                  {/* Background shape with subtle rounded corners */}
-                  <rect 
-                    x="5" 
-                    y="5" 
-                    width="90" 
-                    height="90" 
-                    rx="15"
-                    className="fill-[url(#logoGradient)] dark:opacity-90"
+                  {/* A Letter */}
+                  <path
+                    d="M40 100 L70 20 L100 100 L85 100 L77 80 L63 80 L55 100 L40 100 Z M70 40 L60 70 L80 70 L70 40 Z"
+                    fill="url(#primaryGradient)"
+                    className="transform origin-center transition-transform duration-300"
                   />
                   
+                  {/* B Letter */}
+                  <path
+                    d="M110 20 L110 100 L130 100 Q140 100 145 95 Q150 90 150 80 Q150 72 146 68 Q142 64 135 63 Q140 62 143 58 Q146 54 146 47 Q146 37 141 32 Q136 27 126 27 L110 20 Z M125 40 Q130 40 132 42 Q134 44 134 48 Q134 52 132 54 Q130 56 125 56 L122 56 L122 40 L125 40 Z M124 66 Q129 66 131 68 Q133 70 133 74 Q133 78 131 80 Q129 82 124 82 L122 82 L122 66 L124 66 Z"
+                    fill="url(#primaryGradient)"
+                    className="transform origin-center transition-transform duration-300"
+                  />
+
                   {/* Decorative elements */}
-                  <path 
-                    d="M20 80 L80 20" 
-                    stroke="white" 
-                    strokeWidth="2" 
-                    strokeOpacity="0.2"
+                  <rect 
+                    x="35" 
+                    y="15" 
+                    width="120" 
+                    height="90" 
+                    rx="8"
+                    stroke="url(#primaryGradient)"
+                    strokeWidth="2"
+                    strokeDasharray="4 4"
+                    className="opacity-30"
                   />
-                  
-                  {/* Letters with enhanced styling */}
-                  <text
-                    x="50"
-                    y="60"
-                    textAnchor="middle"
-                    className="fill-white font-bold text-3xl"
-                    style={{ fontSize: '40px', fontFamily: 'Arial, sans-serif' }}
-                  >
-                    AB
-                  </text>
                 </svg>
               </div>
               
-              {/* Glow effect */}
-              <div className="absolute -inset-2 bg-blue-600/20 dark:bg-blue-500/20 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              {/* Subtle hover effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-all duration-300" />
             </div>
           </a>
         </h1>
