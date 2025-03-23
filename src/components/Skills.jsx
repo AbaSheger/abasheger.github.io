@@ -62,7 +62,7 @@ export const Skills = ({ text }) => {
     <section id="skills" className="py-20 px-4 bg-white dark:bg-dark-800/20">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl sm:text-3xl font-bold mb-8 flex items-center">
-          <span className="text-blue-600 dark:text-blue-400 mr-2 font-mono w-8">03.</span>
+          <span className="inline-block text-blue-600 dark:text-blue-400 mr-2 font-mono text-right" style={{ width: '3ch' }}>03.</span>
           {text.sectionTitle}
         </h2>
         

@@ -32,23 +32,70 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
             className="text-2xl font-bold flex items-center"
             aria-label={language === 'en' ? "Back to top" : "Tillbaka till toppen"}
           >
-            <span className="relative z-10 flex items-center justify-center w-10 h-10 bg-blue-600 dark:bg-blue-500 text-white rounded-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
-              AB
-            </span>
-            <span className="absolute -inset-2 bg-blue-600/20 dark:bg-blue-500/20 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="relative group flex items-center justify-center w-10 h-10">
+              {/* Main logo container */}
+              <div className="relative z-10 w-10 h-10 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                <svg 
+                  viewBox="0 0 100 100" 
+                  className="w-full h-full"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {/* Background shape - rotating gradient */}
+                  <defs>
+                    <linearGradient id="logoGradient" gradientTransform="rotate(45)">
+                      <stop offset="0%" className="stop-color-primary" style={{ stopColor: '#2563EB' }} />
+                      <stop offset="100%" className="stop-color-secondary" style={{ stopColor: '#1D4ED8' }} />
+                    </linearGradient>
+                  </defs>
+                  
+                  {/* Background shape with subtle rounded corners */}
+                  <rect 
+                    x="5" 
+                    y="5" 
+                    width="90" 
+                    height="90" 
+                    rx="15"
+                    className="fill-[url(#logoGradient)] dark:opacity-90"
+                  />
+                  
+                  {/* Decorative elements */}
+                  <path 
+                    d="M20 80 L80 20" 
+                    stroke="white" 
+                    strokeWidth="2" 
+                    strokeOpacity="0.2"
+                  />
+                  
+                  {/* Letters with enhanced styling */}
+                  <text
+                    x="50"
+                    y="60"
+                    textAnchor="middle"
+                    className="fill-white font-bold text-3xl"
+                    style={{ fontSize: '40px', fontFamily: 'Arial, sans-serif' }}
+                  >
+                    AB
+                  </text>
+                </svg>
+              </div>
+              
+              {/* Glow effect */}
+              <div className="absolute -inset-2 bg-blue-600/20 dark:bg-blue-500/20 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
           </a>
         </h1>
         
         {/* Mobile Menu Button */}
         <button 
-          className="block md:hidden p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+          className="block md:hidden p-3 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-300 flex items-center gap-2"
           onClick={toggleMenu}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
           <svg 
-            className="w-6 h-6" 
+            className={`w-6 h-6 transition-transform duration-300 ${menuOpen ? 'rotate-90' : ''}`}
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -59,6 +106,7 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             )}
           </svg>
+          <span className="text-sm font-medium">{menuOpen ? 'Close' : 'Menu'}</span>
         </button>
         
         {/* Desktop Navigation */}

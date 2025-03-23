@@ -25,7 +25,7 @@ export const CV = () => {
     <section id="cv" className="py-20 px-4 bg-white dark:bg-dark-800/20" aria-labelledby="cv-title">
       <div className="max-w-5xl mx-auto">
         <h2 id="cv-title" className="text-2xl sm:text-3xl font-bold mb-8 flex items-center">
-          <span className="text-blue-600 dark:text-blue-400 mr-2 font-mono w-8">04.</span>
+          <span className="inline-block text-blue-600 dark:text-blue-400 mr-2 font-mono text-right" style={{ width: '3ch' }}>04.</span>
           {text.cv?.sectionTitle || 'Curriculum Vitae'}
         </h2>
         

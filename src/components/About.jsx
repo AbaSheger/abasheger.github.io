@@ -5,7 +5,7 @@ export const About = ({ text }) => {
     <section id="about" className="py-20 px-4 bg-white dark:bg-dark-800/20">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-2xl sm:text-3xl font-bold mb-12 flex items-center">
-          <span className="text-blue-600 dark:text-blue-400 mr-2 font-mono w-8">01.</span>
+          <span className="inline-block text-blue-600 dark:text-blue-400 mr-2 font-mono text-right" style={{ width: '3ch' }}>01.</span>
           {text.sectionTitle}
         </h2>
         

@@ -25,7 +25,7 @@ export const Projects = () => {
     <section id="projects" className="py-12 sm:py-20 px-4 bg-white dark:bg-dark-800/20">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 flex items-center">
-          <span className="text-blue-600 dark:text-blue-400 mr-2 font-mono w-6 sm:w-8">02.</span>
+          <span className="inline-block text-blue-600 dark:text-blue-400 mr-2 font-mono text-right" style={{ width: '3ch' }}>02.</span>
           {text.projects.sectionTitle}
         </h2>
 
