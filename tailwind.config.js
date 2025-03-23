@@ -73,6 +73,7 @@ module.exports = {
         wiggle: 'wiggle 2s ease-in-out infinite',
         'fade-in-down': 'fade-in-down 0.5s ease-out forwards',
         'fade-out-up': 'fade-out-up 0.5s ease-out forwards',
+        'tilt': 'tilt 10s infinite linear',
       },
       keyframes: {
         fadeIn: {
@@ -110,6 +111,17 @@ module.exports = {
         'fade-out-up': {
           '0%': { opacity: '1', transform: 'translateY(0)' },
           '100%': { opacity: '0', transform: 'translateY(-20px)' }
+        },
+        tilt: {
+          '0%, 50%, 100%': {
+            transform: 'rotate(0deg)',
+          },
+          '25%': {
+            transform: 'rotate(1deg)',
+          },
+          '75%': {
+            transform: 'rotate(-1deg)',
+          },
         },
       },
       screens: {

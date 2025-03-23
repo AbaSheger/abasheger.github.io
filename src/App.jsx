@@ -168,7 +168,7 @@ const App = () => {
           <About text={text.about} />
           <Projects text={text.projects} />
           <Skills text={text.skills} />
-          <CV text={text.cv} />
+          <CV />
           <Contact text={text.contact} />
         </main>
 
