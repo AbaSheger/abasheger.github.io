@@ -137,6 +137,15 @@ const App = () => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, []);
 
+  // Add swipe gestures for mobile menu
+  const handleSwipe = (e) => {
+    if (e.direction === 'right') {
+      setMenuOpen(true);
+    } else if (e.direction === 'left') {
+      setMenuOpen(false);
+    }
+  };
+
   return (
     <div className={darkMode ? 'dark' : ''}>
       <div className="min-h-screen bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
@@ -159,40 +168,39 @@ const App = () => {
           <div role="region" aria-label="Introduction">
             <section 
               id="hero" 
-              className="pt-24 md:pt-36 pb-16 px-4 min-h-[90vh] relative overflow-hidden flex items-center"
+              className="pt-24 md:pt-36 pb-16 px-4 min-h-[90vh] relative overflow-hidden flex items-center justify-center"
               aria-labelledby="hero-title"
             >
-              <h2 id="hero-title" className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-                Abenezer Anglo<span aria-hidden="true" className="text-blue-600 dark:text-blue-400">.</span>
-              </h2>
-              <div className="max-w-5xl mx-auto relative z-10">
+              <div className="max-w-5xl w-full relative z-10">
                 <div className="animate-fadeIn">
-                  <span className="text-blue-600 dark:text-blue-400 font-mono mb-4 block">{text.hero.greeting}</span>
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-                    Abenezer Anglo<span className="text-blue-600 dark:text-blue-400">.</span>
-                    <div className="mt-2 text-base">
-                      <Location />
+                  <div className="text-center">
+                    <span className="text-blue-600 dark:text-blue-400 font-mono mb-4 block">{text.hero.greeting}</span>
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+                      Abenezer Anglo<span className="text-blue-600 dark:text-blue-400">.</span>
+                      <div className="mt-2 text-base">
+                        <Location />
+                      </div>
+                    </h1>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 text-gray-600 dark:text-gray-400">
+                      {text.hero.title}
+                    </h2>
+                    <p className="text-lg mx-auto max-w-xl mb-8 text-gray-600 dark:text-gray-400">
+                      {text.hero.description}
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <a 
+                        href="#contact" 
+                        className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-all duration-300 text-center"
+                      >
+                        {text.hero.contactBtn}
+                      </a>
+                      <a 
+                        href="#projects" 
+                        className="px-6 py-3 border border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/10 text-blue-600 dark:text-blue-400 font-medium rounded-md transition-all duration-300 text-center"
+                      >
+                        {text.hero.projectsBtn}
+                      </a>
                     </div>
-                  </h1>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 text-gray-600 dark:text-gray-400">
-                    {text.hero.title}
-                  </h2>
-                  <p className="text-lg max-w-xl mb-8 text-gray-600 dark:text-gray-400">
-                    {text.hero.description}
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <a 
-                      href="#contact" 
-                      className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-all duration-300 text-center"
-                    >
-                      {text.hero.contactBtn}
-                    </a>
-                    <a 
-                      href="#projects" 
-                      className="px-6 py-3 border border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/10 text-blue-600 dark:text-blue-400 font-medium rounded-md transition-all duration-300 text-center"
-                    >
-                      {text.hero.projectsBtn}
-                    </a>
                   </div>
                 </div>
               </div>

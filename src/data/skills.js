@@ -3,7 +3,7 @@ export const skillCategories = [
     id: 'backend',
     title: 'Backend & Programming',
     icon: 'code',
-    skills: ['Java', 'Spring Boot', 'REST APIs', 'Maven', 'MySQL', 'H2', 'JUnit', 'Mockito', 'TDD']
+    skills: ['Java', 'C#', '.NET', 'Python', 'Spring Boot', 'REST APIs', 'Postman', 'Keycloak', 'Maven', 'MySQL', 'H2', 'JUnit', 'Mockito', 'TDD']
   },
   {
     id: 'devops',
