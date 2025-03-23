@@ -45,7 +45,7 @@ export const ProjectCard = ({ project }) => {
   const tag = getProjectTag();
   
   return (
-    <div className="group relative bg-white dark:bg-dark-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] hover:-translate-y-1">
+    <div className="group relative bg-white dark:bg-dark-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] hover:-translate-y-1" role="article" aria-labelledby={`project-${title.replace(/\s+/g, '-')}`}>
       {/* Glow effect */}
       <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-0 group-hover:opacity-75 transition duration-500 group-hover:duration-200 animate-tilt"></div>
       
@@ -68,17 +68,21 @@ export const ProjectCard = ({ project }) => {
         </div>
 
         <div className="p-4 sm:p-6 relative z-10">
-          <h3 className="text-lg sm:text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+          <h3 
+            id={`project-${title.replace(/\s+/g, '-')}`}
+            className="text-lg sm:text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300"
+          >
             {title}
           </h3>
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 line-clamp-3" aria-label={`Project description: ${description}`}>
             {description}
           </p>
           
-          <div className="mb-4 flex flex-wrap gap-1.5 sm:gap-2">
+          <div className="mb-4 flex flex-wrap gap-1.5 sm:gap-2" role="list" aria-label="Technologies used">
             {technologies.map((tech) => (
               <span 
                 key={tech}
+                role="listitem"
                 className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full transition-transform duration-300 hover:scale-105"
               >
                 {tech}

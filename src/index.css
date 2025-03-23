@@ -69,6 +69,10 @@
   .shadow-soft {
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
   }
+  
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-dark-900;
+  }
 }
 
 /* Dark mode colors */
@@ -106,3 +110,12 @@ html {
 }
 
 @import './styles/cv-print.css';
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -4,8 +4,9 @@ const ThemeToggle = ({ darkMode, toggleDarkMode }) => {
   return (
     <button
       onClick={toggleDarkMode}
-      className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 p-3 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white dark:bg-dark-800 shadow-md hover:shadow-lg transition-all duration-300 group"
-      aria-label="Toggle dark mode"
+      className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 p-3 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white dark:bg-dark-800 shadow-md hover:shadow-lg transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      aria-pressed={darkMode}
     >
       {darkMode ? (
         <svg

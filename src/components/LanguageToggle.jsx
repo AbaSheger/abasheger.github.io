@@ -9,9 +9,11 @@ export const LanguageToggle = ({ language, toggleLanguage, isMobile = false }) =
     <button 
       onClick={toggleLanguage} 
       className={commonClasses}
-      aria-label="Toggle language"
+      aria-label={language === 'en' ? "Switch to Swedish" : "Switch to English"}
+      aria-pressed={language === 'en'}
     >
-      {language === 'en' ? '🇬🇧 EN' : '🇸🇪 SV'}
+      <span aria-hidden="true">{language === 'en' ? '🇬🇧' : '��🇪'}</span>
+      <span className="ml-1">{language === 'en' ? 'EN' : 'SV'}</span>
     </button>
   );
 };
