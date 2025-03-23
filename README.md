@@ -1,38 +1,57 @@
-# Abasheger.github.io
+# Portfolio Website
 
-## Portfolio Description
+## Description
+My personal portfolio website built with React, showcasing my projects, skills, and professional experience. Visit the live site at [https://abasheger.github.io](https://abasheger.github.io)
 
-This repository contains my personal portfolio. It showcases my skills, projects, and contact information.
+## Technologies Used
+- React
+- Tailwind CSS
+- GitHub Pages
+- JavaScript/JSX
 
-## Viewing the Portfolio
+## Features
+- Responsive design
+- Dark/Light mode toggle
+- Interactive project cards
+- Smooth scrolling navigation
+- Multi-language support
+- Dynamic content loading
 
-To view the portfolio, open the `index.html` file in a web browser. You can also visit the live version of the portfolio at [https://Abasheger.github.io](https://Abasheger.github.io).
+## Sections
+- About Me
+- Projects Portfolio
+- Technical Skills
+- Contact Information
+- CV/Resume
+- Education
 
-## New Features
+## Local Development
+1. Clone the repository:
+```bash
+git clone https://github.com/abasheger/abasheger.github.io.git
+```
 
-- Added a navigation menu for better navigation between sections.
-- Enhanced the UI with improved styling, animations, and transitions.
-- Added interactive elements for a more engaging user experience.
-- Created additional pages for a full-fledged portfolio website.
+2. Install dependencies:
+```bash
+npm install
+```
 
-## Navigating the Portfolio
+3. Start development server:
+```bash
+npm start
+```
 
-The portfolio now includes a navigation menu with links to different sections:
-- About
-- Projects
-- Contact
-- Skills
-- Photo
-- CV
-- Apps
+4. To deploy:
+```bash
+npm run deploy
+```
 
-You can use the navigation menu to quickly jump to any section of the portfolio. Additionally, smooth scrolling has been implemented for a seamless browsing experience.
+## Project Structure
+- `/src` - React components and source code
+- `/public` - Static assets
+- `/src/data` - Content data (projects, translations, skills)
+- `/src/components` - React components
 
-## Apps Section
-
-The portfolio now includes sections for each app with the following details:
-- Name
-- Description (e.g., "Built with Java Spring Boot and React")
-- Screenshot
-- Live link
-- Optional GitHub repo link
+## Contact
+- GitHub: [@abasheger](https://github.com/abasheger)
+- LinkedIn: [Abenezer Anglo](https://www.linkedin.com/in/abenezer-anglo-537488144/)
