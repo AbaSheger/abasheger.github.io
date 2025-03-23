@@ -233,12 +233,14 @@ const App = () => {
           )}
 
           {/* Add proper focus management for interactive elements */}
-          <style jsx>{`
+          <style>
+            {`
             :focus-visible {
               outline: 2px solid #60a5fa;
               outline-offset: 2px;
             }
-          `}</style>
+            `}
+          </style>
 
           <div 
             role="status" 
