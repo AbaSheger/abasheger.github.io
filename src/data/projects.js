@@ -4,7 +4,7 @@ const stagefinderImage = './assets/stagefinder.png'; // You'll need to add this 
 const wigellPadelImage = './assets/wigell-padel.png';
 const DevOpsImage = './assets/DevOps.png';
 const eventOrganizerImage = './assets/event-organizer.png'; // You'll need to add this image
-
+//const borsvyImage = './assets/borsvy.png'; 
 
 
 export const projects = {
@@ -70,6 +70,17 @@ export const projects = {
       image: eventOrganizerImage,
       description: "A Windows desktop application for managing events and participants. Features include event creation, participant management, and financial calculations for event planning.",
       githubLink: "https://github.com/AbaSheger/Eventorganizer",
+      isSchoolProject: true
+    },
+    {
+      id: 7,
+      title: "Borsvy - Stock Analysis Platform",
+      category: "fullstack",
+      technologies: ["React", "Spring Boot", "H2 Database", "Ant Design", "Tailwind CSS", "AI-Powered Analysis"], // Added AI feature to technologies
+      image: "/assets/borsvy.png", // Updated to use the correct path from the public folder
+      description: "A comprehensive web-based stock analysis platform built with React, Spring Boot, and multiple financial APIs. Features include real-time stock data visualization, technical analysis, news sentiment analysis, and personalized watchlists.",
+      liveLink: "https://borsvy.abenezeranglo.uk/", // Added live link for the Borsvy project
+      githubLink: "https://github.com/AbaSheger/borsvy",
       isSchoolProject: true
     }
   ],
