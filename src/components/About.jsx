@@ -14,10 +14,11 @@ export const About = ({ text }) => {
           <p className="text-lg leading-relaxed">{text.bio2}</p>
           
           <div className="mt-16">
-            <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">{text.education.title}</h3>
-            <ul className="space-y-4 list-disc list-inside ml-4">
+            <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">{text.education.title}</h3>            <ul className="space-y-4 list-disc list-inside ml-4">
               <li className="text-lg">{text.education.current}</li>
               <li className="text-lg">{text.education.ml}</li>
+              <li className="text-lg">{text.education.bachelor}</li>
+              <li className="text-lg ml-6">{text.education.major}</li>
               <li className="text-lg">{text.education.csharp}</li>
             </ul>
           </div>
