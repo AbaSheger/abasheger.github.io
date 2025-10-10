@@ -33,9 +33,14 @@ jobs:
         env:
           CI: false
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: build # CRA's build output folder
-          branch: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./build
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
