@@ -10,8 +10,8 @@ export const About = ({ text }) => {
         </h2>
         
         <div className="space-y-8 text-gray-600 dark:text-gray-300 max-w-3xl">
-          <p className="text-lg leading-relaxed">{text.bio1}</p>
-          <p className="text-lg leading-relaxed">{text.bio2}</p>
+          <p className="text-lg leading-relaxed hover:text-gray-800 dark:hover:text-gray-100 transition-colors duration-200">{text.bio1}</p>
+          <p className="text-lg leading-relaxed hover:text-gray-800 dark:hover:text-gray-100 transition-colors duration-200">{text.bio2}</p>
           
           <div className="mt-16">
             <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">{text.education.title}</h3>            <ul className="space-y-4 list-disc list-inside ml-4">
