@@ -22,13 +22,20 @@ export const translations = {
     about: {
       sectionTitle: "About Me",
       bio1: "I am a passionate developer focused on building scalable and reliable systems that enable efficient data sharing and user-friendly solutions. My expertise spans from Java-based microservices to frontend development with React.",
-      bio2: "Having graduated from an Agile Java Developer program at EduGrade, I combine my formal education with practical experience in full-stack development, DevOps, and system integration. Based in Borlänge, Sweden, I'm always eager to take on new challenges in modern software environments.",      education: {
+      bio2: "Having graduated from an Agile Java Developer program at EduGrade, I combine my formal education with practical experience in full-stack development, DevOps, and system integration. Based in Borlänge, Sweden, I'm always eager to take on new challenges in modern software environments.",
+      education: {
         title: "Education",
         current: "Agile Java Developer - EduGrade (2023-2025)",
-        ml: "Foundations of Machine Learning - Linköping University (Jan-Jun 2025)",
+        ml: "Foundations of Machine Learning (Freestanding Course) - Linköping University (Jan 2025 - Present)",
         bachelor: "Bachelor's in Development Studies (180 ECTS) - Lund University (2010-2013, degree issued 2025)",
         major: "Major: Human Geography",
-        csharp: "Programming in C# - Malmö University (2021-2022)"
+        csharp: "Programming in C# (Freestanding Course) - Malmö University (2021-2022)"
+      },
+      certifications: {
+        title: "Certifications",
+        azure: "Microsoft Certified: Azure Fundamentals",
+        azureDate: "Earned January 20, 2026",
+        verified: "Verified"
       }
     },
     
@@ -100,13 +107,20 @@ export const translations = {
     about: {
       sectionTitle: "Om Mig",
       bio1: "Jag är en engagerad Java-utvecklare med passion för att bygga skalbara och pålitliga mjukvarulösningar. Min expertis omfattar backend-utveckling, API-design och systemintegration.",
-      bio2: "Efter att ha avslutat en utbildning som Agil Java-utvecklare på EduGrade, kombinerar jag min formella utbildning med praktisk erfarenhet av fullstack-utveckling, DevOps och systemintegration. Baserad i Borlänge, Sverige, är jag alltid redo att ta mig an nya utmaningar i moderna mjukvarumiljöer.",      education: {
+      bio2: "Efter att ha avslutat en utbildning som Agil Java-utvecklare på EduGrade, kombinerar jag min formella utbildning med praktisk erfarenhet av fullstack-utveckling, DevOps och systemintegration. Baserad i Borlänge, Sverige, är jag alltid redo att ta mig an nya utmaningar i moderna mjukvarumiljöer.",
+      education: {
         title: "Utbildning",
         current: "Agil Java-utvecklare - EduGrade (2023-2025)",
-        ml: "Grundläggande Maskininlärning - Linköpings Universitet (Jan-Jun 2025)",
+        ml: "Grundläggande Maskininlärning (Fristående kurs) - Linköpings Universitet (Jan 2025 - Pågående)",
         bachelor: "Kandidat i Utvecklingsstudier (180 hp) - Lunds universitet (2010-2013, examen utfärdad 2025)",
         major: "Huvudområde: Samhällsgeografi",
-        csharp: "Programmering i C# - Malmö Universitet (2021-2022)"
+        csharp: "Programmering i C# (Fristående kurs) - Malmö Universitet (2021-2022)"
+      },
+      certifications: {
+        title: "Certifieringar",
+        azure: "Microsoft Certified: Azure Fundamentals",
+        azureDate: "Erhållen 20 januari 2026",
+        verified: "Verifierad"
       }
     },
     
