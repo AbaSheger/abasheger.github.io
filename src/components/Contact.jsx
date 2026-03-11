@@ -9,10 +9,10 @@ export const Contact = ({ text }) => {
     e.preventDefault();
     setFormStatus('sending');
     emailjs.sendForm(
-      process.env.REACT_APP_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID',
-      process.env.REACT_APP_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID',
+      'service_tge1yei',
+      'template_5fjm9nf',
       formRef.current,
-      process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY'
+      'x2FmC_pDx2Ves-R_E'
     ).then(() => {
       setFormStatus('success');
       formRef.current.reset();
@@ -170,7 +170,7 @@ const ContactCard = ({ type, title, value, href, icon, gradient }) => (
     {/* Gradient background on hover */}
     <div className={`absolute inset-0 bg-gradient-to-r ${gradient} opacity-0 group-hover/card:opacity-10 transition-opacity duration-300`}></div>
     
-    <div className={`mr-4 flex-shrink-0 w-14 h-14 flex items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white shadow-lg group-hover/card:scale-110 group-hover/card:rotate-6 transition-all duration-300`}>
+    <div className={`mr-4 flex-shrink-0 w-14 h-14 flex items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white shadow-lg group-hover/card:scale-110 group-hover/card:rotate-6 transition-all duration-300`}> 
       {icon}
     </div>
     <div className="text-left relative z-10">
@@ -216,3 +216,5 @@ const SocialLink = ({ href, icon, label, gradient }) => (
     )}
   </a>
 );
+
+Commit message: "Add EmailJS credentials to contact form"
