@@ -1,121 +1,61 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
-
-const knowledgeBase = {
-  en: [
-    {
-      patterns: [/who are you|about you|tell me about|introduce yourself/i],
-      answer: "I'm Abenezer Anglo, a passionate Software Developer based in Borlänge, Sweden. I specialize in building scalable, reliable systems using Java, Spring Boot, React, and cloud technologies. 🚀"
-    },
-    {
-      patterns: [/skills|technologies|tech stack|what do you know|expertise/i],
-      answer: "My core skills include: ☕ Java & Spring Boot, ⚛️ React, 🐳 Docker & Kubernetes, ☁️ Azure (AZ-900 certified), 🗄️ MySQL & databases, and DevOps with CI/CD pipelines."
-    },
-    {
-      patterns: [/project|work|built|portfolio|created/i],
-      answer: "I've built several projects! Highlights include: 🎵 Music Analytics Platform (Spring Boot + React microservices), 📊 Borsvy (stock analysis with React & Spring Boot), 🎤 StageFinder (AI-powered event platform with Groq AI), and a Wigell Padel booking REST API. Check the Projects section above!"
-    },
-    {
-      patterns: [/education|study|school|degree|university|certif/i],
-      answer: "I graduated as an Agile Java Developer from EduGrade (2023-2025). I also hold a Bachelor's in Development Studies from Lund University, and I'm Microsoft Certified: Azure Fundamentals (AZ-900). 🎓"
-    },
-    {
-      patterns: [/contact|reach|email|hire|available|work together/i],
-      answer: "You can reach me at merebanglo@gmail.com 📧 or call +46 76 408 79 19 📱. You can also use the Contact form below! I'm always open to new opportunities. 😊"
-    },
-    {
-      patterns: [/location|where|based|sweden|borlänge/i],
-      answer: "I'm based in Borlänge, Sweden 🇸🇪. I'm open to both remote and on-site opportunities."
-    },
-    {
-      patterns: [/cv|resume|download/i],
-      answer: "You can download my CV in both English and Swedish from the CV section on this page! 📄"
-    },
-    {
-      patterns: [/github|open source|code/i],
-      answer: "Check out my GitHub at github.com/AbaSheger for open source contributions and personal projects! I contributed to JMailer Spring Boot and several other projects. 💻"
-    },
-    {
-      patterns: [/hello|hi |hey|greet|hej/i],
-      answer: "Hello! 👋 I'm a chatbot that can answer questions about Abenezer. Ask me about his skills, projects, education, or how to get in touch!"
-    },
-  ],
-  sv: [
-    {
-      patterns: [/vem är|om dig|berätta|presentera/i],
-      answer: "Jag är Abenezer Anglo, en passionerad mjukvaruutvecklare baserad i Borlänge, Sverige. Jag specialiserar mig på att bygga skalbara system med Java, Spring Boot, React och molnteknologier. 🚀"
-    },
-    {
-      patterns: [/kompetens|teknik|kunskaper|erfarenhet/i],
-      answer: "Mina kärnkompetenser: ☕ Java & Spring Boot, ⚛️ React, 🐳 Docker & Kubernetes, ☁️ Azure (AZ-900 certifierad), 🗄️ MySQL, och DevOps med CI/CD-pipelines."
-    },
-    {
-      patterns: [/projekt|byggt|portfolio|skapade/i],
-      answer: "Jag har byggt flera projekt! Höjdpunkter: 🎵 Musikanalysplattform, 📊 Borsvy (aktieanalys), 🎤 StageFinder (AI-driven eventplattform). Kolla in Projektsektionen ovan!"
-    },
-    {
-      patterns: [/utbildning|studie|skola|examen|universitet|certif/i],
-      answer: "Jag utbildade mig till Agil Java-utvecklare på EduGrade (2023-2025). Jag har även en kandidatexamen från Lunds universitet och är Microsoft Certified: Azure Fundamentals (AZ-900). 🎓"
-    },
-    {
-      patterns: [/kontakt|nå|epost|anställa|tillgänglig|samarbeta/i],
-      answer: "Du når mig på merebanglo@gmail.com 📧 eller ring +46 76 408 79 19 📱. Använd gärna kontaktformuläret nedan! 😊"
-    },
-    {
-      patterns: [/plats|var|baserad|sverige|borlänge/i],
-      answer: "Jag är baserad i Borlänge, Sverige 🇸🇪. Jag är öppen för både distans- och platsbundna möjligheter."
-    },
-    {
-      patterns: [/cv|meritförteckning|ladda ner/i],
-      answer: "Du kan ladda ner mitt CV på både engelska och svenska från CV-sektionen på denna sida! 📄"
-    },
-    {
-      patterns: [/hej|hallå|tjena|hejsan/i],
-      answer: "Hej! 👋 Jag är en chatbot som kan svara på frågor om Abenezer. Fråga mig om hans kompetenser, projekt, utbildning eller hur du kommer i kontakt med honom!"
-    },
-  ]
-};
+import { cvData } from '../data/cvData';
 
 const suggestedQuestions = {
-  en: ["What are your skills?", "Tell me about your projects", "How can I contact you?"],
-  sv: ["Vad är dina kompetenser?", "Berätta om dina projekt", "Hur kontaktar jag dig?"]
-};
-
-const fallback = {
-  en: "I'm not sure about that. Try asking about Abenezer's skills, projects, education, or contact info! 🤔",
-  sv: "Jag är inte säker på det. Prova att fråga om Abenezer's kompetenser, projekt, utbildning eller kontaktuppgifter! 🤔"
-};
-
-const getPatternAnswer = (input, lang) => {
-  const kb = knowledgeBase[lang] || knowledgeBase.en;
-  for (const entry of kb) {
-    if (entry.patterns.some(pattern => pattern.test(input))) {
-      return entry.answer;
-    }
-  }
-  return null;
+  en: ["Tell me about yourself", "What projects have you built?", "What are your strongest skills?"],
+  sv: ["Berätta om dig själv", "Vilka projekt har du byggt?", "Vad är dina starkaste kompetenser?"]
 };
 
 const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
 
-const systemPrompt = {
-  en: `You are a helpful chatbot on Abenezer Anglo's portfolio website. Answer questions about Abenezer concisely and friendly. Here is his info:
-- Software Developer based in Borlänge, Sweden
-- Skills: Java, Spring Boot, React, Docker, Kubernetes, Azure (AZ-900 certified), MySQL, CI/CD
-- Education: Agile Java Developer from EduGrade (2023-2025), Bachelor's in Development Studies from Lund University
-- Projects: Music Analytics Platform, Borsvy (stock analysis), StageFinder (AI event platform with Groq AI), Wigell Padel REST API, JMailer (open source contribution)
-- Contact: merebanglo@gmail.com, +46 76 408 79 19
-Keep responses short (2-3 sentences). Use emojis sparingly.`,
-  sv: `Du är en hjälpsam chatbot på Abenezer Anglos portfoliowebbplats. Svara på frågor om Abenezer kort och vänligt. Här är hans info:
-- Mjukvaruutvecklare baserad i Borlänge, Sverige
-- Kompetenser: Java, Spring Boot, React, Docker, Kubernetes, Azure (AZ-900 certifierad), MySQL, CI/CD
-- Utbildning: Agil Java-utvecklare från EduGrade (2023-2025), Kandidatexamen från Lunds universitet
-- Projekt: Musikanalysplattform, Borsvy (aktieanalys), StageFinder (AI-eventplattform med Groq AI), Wigell Padel REST API, JMailer (öppen källkod)
-- Kontakt: merebanglo@gmail.com, +46 76 408 79 19
-Håll svaren korta (2-3 meningar). Använd emojis sparsamt. Svara på svenska.`
+const buildSystemPrompt = (lang) => {
+  const edu = cvData.education.map(e => `  - ${e.degree}, ${e.institution} (${e.period})`).join('\n');
+  const certs = cvData.certifications.map(c => `  - ${c.name} (${c.date})`).join('\n');
+  const projects = cvData.projects.map(p =>
+    `  - ${p.title} [${p.category}]: ${p.description} Technologies: ${p.technologies.join(', ')}.`
+  ).join('\n');
+
+  const base = `You are a helpful and friendly AI assistant on Abenezer Anglo's portfolio website.
+Your job is to answer questions about Abenezer accurately and concisely based on the following information.
+Only answer based on the information provided. If you don't know something, say so politely.
+Keep responses to 2-4 sentences. Use emojis sparingly.
+
+NAME: ${cvData.name}
+TITLE: ${cvData.title}
+LOCATION: ${cvData.location}
+EMAIL: ${cvData.email}
+PHONE: ${cvData.phone}
+GITHUB: ${cvData.github}
+WEBSITE: ${cvData.website}
+
+SUMMARY:
+${cvData.summary}
+
+EDUCATION:
+${edu}
+
+CERTIFICATIONS:
+${certs}
+
+SKILLS:
+- Backend & Programming: ${cvData.skills.backend.join(', ')}
+- DevOps & CI/CD: ${cvData.skills.devops.join(', ')}
+- Frontend & UI: ${cvData.skills.frontend.join(', ')}
+- Agile & Other: ${cvData.skills.agile.join(', ')}
+
+PROJECTS:
+${projects}
+
+LANGUAGES: ${cvData.languages.join(', ')}
+AVAILABILITY: ${cvData.openTo}`;
+
+  return lang === 'sv' ? `${base}\n\nRespond in Swedish.` : base;
 };
 
-const fetchGroqResponse = async (userMessage, lang) => {
+const fetchGroqResponse = async (messages, lang) => {
+  const systemPromptContent = buildSystemPrompt(lang);
+  const fullMessages = [{ role: 'system', content: systemPromptContent }, ...messages];
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -124,19 +64,12 @@ const fetchGroqResponse = async (userMessage, lang) => {
     },
     body: JSON.stringify({
       model: 'llama-3.3-70b-versatile',
-      messages: [
-        { role: 'system', content: systemPrompt[lang] || systemPrompt.en },
-        { role: 'user', content: userMessage },
-      ],
-      max_tokens: 256,
+      messages: fullMessages,
+      max_tokens: 300,
       temperature: 0.7,
     }),
   });
-
-  if (!response.ok) {
-    throw new Error(`Groq API error: ${response.status}`);
-  }
-
+  if (!response.ok) throw new Error(`Groq API error: ${response.status}`);
   const data = await response.json();
   return data.choices?.[0]?.message?.content?.trim() || null;
 };
@@ -145,6 +78,7 @@ const Chatbot = () => {
   const { language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [conversationHistory, setConversationHistory] = useState([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
@@ -158,6 +92,17 @@ const Chatbot = () => {
     }
   }, [messages, isTyping]);
 
+  const handleToggle = () => {
+    setIsOpen(prev => {
+      if (prev) {
+        setMessages([]);
+        setConversationHistory([]);
+        setShowSuggestions(true);
+      }
+      return !prev;
+    });
+  };
+
   const sendMessage = async (text) => {
     const userText = text || input.trim();
     if (!userText) return;
@@ -167,33 +112,29 @@ const Chatbot = () => {
     setShowSuggestions(false);
     setIsTyping(true);
 
-    // Try pattern matching first
-    const patternAnswer = getPatternAnswer(userText, language);
-    if (patternAnswer) {
-      setTimeout(() => {
-        setIsTyping(false);
-        setMessages(prev => [...prev, { from: 'bot', text: patternAnswer }]);
-      }, 500);
+    const newHistory = [...conversationHistory, { role: 'user', content: userText }];
+    const historyToSend = newHistory.slice(-6);
+
+    if (!GROQ_API_KEY) {
+      setIsTyping(false);
+      setMessages(prev => [...prev, { from: 'bot', text: 'AI chat is not available right now. Please contact me directly at merebanglo@gmail.com 📧' }]);
       return;
     }
 
-    // Fall back to Groq API if available
-    if (GROQ_API_KEY) {
-      try {
-        const aiAnswer = await fetchGroqResponse(userText, language);
-        if (aiAnswer) {
-          setIsTyping(false);
-          setMessages(prev => [...prev, { from: 'bot', text: aiAnswer }]);
-          return;
-        }
-      } catch (error) {
-        console.error('Groq API call failed:', error);
+    try {
+      const aiAnswer = await fetchGroqResponse(historyToSend, language);
+      if (aiAnswer) {
+        setConversationHistory([...newHistory, { role: 'assistant', content: aiAnswer }].slice(-6));
+        setIsTyping(false);
+        setMessages(prev => [...prev, { from: 'bot', text: aiAnswer }]);
+        return;
       }
+    } catch (error) {
+      console.error('Groq API call failed:', error);
     }
 
-    // Final fallback
     setIsTyping(false);
-    setMessages(prev => [...prev, { from: 'bot', text: fallback[language] || fallback.en }]);
+    setMessages(prev => [...prev, { from: 'bot', text: 'AI chat is not available right now. Please contact me directly at merebanglo@gmail.com 📧' }]);
   };
 
   const handleKeyDown = (e) => {
@@ -212,7 +153,7 @@ const Chatbot = () => {
           <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600">
             <span className="text-white font-semibold text-sm">{headerText}</span>
             <button
-              onClick={() => setIsOpen(false)}
+              onClick={handleToggle}
               aria-label="Close chat"
               className="text-white/80 hover:text-white transition-colors"
             >
@@ -297,7 +238,7 @@ const Chatbot = () => {
 
       {/* Toggle button */}
       <button
-        onClick={() => setIsOpen(prev => !prev)}
+        onClick={handleToggle}
         aria-label={isOpen ? 'Close chat' : 'Open chat'}
         className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/40 hover:shadow-xl hover:shadow-blue-500/50 hover:scale-110 transition-all duration-300"
       >
