@@ -10,6 +10,7 @@ import { CV } from './components/CV';
 import { Location } from './components/Location';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { SkeletonLoader } from './components/SkeletonLoader';
+import Chatbot from './components/Chatbot';
 
 // Lazy load the ParticleBackground for better performance
 const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
@@ -103,6 +104,10 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
+  useEffect(() => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
@@ -136,16 +141,8 @@ const App = () => {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // Add swipe gestures for mobile menu
-  const handleSwipe = (e) => {
-    if (e.direction === 'right') {
-      setMenuOpen(true);
-    } else if (e.direction === 'left') {
-      setMenuOpen(false);
-    }
-  };
 
   return (
     <div className={darkMode ? 'dark' : ''}>
@@ -327,6 +324,7 @@ const App = () => {
             >
               {announcement}
             </div>
+            <Chatbot />
           </main>
         </ErrorBoundary>
       </div>

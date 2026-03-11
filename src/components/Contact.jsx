@@ -1,6 +1,26 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 export const Contact = ({ text }) => {
+  const formRef = useRef();
+  const [formStatus, setFormStatus] = useState('idle'); // idle | sending | success | error
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormStatus('sending');
+    emailjs.sendForm(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID',
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID',
+      formRef.current,
+      process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY'
+    ).then(() => {
+      setFormStatus('success');
+      formRef.current.reset();
+    }).catch(() => {
+      setFormStatus('error');
+    });
+  };
+
   return (
     <section id="contact" className="py-24 px-4 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-dark-900 dark:via-dark-800/50 dark:to-dark-900 relative overflow-hidden">
       {/* Background decorations */}
@@ -60,6 +80,81 @@ export const Contact = ({ text }) => {
             </div>
             
             <SocialLinks />
+          </div>
+        </div>
+
+        {/* Contact Form */}
+        <div className="relative group mt-12 max-w-3xl mx-auto">
+          <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 rounded-3xl blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+          <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50">
+            <form ref={formRef} onSubmit={handleSubmit}>
+              <div className="mb-5">
+                <label htmlFor="contact-name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  {text.formName}
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  name="from_name"
+                  required
+                  placeholder={text.formNamePlaceholder}
+                  className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-200/50 dark:border-gray-600/50 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-200"
+                />
+              </div>
+              <div className="mb-5">
+                <label htmlFor="contact-email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  {text.formEmail}
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  name="reply_to"
+                  required
+                  placeholder={text.formEmailPlaceholder}
+                  className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-200/50 dark:border-gray-600/50 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-200"
+                />
+              </div>
+              <div className="mb-6">
+                <label htmlFor="contact-message" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  {text.formMessage}
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  required
+                  rows={5}
+                  placeholder={text.formMessagePlaceholder}
+                  className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-200/50 dark:border-gray-600/50 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-200 resize-none"
+                />
+              </div>
+
+              {formStatus === 'success' && (
+                <p className="mb-4 text-green-600 dark:text-green-400 text-sm font-medium text-center">
+                  {text.formSuccess}
+                </p>
+              )}
+              {formStatus === 'error' && (
+                <p className="mb-4 text-red-600 dark:text-red-400 text-sm font-medium text-center">
+                  {text.formError}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={formStatus === 'sending'}
+                className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-[length:200%_100%] hover:bg-right text-white font-semibold rounded-xl transition-all duration-500 shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+              >
+                {formStatus === 'sending' ? (
+                  <>
+                    <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                    </svg>
+                    {text.formSending}
+                  </>
+                ) : text.formSend}
+              </button>
+            </form>
           </div>
         </div>
       </div>
