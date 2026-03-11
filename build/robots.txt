@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://abasheger.github.io/sitemap.xml
