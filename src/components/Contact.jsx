@@ -163,13 +163,12 @@ export const Contact = ({ text }) => {
 };
 
 const ContactCard = ({ type, title, value, href, icon, gradient }) => (
-  <a 
-    href={href} 
+  <a
+    href={href}
     className="group/card flex items-center bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm p-5 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:border-transparent transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden"
   >
     {/* Gradient background on hover */}
     <div className={`absolute inset-0 bg-gradient-to-r ${gradient} opacity-0 group-hover/card:opacity-10 transition-opacity duration-300`}></div>
-    
     <div className={`mr-4 flex-shrink-0 w-14 h-14 flex items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white shadow-lg group-hover/card:scale-110 group-hover/card:rotate-6 transition-all duration-300`}> 
       {icon}
     </div>
@@ -198,7 +197,7 @@ const SocialLinks = () => (
 );
 
 const SocialLink = ({ href, icon, label, gradient }) => (
-  <a 
+  <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
@@ -216,5 +215,3 @@ const SocialLink = ({ href, icon, label, gradient }) => (
     )}
   </a>
 );
-
-Commit message: "Add EmailJS credentials to contact form"
