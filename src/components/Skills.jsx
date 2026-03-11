@@ -8,7 +8,21 @@ const SkillCard = ({ title, icon, skills, index }) => {
     'from-orange-500 to-red-500',
     'from-green-500 to-emerald-500'
   ];
+  const shadowClasses = [
+    'shadow-blue-500/25',
+    'shadow-purple-500/25',
+    'shadow-orange-500/25',
+    'shadow-green-500/25'
+  ];
+  const hoverGradientClasses = [
+    'group-hover:from-blue-500 group-hover:to-cyan-500',
+    'group-hover:from-purple-500 group-hover:to-pink-500',
+    'group-hover:from-orange-500 group-hover:to-red-500',
+    'group-hover:from-green-500 group-hover:to-emerald-500'
+  ];
   const gradient = gradients[index % gradients.length];
+  const shadow = shadowClasses[index % shadowClasses.length];
+  const hoverGradient = hoverGradientClasses[index % hoverGradientClasses.length];
 
   return (
     <div className="group relative">
@@ -17,7 +31,7 @@ const SkillCard = ({ title, icon, skills, index }) => {
       
       <div className="relative bg-white dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 hover:border-transparent transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl h-full">
         {/* Icon with gradient background */}
-        <div className={`w-14 h-14 mb-6 flex items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white shadow-lg shadow-${gradient.split('-')[1]}-500/25 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+        <div className={`w-14 h-14 mb-6 flex items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white shadow-lg ${shadow} group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
           {icon === 'code' && (
             <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -40,7 +54,7 @@ const SkillCard = ({ title, icon, skills, index }) => {
           )}
         </div>
         
-        <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white group-hover:bg-gradient-to-r group-hover:${gradient} group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">{title}</h3>
+        <h3 className={`text-xl font-bold mb-4 text-gray-900 dark:text-white group-hover:bg-gradient-to-r ${hoverGradient} group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300`}>{title}</h3>
         
         <div className="flex flex-wrap gap-2">
           {skills.map((skill, skillIndex) => (
@@ -90,28 +104,6 @@ export const Skills = ({ text }) => {
             />
           ))}
         </div>
-      </div>
-    </section>
-  );
-};
-
-const Blog = () => {
-  return (
-    <section id="blog" className="py-20">
-      <h2 className="text-3xl font-bold mb-8">Latest Articles</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Blog post cards */}
-      </div>
-    </section>
-  );
-};
-
-const Testimonials = () => {
-  return (
-    <section id="testimonials" className="py-20 bg-gray-50 dark:bg-gray-900">
-      <h2 className="text-3xl font-bold mb-8">What People Say</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Testimonial cards */}
       </div>
     </section>
   );

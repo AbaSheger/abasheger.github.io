@@ -61,7 +61,17 @@ export const translations = {
       description: "Feel free to reach out if you're looking for a developer, have a question, or just want to connect.",
       email: "Email",
       phone: "Phone",
-      messageBtn: "Send Me a Message"
+      messageBtn: "Send Me a Message",
+      formName: "Your Name",
+      formEmail: "Your Email",
+      formMessage: "Your Message",
+      formSend: "Send Message",
+      formSending: "Sending...",
+      formSuccess: "Message sent! I'll get back to you soon.",
+      formError: "Failed to send. Please try emailing me directly.",
+      formNamePlaceholder: "John Doe",
+      formEmailPlaceholder: "john@example.com",
+      formMessagePlaceholder: "Hello, I'd like to work with you..."
     },
     
     // CV
@@ -146,7 +156,17 @@ export const translations = {
       description: "Hör gärna av dig om du letar efter en utvecklare, har en fråga eller bara vill komma i kontakt.",
       email: "E-post",
       phone: "Telefon",
-      messageBtn: "Skicka Meddelande"
+      messageBtn: "Skicka Meddelande",
+      formName: "Ditt Namn",
+      formEmail: "Din E-post",
+      formMessage: "Ditt Meddelande",
+      formSend: "Skicka Meddelande",
+      formSending: "Skickar...",
+      formSuccess: "Meddelande skickat! Jag återkommer snart.",
+      formError: "Misslyckades med att skicka. Vänligen maila mig direkt.",
+      formNamePlaceholder: "Johan Svensson",
+      formEmailPlaceholder: "johan@exempel.com",
+      formMessagePlaceholder: "Hej, jag vill gärna samarbeta med dig..."
     },
     
     // CV
