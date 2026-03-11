@@ -86,14 +86,59 @@ const fallback = {
   sv: "Jag är inte säker på det. Prova att fråga om Abenezer's kompetenser, projekt, utbildning eller kontaktuppgifter! 🤔"
 };
 
-const getAnswer = (input, lang) => {
+const getPatternAnswer = (input, lang) => {
   const kb = knowledgeBase[lang] || knowledgeBase.en;
   for (const entry of kb) {
     if (entry.patterns.some(pattern => pattern.test(input))) {
       return entry.answer;
     }
   }
-  return fallback[lang] || fallback.en;
+  return null;
+};
+
+const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
+
+const systemPrompt = {
+  en: `You are a helpful chatbot on Abenezer Anglo's portfolio website. Answer questions about Abenezer concisely and friendly. Here is his info:
+- Software Developer based in Borlänge, Sweden
+- Skills: Java, Spring Boot, React, Docker, Kubernetes, Azure (AZ-900 certified), MySQL, CI/CD
+- Education: Agile Java Developer from EduGrade (2023-2025), Bachelor's in Development Studies from Lund University
+- Projects: Music Analytics Platform, Borsvy (stock analysis), StageFinder (AI event platform with Groq AI), Wigell Padel REST API, JMailer (open source contribution)
+- Contact: merebanglo@gmail.com, +46 76 408 79 19
+Keep responses short (2-3 sentences). Use emojis sparingly.`,
+  sv: `Du är en hjälpsam chatbot på Abenezer Anglos portfoliowebbplats. Svara på frågor om Abenezer kort och vänligt. Här är hans info:
+- Mjukvaruutvecklare baserad i Borlänge, Sverige
+- Kompetenser: Java, Spring Boot, React, Docker, Kubernetes, Azure (AZ-900 certifierad), MySQL, CI/CD
+- Utbildning: Agil Java-utvecklare från EduGrade (2023-2025), Kandidatexamen från Lunds universitet
+- Projekt: Musikanalysplattform, Borsvy (aktieanalys), StageFinder (AI-eventplattform med Groq AI), Wigell Padel REST API, JMailer (öppen källkod)
+- Kontakt: merebanglo@gmail.com, +46 76 408 79 19
+Håll svaren korta (2-3 meningar). Använd emojis sparsamt. Svara på svenska.`
+};
+
+const fetchGroqResponse = async (userMessage, lang) => {
+  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${GROQ_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: systemPrompt[lang] || systemPrompt.en },
+        { role: 'user', content: userMessage },
+      ],
+      max_tokens: 256,
+      temperature: 0.7,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Groq API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data.choices?.[0]?.message?.content?.trim() || null;
 };
 
 const Chatbot = () => {
@@ -113,7 +158,7 @@ const Chatbot = () => {
     }
   }, [messages, isTyping]);
 
-  const sendMessage = (text) => {
+  const sendMessage = async (text) => {
     const userText = text || input.trim();
     if (!userText) return;
 
@@ -122,11 +167,33 @@ const Chatbot = () => {
     setShowSuggestions(false);
     setIsTyping(true);
 
-    setTimeout(() => {
-      const answer = getAnswer(userText, language);
-      setIsTyping(false);
-      setMessages(prev => [...prev, { from: 'bot', text: answer }]);
-    }, 500);
+    // Try pattern matching first
+    const patternAnswer = getPatternAnswer(userText, language);
+    if (patternAnswer) {
+      setTimeout(() => {
+        setIsTyping(false);
+        setMessages(prev => [...prev, { from: 'bot', text: patternAnswer }]);
+      }, 500);
+      return;
+    }
+
+    // Fall back to Groq API if available
+    if (GROQ_API_KEY) {
+      try {
+        const aiAnswer = await fetchGroqResponse(userText, language);
+        if (aiAnswer) {
+          setIsTyping(false);
+          setMessages(prev => [...prev, { from: 'bot', text: aiAnswer }]);
+          return;
+        }
+      } catch (error) {
+        console.error('Groq API call failed:', error);
+      }
+    }
+
+    // Final fallback
+    setIsTyping(false);
+    setMessages(prev => [...prev, { from: 'bot', text: fallback[language] || fallback.en }]);
   };
 
   const handleKeyDown = (e) => {
