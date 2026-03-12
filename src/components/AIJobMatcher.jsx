@@ -130,7 +130,7 @@ const analyzeLocally = (jobDesc, lang) => {
     }
   } else {
     if (allMatched.length === 0) {
-      summary = 'No specific skill matches were found between Abenezer\'s profile and this job description.';
+      summary = `No specific skill matches were found between Abenezer's profile and this job description.`;
       highlights = [];
     } else {
       const catNames = matchedCats.map(c => c.title).join(', ');
