@@ -1,5 +1,93 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { skillCategories } from '../data/skills';
+import { projects } from '../data/projects';
+import { translations } from '../data/translations';
+
+// Dynamically build skills answer strings from skills.js
+const buildSkillsAnswer = (lang) => {
+  const skillsList = skillCategories
+    .map(cat => `${cat.title}: ${cat.skills.join(', ')}`)
+    .join(' | ');
+  if (lang === 'sv') {
+    return `Mina kompetenser inom alla områden: ${skillsList} 💻`;
+  }
+  return `My skills across all areas: ${skillsList} 💻`;
+};
+
+// Dynamically build the Groq system prompt from data files
+const buildSystemPrompt = (lang) => {
+  const t = translations[lang] || translations.en;
+  const projectList = projects[lang] || projects.en;
+
+  const skillsSection = skillCategories
+    .map(cat => `  - ${cat.title} (${cat.proficiency}% proficiency): ${cat.skills.join(', ')}`)
+    .join('\n');
+
+  const projectsSection = projectList
+    .map(p => `  - ${p.title} [${p.technologies.join(', ')}]: ${p.description}`)
+    .join('\n');
+
+  if (lang === 'sv') {
+    return `Du är en hjälpsam portfolioassistent på Abenezer Anglos webbplats. Svara ENDAST på frågor om Abenezer Anglo och hans professionella bakgrund. Om någon ställer frågor som inte är relaterade till Abenezer, hans kompetenser, projekt, utbildning eller kontaktuppgifter, avböj artigt och be dem ställa en portfoliorelaterad fråga. Svara alltid på svenska.
+
+OM ABENEZER:
+- Namn: Abenezer Anglo
+- Roll: Mjukvaruutvecklare
+- Plats: Borlänge, Sverige
+- Bio: ${t.about.bio1} ${t.about.bio2}
+
+KOMPETENSER:
+${skillsSection}
+
+UTBILDNING:
+  - ${t.about.education.current}
+  - ${t.about.education.ml}
+  - ${t.about.education.bachelor} (${t.about.education.major})
+  - ${t.about.education.csharp}
+
+CERTIFIERINGAR:
+  - ${t.about.certifications.azure} (${t.about.certifications.azureDate})
+
+PROJEKT:
+${projectsSection}
+
+KONTAKT:
+  - E-post: merebanglo@gmail.com
+  - Telefon: +46 76 408 79 19
+
+Håll svaren korta (2-3 meningar). Använd emojis sparsamt.`;
+  }
+
+  return `You are a helpful portfolio assistant on Abenezer Anglo's website. ONLY answer questions about Abenezer Anglo and his professional background. If asked anything unrelated to Abenezer, his skills, projects, education, or professional background — such as general coding questions, jokes, or unrelated topics — politely decline and redirect the user to ask a portfolio-related question.
+
+ABOUT ABENEZER:
+- Name: Abenezer Anglo
+- Role: Software Developer
+- Location: Borlänge, Sweden
+- Bio: ${t.about.bio1} ${t.about.bio2}
+
+SKILLS:
+${skillsSection}
+
+EDUCATION:
+  - ${t.about.education.current}
+  - ${t.about.education.ml}
+  - ${t.about.education.bachelor} (${t.about.education.major})
+  - ${t.about.education.csharp}
+
+CERTIFICATIONS:
+  - ${t.about.certifications.azure} (${t.about.certifications.azureDate})
+
+PROJECTS:
+${projectsSection}
+
+CONTACT:
+  - Email: merebanglo@gmail.com
+  - Phone: +46 76 408 79 19
+
+Keep responses short (2-3 sentences). Use emojis sparingly.`;
+};
 
 const knowledgeBase = {
   en: [
@@ -9,15 +97,15 @@ const knowledgeBase = {
     },
     {
       patterns: [/skills|technologies|tech stack|what do you know|expertise/i],
-      answer: "My core skills include: ☕ Java & Spring Boot, ⚛️ React, 🐳 Docker & Kubernetes, ☁️ Azure (AZ-900 certified), 🗄️ MySQL & databases, and DevOps with CI/CD pipelines."
+      answer: buildSkillsAnswer('en')
     },
     {
       patterns: [/project|work|built|portfolio|created/i],
-      answer: "I've built several projects! Highlights include: 🎵 Music Analytics Platform (Spring Boot + React microservices), 📊 Borsvy (stock analysis with React & Spring Boot), 🎤 StageFinder (AI-powered event platform with Groq AI), and a Wigell Padel booking REST API. Check the Projects section above!"
+      answer: `I've built ${projects.en.length} projects! Highlights include: 🎵 Music Analytics Platform (Spring Boot + React microservices), 📊 Borsvy (stock analysis with React & Spring Boot), 🎤 StageFinder (AI-powered event platform with Groq AI), and a Wigell Padel booking REST API. Check the Projects section above!`
     },
     {
       patterns: [/education|study|school|degree|university|certif/i],
-      answer: "I graduated as an Agile Java Developer from EduGrade (2023-2025). I also hold a Bachelor's in Development Studies from Lund University, and I'm Microsoft Certified: Azure Fundamentals (AZ-900). 🎓"
+      answer: `I graduated as an Agile Java Developer from EduGrade (2023-2025). I also hold a Bachelor's in Development Studies from Lund University, and I'm ${translations.en.about.certifications.azure} — ${translations.en.about.certifications.azureDate}. 🎓`
     },
     {
       patterns: [/contact|reach|email|hire|available|work together/i],
@@ -47,15 +135,15 @@ const knowledgeBase = {
     },
     {
       patterns: [/kompetens|teknik|kunskaper|erfarenhet/i],
-      answer: "Mina kärnkompetenser: ☕ Java & Spring Boot, ⚛️ React, 🐳 Docker & Kubernetes, ☁️ Azure (AZ-900 certifierad), 🗄️ MySQL, och DevOps med CI/CD-pipelines."
+      answer: buildSkillsAnswer('sv')
     },
     {
       patterns: [/projekt|byggt|portfolio|skapade/i],
-      answer: "Jag har byggt flera projekt! Höjdpunkter: 🎵 Musikanalysplattform, 📊 Borsvy (aktieanalys), 🎤 StageFinder (AI-driven eventplattform). Kolla in Projektsektionen ovan!"
+      answer: `Jag har byggt ${projects.sv.length} projekt! Höjdpunkter: 🎵 Musikanalysplattform, 📊 Borsvy (aktieanalys), 🎤 StageFinder (AI-driven eventplattform). Kolla in Projektsektionen ovan!`
     },
     {
       patterns: [/utbildning|studie|skola|examen|universitet|certif/i],
-      answer: "Jag utbildade mig till Agil Java-utvecklare på EduGrade (2023-2025). Jag har även en kandidatexamen från Lunds universitet och är Microsoft Certified: Azure Fundamentals (AZ-900). 🎓"
+      answer: `Jag utbildade mig till Agil Java-utvecklare på EduGrade (2023-2025). Jag har även en kandidatexamen från Lunds universitet och är ${translations.sv.about.certifications.azure} (${translations.sv.about.certifications.azureDate}). 🎓`
     },
     {
       patterns: [/kontakt|nå|epost|anställa|tillgänglig|samarbeta/i],
@@ -98,23 +186,6 @@ const getPatternAnswer = (input, lang) => {
 
 const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
 
-const systemPrompt = {
-  en: `You are a helpful chatbot on Abenezer Anglo's portfolio website. Answer questions about Abenezer concisely and friendly. Here is his info:
-- Software Developer based in Borlänge, Sweden
-- Skills: Java, Spring Boot, React, Docker, Kubernetes, Azure (AZ-900 certified), MySQL, CI/CD
-- Education: Agile Java Developer from EduGrade (2023-2025), Bachelor's in Development Studies from Lund University
-- Projects: Music Analytics Platform, Borsvy (stock analysis), StageFinder (AI event platform with Groq AI), Wigell Padel REST API, JMailer (open source contribution)
-- Contact: merebanglo@gmail.com, +46 76 408 79 19
-Keep responses short (2-3 sentences). Use emojis sparingly.`,
-  sv: `Du är en hjälpsam chatbot på Abenezer Anglos portfoliowebbplats. Svara på frågor om Abenezer kort och vänligt. Här är hans info:
-- Mjukvaruutvecklare baserad i Borlänge, Sverige
-- Kompetenser: Java, Spring Boot, React, Docker, Kubernetes, Azure (AZ-900 certifierad), MySQL, CI/CD
-- Utbildning: Agil Java-utvecklare från EduGrade (2023-2025), Kandidatexamen från Lunds universitet
-- Projekt: Musikanalysplattform, Borsvy (aktieanalys), StageFinder (AI-eventplattform med Groq AI), Wigell Padel REST API, JMailer (öppen källkod)
-- Kontakt: merebanglo@gmail.com, +46 76 408 79 19
-Håll svaren korta (2-3 meningar). Använd emojis sparsamt. Svara på svenska.`
-};
-
 const fetchGroqResponse = async (userMessage, lang) => {
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
@@ -123,9 +194,9 @@ const fetchGroqResponse = async (userMessage, lang) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'llama-3.3-70b-versatile',
+      model: 'llama-3.1-8b-instant',
       messages: [
-        { role: 'system', content: systemPrompt[lang] || systemPrompt.en },
+        { role: 'system', content: buildSystemPrompt(lang) },
         { role: 'user', content: userMessage },
       ],
       max_tokens: 256,
