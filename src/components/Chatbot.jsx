@@ -219,6 +219,8 @@ const Chatbot = () => {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const messagesEndRef = useRef(null);
 
   const headerText = language === 'sv' ? 'Fråga om Abenezer 💬' : 'Ask me about Abenezer 💬';
@@ -228,6 +230,13 @@ const Chatbot = () => {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isTyping]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isOpen && !hasBeenOpened) setShowTooltip(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [isOpen, hasBeenOpened]);
 
   const sendMessage = async (text) => {
     const userText = text || input.trim();
@@ -275,7 +284,7 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Chat window */}
       {isOpen && (
         <div className="mb-4 w-80 sm:w-96 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col overflow-hidden animate-fadeIn">
@@ -366,22 +375,44 @@ const Chatbot = () => {
         </div>
       )}
 
-      {/* Toggle button */}
-      <button
-        onClick={() => setIsOpen(prev => !prev)}
-        aria-label={isOpen ? 'Close chat' : 'Open chat'}
-        className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/40 hover:shadow-xl hover:shadow-blue-500/50 hover:scale-110 transition-all duration-300"
-      >
-        {isOpen ? (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        ) : (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-          </svg>
+      {/* Toggle button with pulse animation */}
+      <div className="relative">
+        {/* Welcome tooltip - appears after 3 seconds */}
+        {showTooltip && !isOpen && (
+          <div className="absolute bottom-16 right-0 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm px-4 py-2 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 whitespace-nowrap animate-fadeIn">
+            {language === 'sv' ? '👋 Fråga mig om Abenezer!' : '👋 Ask me about Abenezer!'}
+            <div className="absolute -bottom-2 right-5 w-3 h-3 bg-white dark:bg-gray-800 border-r border-b border-gray-200 dark:border-gray-700 transform rotate-45"></div>
+          </div>
         )}
-      </button>
+
+        {/* Pulsing rings - only show when chat is closed and not yet opened */}
+        {!isOpen && !hasBeenOpened && (
+          <>
+            <span className="absolute inset-0 inline-flex h-full w-full rounded-full bg-blue-400 opacity-75 animate-ping"></span>
+            <span className="absolute inset-0 inline-flex h-full w-full rounded-full bg-purple-400 opacity-50 animate-ping" style={{ animationDelay: '0.5s' }}></span>
+          </>
+        )}
+
+        <button
+          onClick={() => {
+            setIsOpen(prev => !prev);
+            setShowTooltip(false);
+            setHasBeenOpened(true);
+          }}
+          aria-label={isOpen ? 'Close chat' : 'Open chat'}
+          className="relative w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/40 hover:shadow-xl hover:shadow-blue-500/50 hover:scale-110 transition-all duration-300"
+        >
+          {isOpen ? (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+          )}
+        </button>
+      </div>
     </div>
   );
 };

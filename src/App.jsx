@@ -11,6 +11,7 @@ import { Location } from './components/Location';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { SkeletonLoader } from './components/SkeletonLoader';
 import Chatbot from './components/Chatbot';
+import { AIJobMatcher } from './components/AIJobMatcher';
 
 // Lazy load the ParticleBackground for better performance
 const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
@@ -259,7 +260,11 @@ const App = () => {
                   <Skills text={text.skills} />
                 </ErrorBoundary>
               </Suspense>
-              
+
+              <ErrorBoundary>
+                <AIJobMatcher />
+              </ErrorBoundary>
+
               <ErrorBoundary>
                 <CV />
               </ErrorBoundary>
