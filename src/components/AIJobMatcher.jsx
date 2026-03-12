@@ -6,10 +6,24 @@ const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
 
 const ALL_SKILLS = skillCategories.flatMap(cat => cat.skills);
 
-const SCORE_MIN = 25;
-const SCORE_MAX = 90;
-const SCORE_BASE = 35;
-const SCORE_SKILL_WEIGHT = 65;
+/** Check if a skill appears as a whole word/phrase in the text (not as a substring of another word). */
+const matchesSkill = (text, skill) => {
+  const lowerSkill = skill.toLowerCase();
+  const lowerText = text.toLowerCase();
+  let startIndex = 0;
+  while (startIndex <= lowerText.length - lowerSkill.length) {
+    const idx = lowerText.indexOf(lowerSkill, startIndex);
+    if (idx === -1) return false;
+    const charBefore = idx > 0 ? lowerText[idx - 1] : ' ';
+    const charAfter = idx + lowerSkill.length < lowerText.length
+      ? lowerText[idx + lowerSkill.length] : ' ';
+    const boundaryBefore = !/[a-z0-9]/i.test(charBefore);
+    const boundaryAfter = !/[a-z0-9]/i.test(charAfter);
+    if (boundaryBefore && boundaryAfter) return true;
+    startIndex = idx + 1;
+  }
+  return false;
+};
 
 const buildMatchPrompt = (jobDesc, lang) => {
   const skillsText = skillCategories
@@ -17,7 +31,7 @@ const buildMatchPrompt = (jobDesc, lang) => {
     .join('\n');
 
   if (lang === 'sv') {
-    return `Du är en rekryteringsexpert som analyserar hur väl en kandidat matchar en jobbeskrivning.
+    return `Du är en strikt rekryteringsexpert som analyserar hur väl en kandidat matchar en jobbeskrivning.
 
 KANDIDAT: Abenezer Anglo, mjukvaruutvecklare, Borlänge Sverige
 
@@ -27,16 +41,26 @@ ${skillsText}
 JOBBESKRIVNING ATT ANALYSERA:
 ${jobDesc}
 
+VIKTIGA REGLER FÖR POÄNGSÄTTNING:
+- Räkna EXAKT hur många av kandidatens kompetenser som nämns i jobbeskrivningen.
+- Om jobbet kräver kompetenser som kandidaten SAKNAR, ge ett LÄGRE poäng.
+- 90-100: Nästan perfekt matchning — kandidaten har ALLA eller nästan alla efterfrågade kompetenser.
+- 70-89: Stark matchning — kandidaten har de flesta krävda kompetenser.
+- 50-69: Delvis matchning — kandidaten har några relevanta kompetenser men saknar viktiga krav.
+- 30-49: Svag matchning — begränsad överlappning.
+- 0-29: Mycket svag — helt annan inriktning.
+- Ge ALDRIG automatiskt en hög poäng. Var kritisk och ärlig.
+
 Svara EXAKT med följande JSON-format och inget annat:
 {
   "score": <heltal 0-100 som representerar matchningsprocent>,
   "matchedSkills": [<upp till 8 specifika matchande tekniker/färdigheter som strängar>],
-  "summary": "<2-3 meningar på svenska om varför Abenezer passar för rollen>",
+  "summary": "<2-3 meningar på svenska om varför Abenezer passar eller inte passar för rollen>",
   "highlights": ["<styrka 1>", "<styrka 2>", "<styrka 3>"]
 }`;
   }
 
-  return `You are a recruitment expert analyzing how well a candidate matches a job description.
+  return `You are a strict recruitment expert analyzing how well a candidate matches a job description.
 
 CANDIDATE: Abenezer Anglo, Software Developer, Borlänge Sweden
 
@@ -46,35 +70,78 @@ ${skillsText}
 JOB DESCRIPTION TO ANALYZE:
 ${jobDesc}
 
+IMPORTANT SCORING RULES:
+- Count EXACTLY how many of the candidate's skills are mentioned or required in the job description.
+- If the job requires skills the candidate LACKS, give a LOWER score.
+- 90-100: Near-perfect match — candidate has ALL or nearly all required skills.
+- 70-89: Strong match — candidate has most of the required skills.
+- 50-69: Partial match — candidate has some relevant skills but is missing key requirements.
+- 30-49: Weak match — limited overlap between candidate skills and job requirements.
+- 0-29: Very weak — completely different field or skill set.
+- NEVER default to a high score. Be critical and honest in your assessment.
+
 Respond EXACTLY with the following JSON format and nothing else:
 {
   "score": <integer 0-100 representing match percentage>,
   "matchedSkills": [<up to 8 specific matching technologies/skills as strings>],
-  "summary": "<2-3 sentences on why Abenezer is a good fit for this role>",
+  "summary": "<2-3 sentences on why Abenezer is or is not a good fit for this role>",
   "highlights": ["<strength 1>", "<strength 2>", "<strength 3>"]
 }`;
 };
 
 const analyzeLocally = (jobDesc, lang) => {
-  const text = jobDesc.toLowerCase();
-  const matched = ALL_SKILLS.filter(skill => text.includes(skill.toLowerCase()));
-  const score = Math.min(SCORE_MAX, Math.max(SCORE_MIN, SCORE_BASE + Math.round((matched.length / Math.max(1, ALL_SKILLS.length)) * SCORE_SKILL_WEIGHT)));
+  const categoryResults = skillCategories.map(cat => ({
+    ...cat,
+    matched: cat.skills.filter(skill => matchesSkill(jobDesc, skill))
+  }));
 
-  if (lang === 'sv') {
-    return {
-      score,
-      matchedSkills: matched.slice(0, 8),
-      summary: `Abenezer Anglo är en erfaren mjukvaruutvecklare med gedigen kunskap i Java, Spring Boot och React. Hans bakgrund i Agil utveckling, CI/CD och molntjänster gör honom till en stark kandidat för moderna mjukvaruroller.`,
-      highlights: ['Java & Spring Boot-expert', 'Full-stack kapacitet', 'Agil & DevOps-erfarenhet'],
-    };
+  const allMatched = categoryResults.flatMap(cat => cat.matched);
+
+  // Weighted score: each matched skill contributes its category proficiency weight
+  let matchedWeight = 0;
+  let totalWeight = 0;
+  for (const cat of categoryResults) {
+    for (const skill of cat.skills) {
+      totalWeight += cat.proficiency;
+      if (cat.matched.includes(skill)) {
+        matchedWeight += cat.proficiency;
+      }
+    }
   }
 
-  return {
-    score,
-    matchedSkills: matched.slice(0, 8),
-    summary: `Abenezer Anglo is an experienced software developer with solid expertise in Java, Spring Boot, and React. His background in Agile development, CI/CD, and cloud services makes him a strong candidate for modern software roles.`,
-    highlights: ['Java & Spring Boot Expert', 'Full-Stack Capability', 'Agile & DevOps Experience'],
-  };
+  const rawRatio = totalWeight > 0 ? matchedWeight / totalWeight : 0;
+  const score = Math.min(95, Math.max(allMatched.length === 0 ? 10 : 15, Math.round(rawRatio * 100)));
+
+  // Build dynamic summary based on actually matched categories
+  const matchedCats = categoryResults.filter(cat => cat.matched.length > 0);
+  const topSkills = allMatched.slice(0, 4).join(', ');
+
+  let summary, highlights;
+  if (lang === 'sv') {
+    if (allMatched.length === 0) {
+      summary = 'Inga specifika kompetensmatchningar hittades mellan Abenezers profil och denna jobbeskrivning.';
+      highlights = [];
+    } else {
+      const catNames = matchedCats.map(c => c.title).join(', ');
+      summary = `Abenezer matchar ${allMatched.length} av ${ALL_SKILLS.length} kompetenser (${topSkills}). Starkast matchning inom: ${catNames}.`;
+      highlights = matchedCats.slice(0, 3).map(cat =>
+        `${cat.title}: ${cat.matched.slice(0, 2).join(', ')} (${cat.matched.length}/${cat.skills.length})`
+      );
+    }
+  } else {
+    if (allMatched.length === 0) {
+      summary = 'No specific skill matches were found between Abenezer\'s profile and this job description.';
+      highlights = [];
+    } else {
+      const catNames = matchedCats.map(c => c.title).join(', ');
+      summary = `Abenezer matches ${allMatched.length} of ${ALL_SKILLS.length} skills (${topSkills}). Strongest overlap in: ${catNames}.`;
+      highlights = matchedCats.slice(0, 3).map(cat =>
+        `${cat.title}: ${cat.matched.slice(0, 2).join(', ')} (${cat.matched.length}/${cat.skills.length})`
+      );
+    }
+  }
+
+  return { score, matchedSkills: allMatched.slice(0, 8), summary, highlights };
 };
 
 const ScoreRing = ({ score }) => {
