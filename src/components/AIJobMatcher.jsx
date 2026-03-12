@@ -35,58 +35,22 @@ const buildMatchPrompt = (jobDesc, lang) => {
 
 KANDIDAT: Abenezer Anglo, mjukvaruutvecklare, Borlänge Sverige
 
-KOMPETENSER:
-${skillsText}
+KOMPETENSER:\n${skillsText}\n
+JOBBESKRIVNING ATT ANALYSERA:\n${jobDesc}\n
+VIKTIGA REGLER FÖR POÄNGSÄTTNING:\n- Räkna EXAKT hur många av kandidatens kompetenser som nämns i jobbeskrivningen.\n- Om jobbet kräver kompetenser som kandidaten SAKNAR, ge ett LÄGRE poäng.\n- 90-100: Nästan perfekt matchning — kandidaten har ALLA eller nästan alla efterfrågade kompetenser.\n- 70-89: Stark matchning — kandidaten har de flesta krävda kompetenser.\n- 50-69: Delvis matchning — kandidaten har några relevanta kompetenser men saknar viktiga krav.\n- 30-49: Svag matchning — begränsad överlappning.\n- 0-29: Mycket svag — helt annan inriktning.\n- Ge ALDRIG automatiskt en hög poäng. Var kritisk och ärlig.
 
-JOBBESKRIVNING ATT ANALYSERA:
-${jobDesc}
-
-VIKTIGA REGLER FÖR POÄNGSÄTTNING:
-- Räkna EXAKT hur många av kandidatens kompetenser som nämns i jobbeskrivningen.
-- Om jobbet kräver kompetenser som kandidaten SAKNAR, ge ett LÄGRE poäng.
-- 90-100: Nästan perfekt matchning — kandidaten har ALLA eller nästan alla efterfrågade kompetenser.
-- 70-89: Stark matchning — kandidaten har de flesta krävda kompetenser.
-- 50-69: Delvis matchning — kandidaten har några relevanta kompetenser men saknar viktiga krav.
-- 30-49: Svag matchning — begränsad överlappning.
-- 0-29: Mycket svag — helt annan inriktning.
-- Ge ALDRIG automatiskt en hög poäng. Var kritisk och ärlig.
-
-Svara EXAKT med följande JSON-format och inget annat:
-{
-  "score": <heltal 0-100 som representerar matchningsprocent>,
-  "matchedSkills": [<upp till 8 specifika matchande tekniker/färdigheter som strängar>],
-  "summary": "<2-3 meningar på svenska om varför Abenezer passar eller inte passar för rollen>",
-  "highlights": ["<styrka 1>", "<styrka 2>", "<styrka 3>"]
-}`;
+Svara EXAKT med följande JSON-format och inget annat:\n{\n  "score": <heltal 0-100 som representerar matchningsprocent>,\n  "matchedSkills": [<upp till 8 specifika matchande tekniker/färdigheter som strängar>],\n  "summary": "<2-3 meningar på svenska om varför Abenezer passar eller inte passar för rollen>",\n  "highlights": ["<styrka 1>", "<styrka 2>", "<styrka 3>"]\n}`;
   }
 
   return `You are a strict recruitment expert analyzing how well a candidate matches a job description.
 
 CANDIDATE: Abenezer Anglo, Software Developer, Borlänge Sweden
 
-SKILLS:
-${skillsText}
+SKILLS:\n${skillsText}\n
+JOB DESCRIPTION TO ANALYZE:\n${jobDesc}\n
+IMPORTANT SCORING RULES:\n- Count EXACTLY how many of the candidate's skills are mentioned or required in the job description.\n- If the job requires skills the candidate LACKS, give a LOWER score.\n- 90-100: Near-perfect match — candidate has ALL or nearly all required skills.\n- 70-89: Strong match — candidate has most of the required skills.\n- 50-69: Partial match — candidate has some relevant skills but is missing key requirements.\n- 30-49: Weak match — limited overlap between candidate skills and job requirements.\n- 0-29: Very weak — completely different field or skill set.\n- NEVER default to a high score. Be critical and honest in your assessment.
 
-JOB DESCRIPTION TO ANALYZE:
-${jobDesc}
-
-IMPORTANT SCORING RULES:
-- Count EXACTLY how many of the candidate's skills are mentioned or required in the job description.
-- If the job requires skills the candidate LACKS, give a LOWER score.
-- 90-100: Near-perfect match — candidate has ALL or nearly all required skills.
-- 70-89: Strong match — candidate has most of the required skills.
-- 50-69: Partial match — candidate has some relevant skills but is missing key requirements.
-- 30-49: Weak match — limited overlap between candidate skills and job requirements.
-- 0-29: Very weak — completely different field or skill set.
-- NEVER default to a high score. Be critical and honest in your assessment.
-
-Respond EXACTLY with the following JSON format and nothing else:
-{
-  "score": <integer 0-100 representing match percentage>,
-  "matchedSkills": [<up to 8 specific matching technologies/skills as strings>],
-  "summary": "<2-3 sentences on why Abenezer is or is not a good fit for this role>",
-  "highlights": ["<strength 1>", "<strength 2>", "<strength 3>"]
-}`;
+Respond EXACTLY with the following JSON format and nothing else:\n{\n  "score": <integer 0-100 representing match percentage>,\n  "matchedSkills": [<up to 8 specific matching technologies/skills as strings>],\n  "summary": "<2-3 sentences on why Abenezer is or is not a good fit for this role>",\n  "highlights": ["<strength 1>", "<strength 2>", "<strength 3>"]\n}`;
 };
 
 const analyzeLocally = (jobDesc, lang) => {
@@ -244,7 +208,7 @@ export const AIJobMatcher = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            model: 'llama-3.1-8b-instant',
+            model: 'llama-3.3-70b-versatile',
             messages: [{ role: 'user', content: buildMatchPrompt(jobDesc, language) }],
             max_tokens: 400,
             temperature: 0.2,
@@ -339,7 +303,7 @@ export const AIJobMatcher = () => {
               className="mt-4 w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
             >
               {loading ? (
-                <>
+                <> 
                   <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -399,8 +363,8 @@ export const AIJobMatcher = () => {
                       key={i}
                       className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 p-4 flex items-center gap-3"
                     >
-                      <div className={`w-8 h-8 shrink-0 rounded-lg bg-gradient-to-br ${colors[i % colors.length]} flex items-center justify-center text-white text-xs font-bold`}>
-                        {i + 1}
+                      <div className={`w-8 h-8 shrink-0 rounded-lg bg-gradient-to-br ${colors[i % colors.length]} flex items-center justify-center text-white text-xs font-bold`}> 
+                        {i + 1} 
                       </div>
                       <span className="text-sm text-gray-700 dark:text-gray-200 font-medium">{highlight}</span>
                     </div>
