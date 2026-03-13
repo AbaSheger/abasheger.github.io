@@ -1,0 +1,46 @@
+name: Sync Skills from GitHub Repos
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Every Monday at 06:00 UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-skills:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Use the default GITHUB_TOKEN so the commit can be pushed back
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Sync skills from GitHub API
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/sync-skills.js
+
+      - name: Commit and push updated skills (if changed)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet src/data/skills.js; then
+            echo "No changes to skills.js – nothing to commit."
+          else
+            git add src/data/skills.js
+            git commit -m "chore: auto-sync skills from GitHub repos [skip ci]"
+            git push
+          fi
