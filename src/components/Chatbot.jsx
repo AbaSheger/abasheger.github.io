@@ -4,17 +4,6 @@ import { skillCategories } from '../data/skills';
 import { projects } from '../data/projects';
 import { translations } from '../data/translations';
 
-// Dynamically build skills answer strings from skills.js
-const buildSkillsAnswer = (lang) => {
-  const skillsList = skillCategories
-    .map(cat => `${cat.title}: ${cat.skills.join(', ')}`)
-    .join(' | ');
-  if (lang === 'sv') {
-    return `Mina kompetenser inom alla områden: ${skillsList} 💻`;
-  }
-  return `My skills across all areas: ${skillsList} 💻`;
-};
-
 // Dynamically build the Groq system prompt from data files
 const buildSystemPrompt = (lang) => {
   const t = translations[lang] || translations.en;
@@ -89,104 +78,16 @@ CONTACT:
 Keep responses short (2-3 sentences). Use emojis sparingly.`;
 };
 
-const knowledgeBase = {
-  en: [
-    {
-      patterns: [/who are you|about you|tell me about|introduce yourself/i],
-      answer: "I'm Abenezer Anglo, a passionate Software Developer based in Borlänge, Sweden. I specialize in building scalable, reliable systems using Java, Spring Boot, React, and cloud technologies. 🚀"
-    },
-    {
-      patterns: [/skills|technologies|tech stack|what do you know|expertise/i],
-      answer: buildSkillsAnswer('en')
-    },
-    {
-      patterns: [/project|work|built|portfolio|created/i],
-      answer: `I've built ${projects.en.length} projects! Highlights include: 🎵 Music Analytics Platform (Spring Boot + React microservices), 📊 Borsvy (stock analysis with React & Spring Boot), 🎤 StageFinder (AI-powered event platform with Groq AI), and a Wigell Padel booking REST API. Check the Projects section above!`
-    },
-    {
-      patterns: [/education|study|school|degree|university|certif/i],
-      answer: `I graduated as an Agile Java Developer from EduGrade (2023-2025). I also hold a Bachelor's in Development Studies from Lund University, and I'm ${translations.en.about.certifications.azure} — ${translations.en.about.certifications.azureDate}. 🎓`
-    },
-    {
-      patterns: [/contact|reach|email|hire|available|work together/i],
-      answer: "You can reach me at merebanglo@gmail.com 📧 or call +46 76 408 79 19 📱. You can also use the Contact form below! I'm always open to new opportunities. 😊"
-    },
-    {
-      patterns: [/location|where|based|sweden|borlänge/i],
-      answer: "I'm based in Borlänge, Sweden 🇸🇪. I'm open to both remote and on-site opportunities."
-    },
-    {
-      patterns: [/cv|resume|download/i],
-      answer: "You can download my CV in both English and Swedish from the CV section on this page! 📄"
-    },
-    {
-      patterns: [/github|open source|code/i],
-      answer: "Check out my GitHub at github.com/AbaSheger for open source contributions and personal projects! I contributed to JMailer Spring Boot and several other projects. 💻"
-    },
-    {
-      patterns: [/hello|hi |hey|greet|hej/i],
-      answer: "Hello! 👋 I'm a chatbot that can answer questions about Abenezer. Ask me about his skills, projects, education, or how to get in touch!"
-    },
-  ],
-  sv: [
-    {
-      patterns: [/vem är|om dig|berätta|presentera/i],
-      answer: "Jag är Abenezer Anglo, en passionerad mjukvaruutvecklare baserad i Borlänge, Sverige. Jag specialiserar mig på att bygga skalbara system med Java, Spring Boot, React och molnteknologier. 🚀"
-    },
-    {
-      patterns: [/kompetens|teknik|kunskaper|erfarenhet/i],
-      answer: buildSkillsAnswer('sv')
-    },
-    {
-      patterns: [/projekt|byggt|portfolio|skapade/i],
-      answer: `Jag har byggt ${projects.sv.length} projekt! Höjdpunkter: 🎵 Musikanalysplattform, 📊 Borsvy (aktieanalys), 🎤 StageFinder (AI-driven eventplattform). Kolla in Projektsektionen ovan!`
-    },
-    {
-      patterns: [/utbildning|studie|skola|examen|universitet|certif/i],
-      answer: `Jag utbildade mig till Agil Java-utvecklare på EduGrade (2023-2025). Jag har även en kandidatexamen från Lunds universitet och är ${translations.sv.about.certifications.azure} (${translations.sv.about.certifications.azureDate}). 🎓`
-    },
-    {
-      patterns: [/kontakt|nå|epost|anställa|tillgänglig|samarbeta/i],
-      answer: "Du når mig på merebanglo@gmail.com 📧 eller ring +46 76 408 79 19 📱. Använd gärna kontaktformuläret nedan! 😊"
-    },
-    {
-      patterns: [/plats|var|baserad|sverige|borlänge/i],
-      answer: "Jag är baserad i Borlänge, Sverige 🇸🇪. Jag är öppen för både distans- och platsbundna möjligheter."
-    },
-    {
-      patterns: [/cv|meritförteckning|ladda ner/i],
-      answer: "Du kan ladda ner mitt CV på både engelska och svenska från CV-sektionen på denna sida! 📄"
-    },
-    {
-      patterns: [/hej|hallå|tjena|hejsan/i],
-      answer: "Hej! 👋 Jag är en chatbot som kan svara på frågor om Abenezer. Fråga mig om hans kompetenser, projekt, utbildning eller hur du kommer i kontakt med honom!"
-    },
-  ]
-};
-
 const suggestedQuestions = {
-  en: ["What are your skills?", "Tell me about your projects", "How can I contact you?"],
-  sv: ["Vad är dina kompetenser?", "Berätta om dina projekt", "Hur kontaktar jag dig?"]
-};
-
-const fallback = {
-  en: "I'm not sure about that. Try asking about Abenezer's skills, projects, education, or contact info! 🤔",
-  sv: "Jag är inte säker på det. Prova att fråga om Abenezer's kompetenser, projekt, utbildning eller kontaktuppgifter! 🤔"
-};
-
-const getPatternAnswer = (input, lang) => {
-  const kb = knowledgeBase[lang] || knowledgeBase.en;
-  for (const entry of kb) {
-    if (entry.patterns.some(pattern => pattern.test(input))) {
-      return entry.answer;
-    }
-  }
-  return null;
+  en: ["Tell me about yourself", "What projects have you built?", "What are your strongest skills?"],
+  sv: ["Berätta om dig själv", "Vilka projekt har du byggt?", "Vad är dina starkaste kompetenser?"]
 };
 
 const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
 
-const fetchGroqResponse = async (userMessage, lang) => {
+const fetchGroqResponse = async (messages, lang) => {
+  const systemPromptContent = buildSystemPrompt(lang);
+  const fullMessages = [{ role: 'system', content: systemPromptContent }, ...messages];
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -194,20 +95,13 @@ const fetchGroqResponse = async (userMessage, lang) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'llama-3.1-8b-instant',
-      messages: [
-        { role: 'system', content: buildSystemPrompt(lang) },
-        { role: 'user', content: userMessage },
-      ],
-      max_tokens: 256,
+      model: 'llama-3.3-70b-versatile',
+      messages: fullMessages,
+      max_tokens: 300,
       temperature: 0.7,
     }),
   });
-
-  if (!response.ok) {
-    throw new Error(`Groq API error: ${response.status}`);
-  }
-
+  if (!response.ok) throw new Error(`Groq API error: ${response.status}`);
   const data = await response.json();
   return data.choices?.[0]?.message?.content?.trim() || null;
 };
@@ -221,7 +115,19 @@ const Chatbot = () => {
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [showTooltip, setShowTooltip] = useState(false);
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
+  const [conversationHistory, setConversationHistory] = useState([]);
   const messagesEndRef = useRef(null);
+
+  const handleToggle = () => {
+    setIsOpen(prev => {
+      if (prev) {
+        setMessages([]);
+        setConversationHistory([]);
+        setShowSuggestions(true);
+      }
+      return !prev;
+    });
+  };
 
   const headerText = language === 'sv' ? 'Fråga om Abenezer 💬' : 'Ask me about Abenezer 💬';
 
@@ -247,33 +153,29 @@ const Chatbot = () => {
     setShowSuggestions(false);
     setIsTyping(true);
 
-    // Try pattern matching first
-    const patternAnswer = getPatternAnswer(userText, language);
-    if (patternAnswer) {
-      setTimeout(() => {
-        setIsTyping(false);
-        setMessages(prev => [...prev, { from: 'bot', text: patternAnswer }]);
-      }, 500);
+    const newHistory = [...conversationHistory, { role: 'user', content: userText }];
+    const historyToSend = newHistory.slice(-6);
+
+    if (!GROQ_API_KEY) {
+      setIsTyping(false);
+      setMessages(prev => [...prev, { from: 'bot', text: 'AI chat is not available right now. Please contact me directly at merebanglo@gmail.com 📧' }]);
       return;
     }
 
-    // Fall back to Groq API if available
-    if (GROQ_API_KEY) {
-      try {
-        const aiAnswer = await fetchGroqResponse(userText, language);
-        if (aiAnswer) {
-          setIsTyping(false);
-          setMessages(prev => [...prev, { from: 'bot', text: aiAnswer }]);
-          return;
-        }
-      } catch (error) {
-        console.error('Groq API call failed:', error);
+    try {
+      const aiAnswer = await fetchGroqResponse(historyToSend, language);
+      if (aiAnswer) {
+        setConversationHistory([...newHistory, { role: 'assistant', content: aiAnswer }].slice(-6));
+        setIsTyping(false);
+        setMessages(prev => [...prev, { from: 'bot', text: aiAnswer }]);
+        return;
       }
+    } catch (error) {
+      console.error('Groq API call failed:', error);
     }
 
-    // Final fallback
     setIsTyping(false);
-    setMessages(prev => [...prev, { from: 'bot', text: fallback[language] || fallback.en }]);
+    setMessages(prev => [...prev, { from: 'bot', text: 'AI chat is not available right now. Please contact me directly at merebanglo@gmail.com 📧' }]);
   };
 
   const handleKeyDown = (e) => {
@@ -292,7 +194,7 @@ const Chatbot = () => {
           <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600">
             <span className="text-white font-semibold text-sm">{headerText}</span>
             <button
-              onClick={() => setIsOpen(false)}
+              onClick={handleToggle}
               aria-label="Close chat"
               className="text-white/80 hover:text-white transition-colors"
             >
@@ -395,7 +297,7 @@ const Chatbot = () => {
 
         <button
           onClick={() => {
-            setIsOpen(prev => !prev);
+            handleToggle();
             setShowTooltip(false);
             setHasBeenOpened(true);
           }}
