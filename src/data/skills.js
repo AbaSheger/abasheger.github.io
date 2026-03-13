@@ -4,21 +4,21 @@ export const skillCategories = [
     title: 'Backend & Programming',
     icon: 'code',
     proficiency: 85,
-    skills: ['Java', 'C#', '.NET', 'Python', 'Spring Boot', 'REST APIs', 'Postman', 'Keycloak', 'Maven', 'MySQL', 'H2', 'JUnit', 'Mockito', 'TDD']
+    skills: ['Java', 'C#', '.NET', 'Python', 'Spring Boot', 'REST APIs', 'Postman', 'Keycloak', 'Maven', 'MySQL', 'H2', 'JUnit', 'Mockito', 'TDD', 'Go', 'Kotlin', 'Ruby']
   },
   {
     id: 'devops',
     title: 'DevOps & CI/CD',
     icon: 'server',
     proficiency: 75,
-    skills: ['Docker', 'Docker Compose', 'Git', 'GitHub', 'Azure DevOps']
+    skills: ['Docker', 'Docker Compose', 'Git', 'GitHub', 'Azure DevOps', 'Dockerfile', 'Shell', 'PowerShell']
   },
   {
     id: 'frontend',
     title: 'Frontend & UI',
     icon: 'layout',
     proficiency: 70,
-    skills: ['React', 'JavaScript', 'HTML/CSS']
+    skills: ['React', 'JavaScript', 'HTML/CSS', 'CSS', 'TypeScript']
   },
   {
     id: 'agile',
