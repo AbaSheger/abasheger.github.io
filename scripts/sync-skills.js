@@ -6,10 +6,12 @@ const fs = require('fs');
 const path = require('path');
 
 // ---------------------------------------------------------------------------
-// Language → skill-category mapping
+// LAYER 1: Language → skill-category mapping (AUTO-SYNCED from GitHub repos)
+// Add any language GitHub detects here. The script will auto-add it to
+// skills.js whenever it appears in a new repo.
 // ---------------------------------------------------------------------------
 const LANGUAGE_TO_CATEGORY = {
-  // Backend
+  // Backend languages
   Java: 'backend',
   'C#': 'backend',
   Python: 'backend',
@@ -22,20 +24,40 @@ const LANGUAGE_TO_CATEGORY = {
   C: 'backend',
   Scala: 'backend',
   Groovy: 'backend',
-  // Frontend
+  // Frontend languages
   JavaScript: 'frontend',
   TypeScript: 'frontend',
   HTML: 'frontend',
   CSS: 'frontend',
+  Dart: 'frontend',      // Flutter apps
   Vue: 'frontend',
   Svelte: 'frontend',
-  // DevOps
+  // DevOps / infra languages
   Shell: 'devops',
   Dockerfile: 'devops',
   HCL: 'devops',
   Makefile: 'devops',
   PowerShell: 'devops',
 };
+
+// ---------------------------------------------------------------------------
+// LAYER 2 (manually curated) lives in src/data/skills.js — see that file for
+// frameworks, tools, databases, and methodologies that GitHub cannot detect.
+// ---------------------------------------------------------------------------
+
+const FILE_HEADER = `// =============================================================================
+// SKILLS DATA — Two-layer system
+//
+// LAYER 1 (auto-synced): Languages detected from GitHub repos by scripts/sync-skills.js
+//   → These are added automatically when you push a new repo using a new language.
+//   → Do NOT manually remove these; they are managed by the sync script.
+//
+// LAYER 2 (manually curated): Frameworks, tools, databases, methodologies
+//   → GitHub cannot detect these automatically.
+//   → Add new ones here manually when you learn something new.
+// =============================================================================
+
+`;
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -228,7 +250,7 @@ function generateSkillsSource(skillCategories) {
     })
     .join(',\n');
 
-  return `export const skillCategories = [\n${categoriesStr}\n];\n`;
+  return FILE_HEADER + `export const skillCategories = [\n${categoriesStr}\n];\n`;
 }
 
 main().catch((err) => {
