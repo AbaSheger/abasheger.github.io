@@ -19,9 +19,11 @@ export const skillCategories = [
     // LAYER 1 (auto-synced from GitHub language detection):
     //   Java, C#, Python, Kotlin, Go, Rust, Ruby, C++, C, Scala, Groovy
     // LAYER 2 (manually curated — frameworks, tools, databases):
-    //   Spring Boot, REST APIs, Postman, Keycloak, Maven, MySQL, PostgreSQL,
-    //   H2, JUnit, Mockito, TDD, JavaFX, Hibernate
-    skills: ['Java', 'C#', '.NET', 'Python', 'Spring Boot', 'REST APIs', 'Postman', 'Keycloak', 'Maven', 'MySQL', 'PostgreSQL', 'H2', 'JUnit', 'Mockito', 'TDD', 'Go', 'Kotlin', 'Ruby', 'JavaFX', 'Hibernate']
+    //   Spring Boot, Spring Security, Spring Cloud, Spring Data JPA, REST APIs,
+    //   Postman, Keycloak, Maven, MySQL, PostgreSQL, H2, JUnit, Mockito, TDD,
+    //   JavaFX, Hibernate, Flyway, Kafka, Bucket4j, picocli,
+    //   ASP.NET Core, EF Core, xUnit, WPF, MathNet.Numerics
+    skills: ['Java', 'C#', '.NET', 'Python', 'Spring Boot', 'Spring Security', 'Spring Cloud', 'Spring Data JPA', 'REST APIs', 'Postman', 'Keycloak', 'Maven', 'MySQL', 'PostgreSQL', 'H2', 'JUnit', 'Mockito', 'TDD', 'Go', 'Kotlin', 'Ruby', 'JavaFX', 'Hibernate', 'Flyway', 'Kafka', 'Bucket4j', 'picocli', 'ASP.NET Core', 'EF Core', 'xUnit', 'WPF', 'MathNet.Numerics']
   },
   {
     id: 'devops',
@@ -31,8 +33,8 @@ export const skillCategories = [
     // LAYER 1 (auto-synced from GitHub language detection):
     //   Docker, Git, Shell, PowerShell, Dockerfile
     // LAYER 2 (manually curated — tools, platforms):
-    //   Docker Compose, GitHub, Azure DevOps
-    skills: ['Docker', 'Docker Compose', 'Git', 'GitHub', 'Azure DevOps', 'Dockerfile', 'Shell', 'PowerShell']
+    //   Docker Compose, GitHub, Azure DevOps, GitHub Actions, Nginx
+    skills: ['Docker', 'Docker Compose', 'Git', 'GitHub', 'Azure DevOps', 'GitHub Actions', 'Nginx', 'Dockerfile', 'Shell', 'PowerShell']
   },
   {
     id: 'frontend',
@@ -41,9 +43,10 @@ export const skillCategories = [
     proficiency: 70,
     // LAYER 1 (auto-synced from GitHub language detection):
     //   JavaScript, TypeScript, HTML/CSS, CSS, Dart
-    // LAYER 2 (manually curated — frameworks):
-    //   React, Angular, Flutter
-    skills: ['React', 'Angular', 'JavaScript', 'TypeScript', 'HTML/CSS', 'CSS', 'Dart', 'Flutter']
+    // LAYER 2 (manually curated — frameworks, libraries, tools):
+    //   React, Angular, Flutter, Tailwind CSS, Vite, shadcn-ui,
+    //   Material UI, Material 3, Ant Design, Node.js, Express
+    skills: ['React', 'Angular', 'JavaScript', 'TypeScript', 'HTML/CSS', 'CSS', 'Dart', 'Flutter', 'Tailwind CSS', 'Vite', 'shadcn-ui', 'Material UI', 'Material 3', 'Ant Design', 'Node.js', 'Express']
   },
   {
     id: 'agile',
