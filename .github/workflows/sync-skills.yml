@@ -41,6 +41,6 @@ jobs:
             echo "No changes to skills.js – nothing to commit."
           else
             git add src/data/skills.js
-            git commit -m "chore: auto-sync skills from GitHub repos [skip ci]"
+            git commit -m "chore: auto-sync skills from GitHub repos"
             git push
           fi
