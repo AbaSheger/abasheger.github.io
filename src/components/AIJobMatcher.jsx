@@ -33,22 +33,24 @@ const buildMatchPrompt = (jobDesc, lang) => {
   if (lang === 'sv') {
     return `Du är en strikt rekryteringsexpert som analyserar hur väl en kandidat matchar en jobbeskrivning.
 
-KANDIDAT: Abenezer Anglo, mjukvaruutvecklare, Borlänge Sverige
+KANDIDAT: Abenezer Anglo, junior/mellannivå mjukvaruutvecklare, Borlänge Sverige
+ERFARENHETSNIVÅ: Junior till mellannivå-utvecklare. Genomför för närvarande en Java-utvecklarutbildning. Cirka 1-2 års praktisk projekterfarenhet (skola + personliga projekt). Ingen professionell heltidsanställning som utvecklare ännu.
 
 KOMPETENSER:\n${skillsText}\n
 JOBBESKRIVNING ATT ANALYSERA:\n${jobDesc}\n
-VIKTIGA REGLER FÖR POÄNGSÄTTNING:\n- Räkna EXAKT hur många av kandidatens kompetenser som nämns i jobbeskrivningen.\n- Om jobbet kräver kompetenser som kandidaten SAKNAR, ge ett LÄGRE poäng.\n- 90-100: Nästan perfekt matchning — kandidaten har ALLA eller nästan alla efterfrågade kompetenser.\n- 70-89: Stark matchning — kandidaten har de flesta krävda kompetenser.\n- 50-69: Delvis matchning — kandidaten har några relevanta kompetenser men saknar viktiga krav.\n- 30-49: Svag matchning — begränsad överlappning.\n- 0-29: Mycket svag — helt annan inriktning.\n- Ge ALDRIG automatiskt en hög poäng. Var kritisk och ärlig.
+VIKTIGA REGLER FÖR POÄNGSÄTTNING:\n- Räkna EXAKT hur många av kandidatens kompetenser som nämns i jobbeskrivningen.\n- Om jobbet kräver kompetenser som kandidaten SAKNAR, ge ett LÄGRE poäng.\n- SENIORITETSREGEL (KRITISK): Om jobbtiteln eller beskrivningen innehåller ord som "Senior", "Lead", "Principal", "Staff", "Arkitekt" eller kräver 5+ års erfarenhet, är kandidaten INTE en stark matchning på grund av erfarenhetsnivå. I detta fall är MAXPOÄNGEN 60, oavsett kompetensmatchning. Nämn detta i sammanfattningen.\n- ERFARENHETSREGEL: Om jobbet kräver 3-4 års erfarenhet, är maxpoängen 72.\n- 90-100: Nästan perfekt matchning — kandidaten har ALLA krävda kompetenser OCH rollen är på junior/mellannivå/nyexaminerad.\n- 70-89: Stark matchning — kandidaten har de flesta kompetenser OCH rollen passar junior/mellannivå.\n- 50-69: Delvis matchning — kandidaten har några relevanta kompetenser men saknar viktiga krav, ELLER rollen är mer senior än kandidatens nivå.\n- 30-49: Svag matchning — begränsad överlappning eller betydande senioritetsglapp.\n- 0-29: Mycket svag — helt annan inriktning.\n- Ge ALDRIG automatiskt en hög poäng. Var kritisk och ärlig.\n- Nämn ALLTID i sammanfattningen om rollen är för senior för kandidatens nuvarande erfarenhetsnivå.
 
 Svara EXAKT med följande JSON-format och inget annat:\n{\n  "score": <heltal 0-100 som representerar matchningsprocent>,\n  "matchedSkills": [<upp till 8 specifika matchande tekniker/färdigheter som strängar>],\n  "summary": "<2-3 meningar på svenska om varför Abenezer passar eller inte passar för rollen>",\n  "highlights": ["<styrka 1>", "<styrka 2>", "<styrka 3>"]\n}`;
   }
 
   return `You are a strict recruitment expert analyzing how well a candidate matches a job description.
 
-CANDIDATE: Abenezer Anglo, Software Developer, Borlänge Sweden
+CANDIDATE: Abenezer Anglo, Junior/Mid-level Software Developer, Borlänge Sweden
+EXPERIENCE LEVEL: Junior to mid-level developer. Currently completing a Java developer education program. Approximately 1-2 years of hands-on project experience (school + personal projects). No professional full-time employment as a developer yet.
 
 SKILLS:\n${skillsText}\n
 JOB DESCRIPTION TO ANALYZE:\n${jobDesc}\n
-IMPORTANT SCORING RULES:\n- Count EXACTLY how many of the candidate's skills are mentioned or required in the job description.\n- If the job requires skills the candidate LACKS, give a LOWER score.\n- 90-100: Near-perfect match — candidate has ALL or nearly all required skills.\n- 70-89: Strong match — candidate has most of the required skills.\n- 50-69: Partial match — candidate has some relevant skills but is missing key requirements.\n- 30-49: Weak match — limited overlap between candidate skills and job requirements.\n- 0-29: Very weak — completely different field or skill set.\n- NEVER default to a high score. Be critical and honest in your assessment.
+IMPORTANT SCORING RULES:\n- Count EXACTLY how many of the candidate's skills are mentioned or required in the job description.\n- If the job requires skills the candidate LACKS, give a LOWER score.\n- SENIORITY RULE (CRITICAL): If the job title or description uses words like "Senior", "Lead", "Principal", "Staff", "Architect", or requires 5+ years of experience, the candidate is NOT a strong match due to experience level. In this case, the MAXIMUM score you may give is 60, regardless of skill overlap. Mention this in the summary.\n- EXPERIENCE RULE: If the job requires 3-4 years of experience, cap the score at 72 maximum.\n- 90-100: Near-perfect match — candidate has ALL required skills AND the role is junior/mid/graduate level.\n- 70-89: Strong match — candidate has most required skills AND the role is appropriate for junior/mid level.\n- 50-69: Partial match — candidate has some relevant skills but is missing key requirements, OR the role is more senior than the candidate's level.\n- 30-49: Weak match — limited skill overlap or significant seniority mismatch.\n- 0-29: Very weak — completely different field or skill set.\n- NEVER default to a high score. Be critical and honest in your assessment.\n- ALWAYS mention in the summary if the role is too senior for the candidate's current experience level.
 
 Respond EXACTLY with the following JSON format and nothing else:\n{\n  "score": <integer 0-100 representing match percentage>,\n  "matchedSkills": [<up to 8 specific matching technologies/skills as strings>],\n  "summary": "<2-3 sentences on why Abenezer is or is not a good fit for this role>",\n  "highlights": ["<strength 1>", "<strength 2>", "<strength 3>"]\n}`;
 };
@@ -181,12 +183,12 @@ export const AIJobMatcher = () => {
       : 'Vänligen klistra in en jobbeskrivning (minst 50 tecken).',
     contactCta: isEn ? '📩 Contact Abenezer' : '📩 Kontakta Abenezer',
     tryThis: isEn ? 'Quick example:' : 'Snabbexempel:',
-    exampleLabel: isEn ? 'Senior Java Developer (Spring Boot + Azure)' : 'Senior Java-utvecklare (Spring Boot + Azure)',
+    exampleLabel: isEn ? 'Junior Java Developer (Spring Boot + REST)' : 'Junior Java-utvecklare (Spring Boot + REST)',
   };
 
   const exampleDesc = isEn
-    ? `We are looking for a Senior Java Developer to join our growing team. You will design and implement scalable microservices using Spring Boot, Docker, and Kubernetes. Experience with REST APIs, MySQL, and CI/CD pipelines (GitHub Actions, Azure DevOps) is required. Familiarity with React for frontend development and Agile/Scrum methodologies is a strong plus. Cloud experience with Azure is highly valued.`
-    : `Vi söker en senior Java-utvecklare till vårt växande team. Du kommer att designa och implementera skalbara mikrotjänster med Spring Boot, Docker och Kubernetes. Erfarenhet av REST API:er, MySQL och CI/CD-pipelines (GitHub Actions, Azure DevOps) krävs. Kunskap om React och Agile/Scrum-metodik är meriterande. Molnerfarenhet med Azure värderas högt.`;
+    ? `We are looking for a Junior Java Developer to join our team. You will build and maintain REST APIs using Spring Boot and Java. Experience with MySQL, Git, and basic Docker knowledge is a plus. Familiarity with Agile/Scrum methodologies and JUnit testing is valued. This is a great opportunity for a motivated developer with 0-2 years of experience.`
+    : `Vi söker en junior Java-utvecklare till vårt team. Du kommer att bygga och underhålla REST API:er med Spring Boot och Java. Erfarenhet av MySQL, Git och grundläggande Docker-kunskaper är meriterande. Kännedom om Agile/Scrum och JUnit-testning värderas. Detta är en utmärkt möjlighet för en motiverad utvecklare med 0-2 års erfarenhet.`;
 
   const analyze = async () => {
     const trimmed = jobDesc.trim();
