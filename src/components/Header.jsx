@@ -196,6 +196,9 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
           <a href="#skills" className={getLinkClasses('skills')} aria-current={activeSection === 'skills' ? 'page' : undefined}>
             {navItems.skills}
           </a>
+          <a href="#ai-match" className={getLinkClasses('ai-match')} aria-current={activeSection === 'ai-match' ? 'page' : undefined}>
+            {navItems.aiMatch}
+          </a>
           <a href="#cv" className={getLinkClasses('cv')} aria-current={activeSection === 'cv' ? 'page' : undefined}>
             {navItems.cv}
           </a>
@@ -246,6 +249,15 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
             tabIndex={menuOpen ? 0 : -1}
           >
             {navItems.skills}
+          </a>
+          <a 
+            href="#ai-match" 
+            className={getLinkClasses('ai-match')} 
+            onClick={toggleMenu}
+            aria-current={activeSection === 'ai-match' ? 'page' : undefined}
+            tabIndex={menuOpen ? 0 : -1}
+          >
+            {navItems.aiMatch}
           </a>
           <a 
             href="#cv" 

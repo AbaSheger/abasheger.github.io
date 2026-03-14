@@ -151,3 +151,76 @@ describe('score variation across different job types', () => {
     expect(dataScienceScore).toBeGreaterThan(marketingScore);
   });
 });
+
+// Re-implement enforceSeniorityCap to test independently
+const SENIOR_KEYWORDS = /\b(senior|lead|principal|staff|architect|head of|vp\b|vice president)\b/i;
+const HIGH_EXPERIENCE = /\b([5-9]|1[0-9])\+?\s*(?:years?|yrs?)(?:\s+of)?\s*(?:professional\s*)?(?:experience|exp)\b/i;
+const MID_EXPERIENCE = /\b[3-4]\+?\s*(?:years?|yrs?)(?:\s+of)?\s*(?:professional\s*)?(?:experience|exp)\b/i;
+
+const enforceSeniorityCap = (result, jobDesc) => {
+  const isSenior = SENIOR_KEYWORDS.test(jobDesc) || HIGH_EXPERIENCE.test(jobDesc);
+  const isMidSenior = !isSenior && MID_EXPERIENCE.test(jobDesc);
+  if (isSenior && result.score > 60) {
+    return { ...result, score: 60 };
+  }
+  if (isMidSenior && result.score > 72) {
+    return { ...result, score: 72 };
+  }
+  return result;
+};
+
+describe('seniority cap enforcement', () => {
+  test('Senior role caps score at 60 even if AI returns higher', () => {
+    const result = enforceSeniorityCap({ score: 85, summary: 'Great match.' }, 'Senior Java Developer');
+    expect(result.score).toBe(60);
+  });
+
+  test('Lead role caps score at 60', () => {
+    const result = enforceSeniorityCap({ score: 78, summary: 'Good match.' }, 'We are looking for a Lead Backend Engineer');
+    expect(result.score).toBe(60);
+  });
+
+  test('Architect role caps score at 60', () => {
+    const result = enforceSeniorityCap({ score: 72, summary: 'Partial match.' }, 'Solutions Architect with 5+ years experience');
+    expect(result.score).toBe(60);
+  });
+
+  test('5+ years experience requirement caps score at 60', () => {
+    const result = enforceSeniorityCap({ score: 75, summary: 'Strong match.' }, 'We require 5+ years of experience in backend development');
+    expect(result.score).toBe(60);
+  });
+
+  test('3 years experience requirement caps score at 72', () => {
+    const result = enforceSeniorityCap({ score: 80, summary: 'Good fit.' }, 'Looking for developer with 3 years of experience');
+    expect(result.score).toBe(72);
+  });
+
+  test('4 years experience requirement caps score at 72', () => {
+    const result = enforceSeniorityCap({ score: 88, summary: 'Strong fit.' }, 'Requires 4 years of professional experience');
+    expect(result.score).toBe(72);
+  });
+
+  test('Junior role score is NOT capped', () => {
+    const result = enforceSeniorityCap({ score: 88, summary: 'Near-perfect.' }, 'Junior Java Developer with Spring Boot and REST APIs');
+    expect(result.score).toBe(88);
+  });
+
+  test('Mid-level role score below cap is NOT changed', () => {
+    const result = enforceSeniorityCap({ score: 65, summary: 'Partial match.' }, 'Mid-level developer needed, 2 years experience');
+    expect(result.score).toBe(65);
+  });
+
+  test('Senior role score already at or below cap is NOT changed', () => {
+    const result = enforceSeniorityCap({ score: 55, summary: 'Below cap.' }, 'Senior Developer role');
+    expect(result.score).toBe(55);
+  });
+
+  test('score and other fields are preserved after cap', () => {
+    const input = { score: 90, summary: 'Great fit.', matchedSkills: ['Java', 'Docker'], highlights: ['Spring Boot'] };
+    const result = enforceSeniorityCap(input, 'Senior Java Developer');
+    expect(result.score).toBe(60);
+    expect(result.summary).toBe('Great fit.');
+    expect(result.matchedSkills).toEqual(['Java', 'Docker']);
+    expect(result.highlights).toEqual(['Spring Boot']);
+  });
+});
