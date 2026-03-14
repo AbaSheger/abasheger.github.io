@@ -17,13 +17,13 @@ export const skillCategories = [
     icon: 'code',
     proficiency: 85,
     // LAYER 1 (auto-synced from GitHub language detection):
-    //   Java, C#, Python, Kotlin, Go, Rust, Ruby, C++, C, Scala, Groovy
+    //   Java, C#, Python, Rust, Ruby, C++, C, Scala, Groovy
     // LAYER 2 (manually curated — frameworks, tools, databases):
     //   Spring Boot, Spring Security, Spring Cloud, Spring Data JPA, REST APIs,
     //   Postman, Keycloak, Maven, MySQL, PostgreSQL, H2, JUnit, Mockito, TDD,
     //   JavaFX, Hibernate, Flyway, Kafka, Bucket4j, picocli,
     //   ASP.NET Core, EF Core, xUnit, WPF, MathNet.Numerics
-    skills: ['Java', 'C#', '.NET', 'Python', 'Spring Boot', 'Spring Security', 'Spring Cloud', 'Spring Data JPA', 'REST APIs', 'Postman', 'Keycloak', 'Maven', 'MySQL', 'PostgreSQL', 'H2', 'JUnit', 'Mockito', 'TDD', 'Go', 'Kotlin', 'Ruby', 'JavaFX', 'Hibernate', 'Flyway', 'Kafka', 'Bucket4j', 'picocli', 'ASP.NET Core', 'EF Core', 'xUnit', 'WPF', 'MathNet.Numerics']
+    skills: ['Java', 'C#', '.NET', 'Python', 'Spring Boot', 'Spring Security', 'Spring Cloud', 'Spring Data JPA', 'REST APIs', 'Postman', 'Keycloak', 'Maven', 'MySQL', 'PostgreSQL', 'H2', 'JUnit', 'Mockito', 'TDD', 'Ruby', 'JavaFX', 'Hibernate', 'Flyway', 'Kafka', 'Bucket4j', 'picocli', 'ASP.NET Core', 'EF Core', 'xUnit', 'WPF', 'MathNet.Numerics']
   },
   {
     id: 'devops',
