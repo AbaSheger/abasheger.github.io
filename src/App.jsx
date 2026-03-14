@@ -12,7 +12,6 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { SkeletonLoader } from './components/SkeletonLoader';
 import Chatbot from './components/Chatbot';
 import { AIJobMatcher } from './components/AIJobMatcher';
-import { GitHubActivity } from './components/GitHubActivity';
 
 // Lazy load the ParticleBackground for better performance
 const ParticleBackground = lazy(() => import('./components/ParticleBackground'));
@@ -127,7 +126,7 @@ const App = () => {
       // Alt + number shortcuts for sections
       if (e.altKey && !isNaN(e.key)) {
         e.preventDefault();
-        const sections = ['hero', 'about', 'projects', 'skills', 'contact'];
+        const sections = ['hero', 'about', 'projects', 'skills', 'ai-match', 'cv', 'contact'];
         const index = parseInt(e.key) - 1;
         if (sections[index]) {
           document.querySelector(`#${sections[index]}`).focus();
@@ -256,10 +255,6 @@ const App = () => {
                 </ErrorBoundary>
               </Suspense>
 
-              <ErrorBoundary>
-                <GitHubActivity />
-              </ErrorBoundary>
-              
               <Suspense fallback={<div className="space-y-4 p-4"><SkeletonLoader type="skill" /><SkeletonLoader type="skill" /></div>}>
                 <ErrorBoundary>
                   <Skills text={text.skills} />

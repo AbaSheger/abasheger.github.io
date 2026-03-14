@@ -6,6 +6,28 @@ const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
 
 const ALL_SKILLS = skillCategories.flatMap(cat => cat.skills);
 
+// Regex to detect seniority level from a job description
+const SENIOR_KEYWORDS = /\b(senior|lead|principal|staff|architect|head of|vp\b|vice president)\b/i;
+const HIGH_EXPERIENCE = /\b([5-9]|1[0-9])\+?\s*(?:years?|yrs?)(?:\s+of)?\s*(?:professional\s*)?(?:experience|exp)\b/i;
+const MID_EXPERIENCE = /\b[3-4]\+?\s*(?:years?|yrs?)(?:\s+of)?\s*(?:professional\s*)?(?:experience|exp)\b/i;
+
+/**
+ * Enforce realistic score caps based on seniority level detected in the job description.
+ * This runs after AI analysis to prevent the LLM from giving unrealistically high scores
+ * to a junior/mid-level candidate for senior roles.
+ */
+const enforceSeniorityCap = (result, jobDesc) => {
+  const isSenior = SENIOR_KEYWORDS.test(jobDesc) || HIGH_EXPERIENCE.test(jobDesc);
+  const isMidSenior = !isSenior && MID_EXPERIENCE.test(jobDesc);
+  if (isSenior && result.score > 60) {
+    return { ...result, score: 60 };
+  }
+  if (isMidSenior && result.score > 72) {
+    return { ...result, score: 72 };
+  }
+  return result;
+};
+
 /** Check if a skill appears as a whole word/phrase in the text (not as a substring of another word). */
 const matchesSkill = (text, skill) => {
   const lowerSkill = skill.toLowerCase();
@@ -76,7 +98,14 @@ const analyzeLocally = (jobDesc, lang) => {
   }
 
   const rawRatio = totalWeight > 0 ? matchedWeight / totalWeight : 0;
-  const score = Math.min(95, Math.max(allMatched.length === 0 ? 10 : 15, Math.round(rawRatio * 100)));
+  const rawScore = Math.min(95, Math.max(allMatched.length === 0 ? 10 : 15, Math.round(rawRatio * 100)));
+
+  // Apply seniority cap before building the summary
+  const isSenior = SENIOR_KEYWORDS.test(jobDesc) || HIGH_EXPERIENCE.test(jobDesc);
+  const isMidSenior = !isSenior && MID_EXPERIENCE.test(jobDesc);
+  let score = rawScore;
+  if (isSenior) score = Math.min(rawScore, 60);
+  else if (isMidSenior) score = Math.min(rawScore, 72);
 
   // Build dynamic summary based on actually matched categories
   const matchedCats = categoryResults.filter(cat => cat.matched.length > 0);
@@ -90,6 +119,8 @@ const analyzeLocally = (jobDesc, lang) => {
     } else {
       const catNames = matchedCats.map(c => c.title).join(', ');
       summary = `Abenezer matchar ${allMatched.length} av ${ALL_SKILLS.length} kompetenser (${topSkills}). Starkast matchning inom: ${catNames}.`;
+      if (isSenior) summary += ' Observera: Rollen kräver Senior/Lead-erfarenhet som överstiger Abenezers nuvarande junior/mellannivå-profil.';
+      else if (isMidSenior) summary += ' Observera: Rollen kräver 3-4 års erfarenhet vilket är mer än Abenezers nuvarande nivå.';
       highlights = matchedCats.slice(0, 3).map(cat =>
         `${cat.title}: ${cat.matched.slice(0, 2).join(', ')} (${cat.matched.length}/${cat.skills.length})`
       );
@@ -101,6 +132,8 @@ const analyzeLocally = (jobDesc, lang) => {
     } else {
       const catNames = matchedCats.map(c => c.title).join(', ');
       summary = `Abenezer matches ${allMatched.length} of ${ALL_SKILLS.length} skills (${topSkills}). Strongest overlap in: ${catNames}.`;
+      if (isSenior) summary += ' Note: This role requires Senior/Lead experience beyond Abenezer\'s current junior/mid-level profile.';
+      else if (isMidSenior) summary += ' Note: This role requires 3-4 years of experience, which is more than Abenezer\'s current level.';
       highlights = matchedCats.slice(0, 3).map(cat =>
         `${cat.title}: ${cat.matched.slice(0, 2).join(', ')} (${cat.matched.length}/${cat.skills.length})`
       );
@@ -223,7 +256,7 @@ export const AIJobMatcher = () => {
           const jsonMatch = content.match(/\{[\s\S]*\}/);
           if (jsonMatch) {
             const parsed = JSON.parse(jsonMatch[0]);
-            setResult(parsed);
+            setResult(enforceSeniorityCap(parsed, jobDesc));
             setLoading(false);
             setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
             return;
