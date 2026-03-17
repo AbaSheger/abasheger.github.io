@@ -9,10 +9,10 @@ export const Contact = ({ text }) => {
     e.preventDefault();
     setFormStatus('sending');
     emailjs.sendForm(
-      'service_tge1yei',
-      'template_5fjm9nf',
+      process.env.REACT_APP_EMAILJS_SERVICE_ID,
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
       formRef.current,
-      'x2FmC_pDx2Ves-R_E'
+      process.env.REACT_APP_EMAILJS_PUBLIC_KEY
     ).then(() => {
       setFormStatus('success');
       formRef.current.reset();
