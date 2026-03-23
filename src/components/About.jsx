@@ -130,13 +130,25 @@ export const About = ({ text }) => {
               </a>
 
               {/* Anthropic Claude in Action */}
-              <div className="group flex items-center gap-5 p-5 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:border-orange-400 dark:hover:border-orange-500 transition-all duration-500 bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-2">
+              <a
+                href="https://verify.skilljar.com/c/o3mfxajuryzu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-5 p-5 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:border-orange-400 dark:hover:border-orange-500 transition-all duration-500 bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-2"
+              >
                 <div className="relative flex-shrink-0">
                   <div className="absolute inset-0 bg-orange-500/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="relative w-16 h-16 flex items-center justify-center bg-white rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 p-2 group-hover:scale-110">
-                    {/* Anthropic logo mark */}
-                    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none">
-                      <path d="M13.827 3.52h-3.654L5.063 20h3.043l1.165-3.28h5.458L15.894 20h3.043L13.827 3.52zm-3.786 10.96 1.959-5.52 1.959 5.52H10.04z" fill="#D97706"/>
+                    {/* Claude logomark — 6-petal asterisk */}
+                    <svg className="w-10 h-10" viewBox="0 0 40 40" fill="none">
+                      <g transform="translate(20,20)">
+                        <ellipse rx="9" ry="2.8" fill="#CC785C"/>
+                        <ellipse rx="9" ry="2.8" fill="#CC785C" transform="rotate(30)"/>
+                        <ellipse rx="9" ry="2.8" fill="#CC785C" transform="rotate(60)"/>
+                        <ellipse rx="9" ry="2.8" fill="#CC785C" transform="rotate(90)"/>
+                        <ellipse rx="9" ry="2.8" fill="#CC785C" transform="rotate(120)"/>
+                        <ellipse rx="9" ry="2.8" fill="#CC785C" transform="rotate(150)"/>
+                      </g>
                     </svg>
                   </div>
                 </div>
@@ -160,7 +172,14 @@ export const About = ({ text }) => {
                     {text.certifications?.claudeDate || 'Earned March 2026'}
                   </p>
                 </div>
-              </div>
+
+                {/* Arrow icon */}
+                <div className="flex-shrink-0 p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-400 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300 group-hover:translate-x-1">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </div>
+              </a>
             </div>
           </div>
         </div>
