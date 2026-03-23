@@ -56,7 +56,7 @@ const buildMatchPrompt = (jobDesc, lang) => {
     return `Du är en strikt rekryteringsexpert som analyserar hur väl en kandidat matchar en jobbeskrivning.
 
 KANDIDAT: Abenezer Anglo, junior/mellannivå mjukvaruutvecklare, Borlänge Sverige
-ERFARENHETSNIVÅ: Junior till mellannivå-utvecklare. Genomför för närvarande en Java-utvecklarutbildning. Cirka 1-2 års praktisk projekterfarenhet (skola + personliga projekt). Ingen professionell heltidsanställning som utvecklare ännu.
+ERFARENHETSNIVÅ: Junior till mellannivå-utvecklare. Genomför för närvarande en Java-utvecklarutbildning. Cirka 1-2 års praktisk projekterfarenhet (skola + personliga projekt). Ingen professionell heltidsanställning som utvecklare ännu. Använder aktivt AI-assisterade utvecklingsverktyg (GitHub Copilot, Claude Code) i det dagliga arbetet. Håller på att lära sig Playwright för end-to-end-testning.
 
 KOMPETENSER:\n${skillsText}\n
 JOBBESKRIVNING ATT ANALYSERA:\n${jobDesc}\n
@@ -68,7 +68,7 @@ Svara EXAKT med följande JSON-format och inget annat:\n{\n  "score": <heltal 0-
   return `You are a strict recruitment expert analyzing how well a candidate matches a job description.
 
 CANDIDATE: Abenezer Anglo, Junior/Mid-level Software Developer, Borlänge Sweden
-EXPERIENCE LEVEL: Junior to mid-level developer. Currently completing a Java developer education program. Approximately 1-2 years of hands-on project experience (school + personal projects). No professional full-time employment as a developer yet.
+EXPERIENCE LEVEL: Junior to mid-level developer. Currently completing a Java developer education program. Approximately 1-2 years of hands-on project experience (school + personal projects). No professional full-time employment as a developer yet. Actively uses AI-assisted development tools (GitHub Copilot, Claude Code) in daily workflow. Currently learning Playwright for end-to-end testing.
 
 SKILLS:\n${skillsText}\n
 JOB DESCRIPTION TO ANALYZE:\n${jobDesc}\n

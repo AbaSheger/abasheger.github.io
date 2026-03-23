@@ -16,7 +16,7 @@ export const skillCategories = [
     title: 'Backend & Programming',
     icon: 'code',
     proficiency: 85,
-    skills: ['Java', 'C#', '.NET', 'Python', 'Spring Boot', 'Spring Security', 'Spring Cloud', 'Spring Data JPA', 'REST APIs', 'Postman', 'Keycloak', 'Maven', 'MySQL', 'PostgreSQL', 'H2', 'JUnit', 'Mockito', 'TDD', 'Ruby', 'JavaFX', 'Hibernate', 'Flyway', 'Kafka', 'Bucket4j', 'picocli', 'ASP.NET Core', 'EF Core', 'xUnit', 'WPF', 'MathNet.Numerics', 'Go', 'Kotlin']
+    skills: ['Java', 'C#', '.NET', 'Python', 'Spring Boot', 'Spring Security', 'Spring Cloud', 'Spring Data JPA', 'REST APIs', 'Postman', 'Keycloak', 'Maven', 'MySQL', 'PostgreSQL', 'H2', 'JUnit', 'Mockito', 'TDD', 'Playwright', 'Ruby', 'JavaFX', 'Hibernate', 'Flyway', 'Kafka', 'Bucket4j', 'picocli', 'ASP.NET Core', 'EF Core', 'xUnit', 'WPF', 'MathNet.Numerics', 'Go', 'Kotlin']
   },
   {
     id: 'devops',
@@ -37,6 +37,6 @@ export const skillCategories = [
     title: 'Agile & Other',
     icon: 'users',
     proficiency: 80,
-    skills: ['Scrum', 'Kanban', 'Team Collaboration', 'Problem Solving', 'AI Basics']
+    skills: ['Scrum', 'Kanban', 'Team Collaboration', 'Problem Solving', 'AI-assisted development', 'GitHub Copilot', 'Claude Code', 'Prompt Engineering', 'LLM tools']
   }
 ];
