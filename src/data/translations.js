@@ -36,6 +36,8 @@ export const translations = {
         title: "Certifications",
         azure: "Microsoft Certified: Azure Fundamentals",
         azureDate: "Earned January 20, 2026",
+        claude: "Anthropic: Claude in Action",
+        claudeDate: "Earned March 2026",
         verified: "Verified"
       }
     },
@@ -132,6 +134,8 @@ export const translations = {
         title: "Certifieringar",
         azure: "Microsoft Certified: Azure Fundamentals",
         azureDate: "Erhållen 20 januari 2026",
+        claude: "Anthropic: Claude in Action",
+        claudeDate: "Erhållen mars 2026",
         verified: "Verifierad"
       }
     },

@@ -79,7 +79,7 @@ export const About = ({ text }) => {
               {text.certifications?.title || 'Certifications'}
             </h3>
             <div className="space-y-4">
-              <a 
+              <a
                 href="https://learn.microsoft.com/en-us/users/AbenezerAnglo-2880/credentials/CF22B85D7993E75D"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -97,7 +97,7 @@ export const About = ({ text }) => {
                     </svg>
                   </div>
                 </div>
-                
+
                 <div className="flex-grow min-w-0">
                   <div className="flex items-center gap-3 flex-wrap">
                     <h4 className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
@@ -128,6 +128,39 @@ export const About = ({ text }) => {
                   </svg>
                 </div>
               </a>
+
+              {/* Anthropic Claude in Action */}
+              <div className="group flex items-center gap-5 p-5 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:border-orange-400 dark:hover:border-orange-500 transition-all duration-500 bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-2">
+                <div className="relative flex-shrink-0">
+                  <div className="absolute inset-0 bg-orange-500/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative w-16 h-16 flex items-center justify-center bg-white rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 p-2 group-hover:scale-110">
+                    {/* Anthropic logo mark */}
+                    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none">
+                      <path d="M13.827 3.52h-3.654L5.063 20h3.043l1.165-3.28h5.458L15.894 20h3.043L13.827 3.52zm-3.786 10.96 1.959-5.52 1.959 5.52H10.04z" fill="#D97706"/>
+                    </svg>
+                  </div>
+                </div>
+
+                <div className="flex-grow min-w-0">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <h4 className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors truncate">
+                      {text.certifications?.claude || 'Anthropic: Claude in Action'}
+                    </h4>
+                    <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-full shadow-lg shadow-orange-500/25">
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      {text.certifications?.verified || 'Verified'}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    {text.certifications?.claudeDate || 'Earned March 2026'}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
