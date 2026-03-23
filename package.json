@@ -19,7 +19,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "test:e2e": "playwright test"
   },
   "eslintConfig": {
     "extends": [
@@ -40,6 +41,8 @@
     ]
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@playwright/test": "^1.58.2",
     "autoprefixer": "^10.4.16",
     "gh-pages": "^6.3.0",
     "postcss": "^8.4.31",

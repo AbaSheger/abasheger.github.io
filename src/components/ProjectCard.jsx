@@ -112,7 +112,7 @@ export const ProjectCard = ({ project }) => {
           >
             {title}
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2" aria-label={`Project description: ${description}`}>
+          <p className="text-sm text-gray-700 dark:text-gray-400 mb-4 line-clamp-2" aria-label={`Project description: ${description}`}>
             {description}
           </p>
           
@@ -122,7 +122,7 @@ export const ProjectCard = ({ project }) => {
               <span 
                 key={tech}
                 role="listitem"
-                className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700/50 text-gray-600 dark:text-gray-400 rounded-md border border-gray-200/50 dark:border-gray-600/50 hover:border-blue-300 dark:hover:border-blue-500/50 transition-colors"
+                className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700/50 text-gray-700 dark:text-gray-400 rounded-md border border-gray-200/50 dark:border-gray-600/50 hover:border-blue-300 dark:hover:border-blue-500/50 transition-colors"
               >
                 {tech}
               </span>
