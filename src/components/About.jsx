@@ -139,17 +139,12 @@ export const About = ({ text }) => {
                 <div className="relative flex-shrink-0">
                   <div className="absolute inset-0 bg-orange-500/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="relative w-16 h-16 flex items-center justify-center bg-white rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 p-2 group-hover:scale-110">
-                    {/* Claude logomark — 6-petal asterisk */}
-                    <svg className="w-10 h-10" viewBox="0 0 40 40" fill="none">
-                      <g transform="translate(20,20)">
-                        <ellipse rx="9" ry="2.8" fill="#CC785C"/>
-                        <ellipse rx="9" ry="2.8" fill="#CC785C" transform="rotate(30)"/>
-                        <ellipse rx="9" ry="2.8" fill="#CC785C" transform="rotate(60)"/>
-                        <ellipse rx="9" ry="2.8" fill="#CC785C" transform="rotate(90)"/>
-                        <ellipse rx="9" ry="2.8" fill="#CC785C" transform="rotate(120)"/>
-                        <ellipse rx="9" ry="2.8" fill="#CC785C" transform="rotate(150)"/>
-                      </g>
-                    </svg>
+                    {/* Official Anthropic logo via SimpleIcons CDN */}
+                    <img
+                      src="https://cdn.simpleicons.org/anthropic/CC785C"
+                      alt="Anthropic"
+                      className="w-10 h-10"
+                    />
                   </div>
                 </div>
 
