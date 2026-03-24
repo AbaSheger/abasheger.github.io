@@ -21,15 +21,37 @@ export const About = ({ text }) => {
           </span>
         </h2>
         
-        <div className="space-y-8 text-gray-600 dark:text-gray-300 max-w-3xl">
-          {/* Bio cards with glassmorphism */}
-          <div className="group p-6 rounded-2xl bg-white/60 dark:bg-gray-800/40 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-300 dark:hover:border-blue-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1">
-            <p className="text-lg leading-relaxed">{text.bio1}</p>
+        <div className="text-gray-600 dark:text-gray-300">
+          {/* Two-column: bio text + profile photo */}
+          <div className="flex flex-col-reverse md:flex-row md:items-start gap-10 mb-8">
+            {/* Left: bio cards */}
+            <div className="space-y-8 flex-1">
+              <div className="group p-6 rounded-2xl bg-white/60 dark:bg-gray-800/40 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-300 dark:hover:border-blue-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1">
+                <p className="text-lg leading-relaxed">{text.bio1}</p>
+              </div>
+              <div className="group p-6 rounded-2xl bg-white/60 dark:bg-gray-800/40 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-purple-300 dark:hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/5 hover:-translate-y-1">
+                <p className="text-lg leading-relaxed">{text.bio2}</p>
+              </div>
+            </div>
+
+            {/* Right: circular profile photo */}
+            <div className="flex justify-center md:justify-end flex-shrink-0">
+              <div className="relative w-52 h-52 md:w-64 md:h-64">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1 shadow-2xl shadow-blue-500/25">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-white">
+                    <img
+                      src="/assets/profile.jpg"
+                      alt="Abenezer Anglo"
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                </div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-600/20 blur-xl -z-10"></div>
+              </div>
+            </div>
           </div>
-          <div className="group p-6 rounded-2xl bg-white/60 dark:bg-gray-800/40 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-purple-300 dark:hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/5 hover:-translate-y-1">
-            <p className="text-lg leading-relaxed">{text.bio2}</p>
-          </div>
-          
+
+          <div className="max-w-3xl">
           {/* Education Section */}
           <div className="mt-16">
             <h3 className="text-xl font-bold mb-8 text-gray-900 dark:text-white flex items-center gap-3">
@@ -176,6 +198,7 @@ export const About = ({ text }) => {
                 </div>
               </a>
             </div>
+          </div>
           </div>
         </div>
       </div>
