@@ -4,7 +4,8 @@ const stagefinderImage = './assets/stagefinder.png'; // You'll need to add this 
 const wigellPadelImage = './assets/wigell-padel.png';
 const DevOpsImage = './assets/DevOps.png';
 const eventOrganizerImage = './assets/event-organizer.png'; // You'll need to add this image
-const borsvyImage = './assets/borsvy.png'; 
+const borsvyImage = './assets/borsvy.png';
+const lomanStadImage = './assets/loman-stad.png';
 
 
 export const projects = {
@@ -240,7 +241,7 @@ export const projects = {
       title: "Loman Städ – Business Website",
       category: "fullstack",
       technologies: ["React", "Vite", "Tailwind CSS", "EmailJS"],
-      image: null,
+      image: lomanStadImage,
       description: "Responsive single-page website for a local cleaning company in Sweden. SEO optimised with sitemap, Schema.org structured data and Google Search Console. Deployed on Vercel with custom domain.",
       liveLink: "https://lomanstad.se",
       githubLink: null,
@@ -479,7 +480,7 @@ export const projects = {
       title: "Loman Städ – Företagswebbplats",
       category: "fullstack",
       technologies: ["React", "Vite", "Tailwind CSS", "EmailJS"],
-      image: null,
+      image: lomanStadImage,
       description: "Responsiv single-page-webbplats för ett lokalt städföretag i Sverige. SEO-optimerad med sitemap, Schema.org strukturerad data och Google Search Console. Driftsatt på Vercel med anpassad domän.",
       liveLink: "https://lomanstad.se",
       githubLink: null,
