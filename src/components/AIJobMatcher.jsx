@@ -85,20 +85,13 @@ const analyzeLocally = (jobDesc, lang) => {
 
   const allMatched = categoryResults.flatMap(cat => cat.matched);
 
-  // Weighted score: each matched skill contributes its category proficiency weight
-  let matchedWeight = 0;
-  let totalWeight = 0;
-  for (const cat of categoryResults) {
-    for (const skill of cat.skills) {
-      totalWeight += cat.proficiency;
-      if (cat.matched.includes(skill)) {
-        matchedWeight += cat.proficiency;
-      }
-    }
-  }
-
-  const rawRatio = totalWeight > 0 ? matchedWeight / totalWeight : 0;
-  const rawScore = Math.min(95, Math.max(allMatched.length === 0 ? 10 : 15, Math.round(rawRatio * 100)));
+  // Score based on how many job-relevant skills Abenezer matches.
+  // Dividing by total skills (68) penalises breadth unfairly — a job asking for
+  // 8 skills that Abenezer has all 8 of should score high, not 12%.
+  // Formula: each match contributes ~11 points, capped at 95.
+  const rawScore = allMatched.length === 0
+    ? 10
+    : Math.min(95, allMatched.length * 11);
 
   // Apply seniority cap before building the summary
   const isSenior = SENIOR_KEYWORDS.test(jobDesc) || HIGH_EXPERIENCE.test(jobDesc);
@@ -217,6 +210,9 @@ export const AIJobMatcher = () => {
     contactCta: isEn ? '📩 Contact Abenezer' : '📩 Kontakta Abenezer',
     tryThis: isEn ? 'Quick example:' : 'Snabbexempel:',
     exampleLabel: isEn ? 'Junior Java Developer (Spring Boot + REST)' : 'Junior Java-utvecklare (Spring Boot + REST)',
+    disclaimer: isEn
+      ? 'AI-generated estimate — for guidance only. Results may not reflect the full picture.'
+      : 'AI-genererad uppskattning — endast vägledande. Resultatet kanske inte speglar hela bilden.',
   };
 
   const exampleDesc = isEn
@@ -423,6 +419,14 @@ export const AIJobMatcher = () => {
                 {ui.resetBtn}
               </button>
             </div>
+
+            {/* Disclaimer */}
+            <p className="text-center text-xs text-gray-400 dark:text-gray-500 flex items-center justify-center gap-1.5">
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {ui.disclaimer}
+            </p>
           </div>
         )}
       </div>

@@ -6,6 +6,7 @@ const DevOpsImage = './assets/DevOps.png';
 const eventOrganizerImage = './assets/event-organizer.png'; // You'll need to add this image
 const borsvyImage = './assets/borsvy.png';
 const lomanStadImage = './assets/loman-stad.png';
+const ecoTrackerImage = './assets/ecotracker.png';
 
 
 export const projects = {
@@ -48,7 +49,6 @@ export const projects = {
       technologies: ["Spring Boot", "Java", "Email Service", "Open Source"],
       image: jmailerImage,
       description: "Contributed to an open-source email service built with Spring Boot. JMailer provides a robust solution for sending emails in Spring Boot applications.",
-      liveLink: "https://jmailer.josdem.io/",
       githubLink: "https://github.com/josdem/jmailer-spring-boot?tab=readme-ov-file",
       isOpenSource: true,
       contribution: true
@@ -216,22 +216,11 @@ export const projects = {
       isSchoolProject: true
     },
     {
-      id: 21,
-      title: "Portfolio Website",
-      category: "fullstack",
-      technologies: ["React", "Tailwind CSS", "JavaScript", "GitHub Pages"],
-      image: null,
-      description: "Personal portfolio site with dark/light mode, animated branding, multi-language support, project cards, and smooth navigation. Live at abasheger.github.io.",
-      githubLink: "https://github.com/AbaSheger/abasheger.github.io",
-      liveLink: "https://abasheger.github.io",
-      isSideProject: true
-    },
-    {
       id: 22,
       title: "EcoTracker",
       category: "fullstack",
       technologies: ["Flutter", "Dart", "Material 3"],
-      image: null,
+      image: ecoTrackerImage,
       description: "Flutter mobile/web app for eco-friendly activity tracking with animated splash screen and an eco map screen.",
       githubLink: "https://github.com/AbaSheger/EcoTracker",
       isSideProject: true
@@ -244,8 +233,8 @@ export const projects = {
       image: lomanStadImage,
       description: "Responsive single-page website for a local cleaning company in Sweden. SEO optimised with sitemap, Schema.org structured data and Google Search Console. Deployed on Vercel with custom domain.",
       liveLink: "https://lomanstad.se",
-      githubLink: null,
-      isSideProject: true
+      githubLink: "https://github.com/AbaSheger/lomanstad",
+      isFreelance: true
     }
   ],
   sv: [
@@ -287,7 +276,6 @@ export const projects = {
       technologies: ["Spring Boot", "Java", "E-posttjänst", "Öppen källkod"],
       image: jmailerImage,
       description: "Bidragit till en e-posttjänst med öppen källkod byggd med Spring Boot. JMailer erbjuder en robust lösning för att skicka e-post i Spring Boot-applikationer.",
-      liveLink: "https://jmailer.josdem.io/",
       githubLink: "https://github.com/josdem/jmailer-spring-boot?tab=readme-ov-file",
       isOpenSource: true,
       contribution: true
@@ -455,22 +443,11 @@ export const projects = {
       isSchoolProject: true
     },
     {
-      id: 21,
-      title: "Portfoliowebbplats",
-      category: "fullstack",
-      technologies: ["React", "Tailwind CSS", "JavaScript", "GitHub Pages"],
-      image: null,
-      description: "Personlig portfoliowebbplats med mörkt/ljust läge, animerad branding, flerspråksstöd, projektkort och smidig navigering.",
-      githubLink: "https://github.com/AbaSheger/abasheger.github.io",
-      liveLink: "https://abasheger.github.io",
-      isSideProject: true
-    },
-    {
       id: 22,
       title: "EcoTracker",
       category: "fullstack",
       technologies: ["Flutter", "Dart", "Material 3"],
-      image: null,
+      image: ecoTrackerImage,
       description: "Flutter mobil/webbapp för miljövänlig aktivitetsspårning med animerad startskärm och en ekokartskärm.",
       githubLink: "https://github.com/AbaSheger/EcoTracker",
       isSideProject: true
@@ -483,8 +460,8 @@ export const projects = {
       image: lomanStadImage,
       description: "Responsiv single-page-webbplats för ett lokalt städföretag i Sverige. SEO-optimerad med sitemap, Schema.org strukturerad data och Google Search Console. Driftsatt på Vercel med anpassad domän.",
       liveLink: "https://lomanstad.se",
-      githubLink: null,
-      isSideProject: true
+      githubLink: "https://github.com/AbaSheger/lomanstad",
+      isFreelance: true
     }
   ]
 };

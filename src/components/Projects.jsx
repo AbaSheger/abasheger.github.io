@@ -13,13 +13,16 @@ const projectCategories = [
 export const Projects = () => {
   const { language, text } = useLanguage();
   const [activeFilter, setActiveFilter] = useState('all');
+  const [showAll, setShowAll] = useState(false);
 
-  // Get the projects for the current language
-  const currentProjects = projects[language] || projects.en; // Fallback to English if translation missing
-  
-  const filteredProjects = currentProjects.filter(project => 
-    activeFilter === 'all' || project.category === activeFilter
-  );
+  const currentProjects = projects[language] || projects.en;
+
+  const filteredProjects = currentProjects
+    .filter(project => activeFilter === 'all' || project.category === activeFilter)
+    .sort((a, b) => (b.liveLink ? 1 : 0) - (a.liveLink ? 1 : 0));
+
+  const visibleProjects = showAll ? filteredProjects : filteredProjects.filter(p => p.image);
+  const hiddenCount = filteredProjects.length - filteredProjects.filter(p => p.image).length;
 
   return (
     <section id="projects" className="py-24 px-4 bg-gradient-to-b from-gray-50/50 via-white to-gray-50/50 dark:from-dark-800/20 dark:via-dark-900/30 dark:to-dark-800/20 relative overflow-hidden">
@@ -66,16 +69,42 @@ export const Projects = () => {
 
         {/* Projects Grid with staggered animation */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {filteredProjects.map((project, index) => (
-            <div 
+          {visibleProjects.map((project, index) => (
+            <div
               key={project.id}
-              className="animate-fadeIn"
+              className="animate-fadeIn h-full"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <ProjectCard project={project} />
             </div>
           ))}
         </div>
+
+        {/* Show more / show less toggle */}
+        {hiddenCount > 0 && (
+          <div className="flex justify-center mt-10">
+            <button
+              onClick={() => setShowAll(prev => !prev)}
+              className="flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-gray-700 dark:text-gray-300 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-all duration-300 shadow-sm hover:shadow-md"
+            >
+              {showAll ? (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
+                  </svg>
+                  {text.projects.showLess}
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                  {text.projects.showMore} ({hiddenCount})
+                </>
+              )}
+            </button>
+          </div>
+        )}
 
         {/* Empty state */}
         {filteredProjects.length === 0 && (

@@ -49,7 +49,9 @@ export const translations = {
       filterAll: "All Projects",
       filterBackend: "Backend",
       filterFullstack: "Full Stack",
-      filterCloud: "Cloud & DevOps"
+      filterCloud: "Cloud & DevOps",
+      showMore: "Show more projects",
+      showLess: "Show less"
     },
     
     // Skills
@@ -147,7 +149,9 @@ export const translations = {
       filterAll: "Alla Projekt",
       filterBackend: "Backend",
       filterFullstack: "Fullstack",
-      filterCloud: "Moln & DevOps"
+      filterCloud: "Moln & DevOps",
+      showMore: "Visa fler projekt",
+      showLess: "Visa färre"
     },
     
     // Skills
