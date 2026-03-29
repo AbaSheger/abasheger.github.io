@@ -234,6 +234,17 @@ export const projects = {
       description: "Flutter mobile/web app for eco-friendly activity tracking with animated splash screen and an eco map screen.",
       githubLink: "https://github.com/AbaSheger/EcoTracker",
       isSideProject: true
+    },
+    {
+      id: 23,
+      title: "Loman Städ – Business Website",
+      category: "fullstack",
+      technologies: ["React", "Vite", "Tailwind CSS", "EmailJS"],
+      image: null,
+      description: "Responsive single-page website for a local cleaning company in Sweden. SEO optimised with sitemap, Schema.org structured data and Google Search Console. Deployed on Vercel with custom domain.",
+      liveLink: "https://lomanstad.se",
+      githubLink: null,
+      isSideProject: true
     }
   ],
   sv: [
@@ -461,6 +472,17 @@ export const projects = {
       image: null,
       description: "Flutter mobil/webbapp för miljövänlig aktivitetsspårning med animerad startskärm och en ekokartskärm.",
       githubLink: "https://github.com/AbaSheger/EcoTracker",
+      isSideProject: true
+    },
+    {
+      id: 23,
+      title: "Loman Städ – Företagswebbplats",
+      category: "fullstack",
+      technologies: ["React", "Vite", "Tailwind CSS", "EmailJS"],
+      image: null,
+      description: "Responsiv single-page-webbplats för ett lokalt städföretag i Sverige. SEO-optimerad med sitemap, Schema.org strukturerad data och Google Search Console. Driftsatt på Vercel med anpassad domän.",
+      liveLink: "https://lomanstad.se",
+      githubLink: null,
       isSideProject: true
     }
   ]
