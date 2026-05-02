@@ -7,7 +7,7 @@ const eventOrganizerImage = './assets/event-organizer.png'; // You'll need to ad
 const borsvyImage = './assets/borsvy.png';
 const lomanStadImage = './assets/loman-stad.png';
 const ecoTrackerImage = './assets/ecotracker.png';
-const jobAgentImage = './assets/job-agent.jpg';
+const jobAgentImage = './assets/job-agent.png';
 
 
 export const projects = {
