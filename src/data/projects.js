@@ -7,6 +7,7 @@ const eventOrganizerImage = './assets/event-organizer.png'; // You'll need to ad
 const borsvyImage = './assets/borsvy.png';
 const lomanStadImage = './assets/loman-stad.png';
 const ecoTrackerImage = './assets/ecotracker.png';
+const jobAgentImage = './assets/job-agent.jpg';
 
 
 export const projects = {
@@ -235,6 +236,16 @@ export const projects = {
       liveLink: "https://lomanstad.se",
       githubLink: "https://github.com/AbaSheger/lomanstad",
       isFreelance: true
+    },
+    {
+      id: 24,
+      title: "Job Agent",
+      category: "backend",
+      technologies: ["Python", "Claude AI", "GitHub Actions", "Telegram", "Jobtech API"],
+      image: jobAgentImage,
+      description: "Automated daily job-search agent for Sweden that scrapes Arbetsförmedlingen and LinkedIn, ranks matches with Claude AI, and delivers a curated Telegram digest via scheduled GitHub Actions.",
+      githubLink: "https://github.com/AbaSheger/job-agent",
+      isSideProject: true
     }
   ],
   sv: [
@@ -462,6 +473,16 @@ export const projects = {
       liveLink: "https://lomanstad.se",
       githubLink: "https://github.com/AbaSheger/lomanstad",
       isFreelance: true
+    },
+    {
+      id: 24,
+      title: "Job Agent",
+      category: "backend",
+      technologies: ["Python", "Claude AI", "GitHub Actions", "Telegram", "Jobtech API"],
+      image: jobAgentImage,
+      description: "Automatiserad daglig jobbsökningsagent för Sverige som hämtar jobb från Arbetsförmedlingen och LinkedIn, rankar matchningar med Claude AI och levererar ett kurerat Telegram-sammandrag via schemalagda GitHub Actions.",
+      githubLink: "https://github.com/AbaSheger/job-agent",
+      isSideProject: true
     }
   ]
 };
