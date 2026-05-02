@@ -24,6 +24,48 @@ export const projects = {
       isSideProject: true
     },
     {
+      id: 24,
+      title: "Job Agent",
+      category: "backend",
+      technologies: ["Python", "Claude AI", "GitHub Actions", "Telegram", "Jobtech API"],
+      image: jobAgentImage,
+      description: "Automated daily job-search agent for Sweden that scrapes Arbetsförmedlingen and LinkedIn, ranks matches with Claude AI, and delivers a curated Telegram digest via scheduled GitHub Actions.",
+      githubLink: "https://github.com/AbaSheger/job-agent",
+      isSideProject: true
+    },
+    {
+      id: 23,
+      title: "Loman Städ – Business Website",
+      category: "fullstack",
+      technologies: ["React", "Vite", "Tailwind CSS", "EmailJS"],
+      image: lomanStadImage,
+      description: "Responsive single-page website for a local cleaning company in Sweden. SEO optimised with sitemap, Schema.org structured data and Google Search Console. Deployed on Vercel with custom domain.",
+      liveLink: "https://lomanstad.se",
+      githubLink: "https://github.com/AbaSheger/lomanstad",
+      isFreelance: true
+    },
+    {
+      id: 7,
+      title: "Borsvy - Stock Analysis Platform",
+      category: "fullstack",
+      technologies: ["React", "Spring Boot", "H2 Database", "Ant Design", "Tailwind CSS", "AI-Powered Analysis"],
+      image: borsvyImage,
+      description: "A comprehensive web-based stock analysis platform built with React, Spring Boot, and multiple financial APIs. Features include real-time stock data visualization, technical analysis, news sentiment analysis, and personalized watchlists.",
+      liveLink: "https://borsvy.abenezeranglo.uk/",
+      githubLink: "https://github.com/AbaSheger/borsvy",
+      isSchoolProject: true
+    },
+    {
+      id: 5,
+      title: "StageFinder",
+      category: "fullstack",
+      technologies: ["React", "Node.js", "Express", "Material UI", "Groq AI"],
+      image: stagefinderImage,
+      description: "AI-powered event platform built with React and Node.js. Features include speaker matching, event management, and role-based authentication. Integrates Groq API for intelligent content generation.",
+      githubLink: "https://github.com/Lia-hub-Intern/the-event-portal",
+      isInternship: true
+    },
+    {
       id: 2,
       title: "Wigell Padel Microservice",
       category: "backend",
@@ -55,16 +97,6 @@ export const projects = {
       contribution: true
     },
     {
-      id: 5,
-      title: "StageFinder",
-      category: "fullstack",
-      technologies: ["React", "Node.js", "Express", "Material UI", "Groq AI"],
-      image: stagefinderImage, // Changed from onlinePlaceholder to stagefinderImage
-      description: "AI-powered event platform built with React and Node.js. Features include speaker matching, event management, and role-based authentication. Integrates Groq API for intelligent content generation.",
-      githubLink: "https://github.com/Lia-hub-Intern/the-event-portal",
-      isInternship: true
-    },
-    {
       id: 6,
       title: "Event Organizer",
       category: "backend",
@@ -72,17 +104,6 @@ export const projects = {
       image: eventOrganizerImage,
       description: "A Windows desktop application for managing events and participants. Features include event creation, participant management, and financial calculations for event planning.",
       githubLink: "https://github.com/AbaSheger/Eventorganizer",
-      isSchoolProject: true
-    },
-    {
-      id: 7,
-      title: "Borsvy - Stock Analysis Platform",
-      category: "fullstack",
-      technologies: ["React", "Spring Boot", "H2 Database", "Ant Design", "Tailwind CSS", "AI-Powered Analysis"], // Added AI feature to technologies
-      image:borsvyImage, // Updated to use the correct path from the public folder
-      description: "A comprehensive web-based stock analysis platform built with React, Spring Boot, and multiple financial APIs. Features include real-time stock data visualization, technical analysis, news sentiment analysis, and personalized watchlists.",
-      liveLink: "https://borsvy.abenezeranglo.uk/", // Added live link for the Borsvy project
-      githubLink: "https://github.com/AbaSheger/borsvy",
       isSchoolProject: true
     },
     {
@@ -225,27 +246,6 @@ export const projects = {
       description: "Flutter mobile/web app for eco-friendly activity tracking with animated splash screen and an eco map screen.",
       githubLink: "https://github.com/AbaSheger/EcoTracker",
       isSideProject: true
-    },
-    {
-      id: 23,
-      title: "Loman Städ – Business Website",
-      category: "fullstack",
-      technologies: ["React", "Vite", "Tailwind CSS", "EmailJS"],
-      image: lomanStadImage,
-      description: "Responsive single-page website for a local cleaning company in Sweden. SEO optimised with sitemap, Schema.org structured data and Google Search Console. Deployed on Vercel with custom domain.",
-      liveLink: "https://lomanstad.se",
-      githubLink: "https://github.com/AbaSheger/lomanstad",
-      isFreelance: true
-    },
-    {
-      id: 24,
-      title: "Job Agent",
-      category: "backend",
-      technologies: ["Python", "Claude AI", "GitHub Actions", "Telegram", "Jobtech API"],
-      image: jobAgentImage,
-      description: "Automated daily job-search agent for Sweden that scrapes Arbetsförmedlingen and LinkedIn, ranks matches with Claude AI, and delivers a curated Telegram digest via scheduled GitHub Actions.",
-      githubLink: "https://github.com/AbaSheger/job-agent",
-      isSideProject: true
     }
   ],
   sv: [
@@ -259,6 +259,48 @@ export const projects = {
       liveLink: "https://musicanalytics.netlify.app/",
       githubLink: "https://github.com/AbaSheger/MusicAnalyticsPlatform",
       isSideProject: true
+    },
+    {
+      id: 24,
+      title: "Job Agent",
+      category: "backend",
+      technologies: ["Python", "Claude AI", "GitHub Actions", "Telegram", "Jobtech API"],
+      image: jobAgentImage,
+      description: "Automatiserad daglig jobbsökningsagent för Sverige som hämtar jobb från Arbetsförmedlingen och LinkedIn, rankar matchningar med Claude AI och levererar ett kurerat Telegram-sammandrag via schemalagda GitHub Actions.",
+      githubLink: "https://github.com/AbaSheger/job-agent",
+      isSideProject: true
+    },
+    {
+      id: 23,
+      title: "Loman Städ – Företagswebbplats",
+      category: "fullstack",
+      technologies: ["React", "Vite", "Tailwind CSS", "EmailJS"],
+      image: lomanStadImage,
+      description: "Responsiv single-page-webbplats för ett lokalt städföretag i Sverige. SEO-optimerad med sitemap, Schema.org strukturerad data och Google Search Console. Driftsatt på Vercel med anpassad domän.",
+      liveLink: "https://lomanstad.se",
+      githubLink: "https://github.com/AbaSheger/lomanstad",
+      isFreelance: true
+    },
+    {
+      id: 7,
+      title: "Borsvy - Aktieanalysplattform",
+      category: "fullstack",
+      technologies: ["React", "Spring Boot", "H2 Database", "Ant Design", "Tailwind CSS", "AI-driven analys"],
+      image: borsvyImage,
+      description: "En omfattande webbaserad aktieanalysplattform byggd med React, Spring Boot och flera finans-API:er. Funktioner inkluderar realtidsvisualisering av aktiedata, teknisk analys, nyhetssentiementanalys och personliga bevakningslistor.",
+      liveLink: "https://borsvy.abenezeranglo.uk/",
+      githubLink: "https://github.com/AbaSheger/borsvy",
+      isSchoolProject: true
+    },
+    {
+      id: 5,
+      title: "StageFinder",
+      category: "fullstack",
+      technologies: ["React", "Node.js", "Express", "Material UI", "Groq AI"],
+      image: stagefinderImage,
+      description: "AI-driven eventplattform byggd med React och Node.js. Funktioner inkluderar talarmatching, eventhantering och rollbaserad autentisering. Integrerar Groq API för intelligent innehållsgenerering.",
+      githubLink: "https://github.com/Lia-hub-Intern/the-event-portal",
+      isInternship: true
     },
     {
       id: 2,
@@ -292,16 +334,6 @@ export const projects = {
       contribution: true
     },
     {
-      id: 5,
-      title: "StageFinder",
-      category: "fullstack",
-      technologies: ["React", "Node.js", "Express", "Material UI", "Groq AI"],
-      image: stagefinderImage,
-      description: "AI-driven eventplattform byggd med React och Node.js. Funktioner inkluderar talarmatching, eventhantering och rollbaserad autentisering. Integrerar Groq API för intelligent innehållsgenerering.",
-      githubLink: "https://github.com/Lia-hub-Intern/the-event-portal",
-      isInternship: true
-    },
-    {
       id: 6,
       title: "Eventorganisatör",
       category: "backend",
@@ -309,17 +341,6 @@ export const projects = {
       image: eventOrganizerImage,
       description: "En Windows-skrivbordsapplikation för att hantera evenemang och deltagare. Funktioner inkluderar evenemangskapande, deltagarhantering och ekonomiska beräkningar för evenemangsplanering.",
       githubLink: "https://github.com/AbaSheger/Eventorganizer",
-      isSchoolProject: true
-    },
-    {
-      id: 7,
-      title: "Borsvy - Aktieanalysplattform",
-      category: "fullstack",
-      technologies: ["React", "Spring Boot", "H2 Database", "Ant Design", "Tailwind CSS", "AI-driven analys"],
-      image: borsvyImage,
-      description: "En omfattande webbaserad aktieanalysplattform byggd med React, Spring Boot och flera finans-API:er. Funktioner inkluderar realtidsvisualisering av aktiedata, teknisk analys, nyhetssentiementanalys och personliga bevakningslistor.",
-      liveLink: "https://borsvy.abenezeranglo.uk/",
-      githubLink: "https://github.com/AbaSheger/borsvy",
       isSchoolProject: true
     },
     {
@@ -461,27 +482,6 @@ export const projects = {
       image: ecoTrackerImage,
       description: "Flutter mobil/webbapp för miljövänlig aktivitetsspårning med animerad startskärm och en ekokartskärm.",
       githubLink: "https://github.com/AbaSheger/EcoTracker",
-      isSideProject: true
-    },
-    {
-      id: 23,
-      title: "Loman Städ – Företagswebbplats",
-      category: "fullstack",
-      technologies: ["React", "Vite", "Tailwind CSS", "EmailJS"],
-      image: lomanStadImage,
-      description: "Responsiv single-page-webbplats för ett lokalt städföretag i Sverige. SEO-optimerad med sitemap, Schema.org strukturerad data och Google Search Console. Driftsatt på Vercel med anpassad domän.",
-      liveLink: "https://lomanstad.se",
-      githubLink: "https://github.com/AbaSheger/lomanstad",
-      isFreelance: true
-    },
-    {
-      id: 24,
-      title: "Job Agent",
-      category: "backend",
-      technologies: ["Python", "Claude AI", "GitHub Actions", "Telegram", "Jobtech API"],
-      image: jobAgentImage,
-      description: "Automatiserad daglig jobbsökningsagent för Sverige som hämtar jobb från Arbetsförmedlingen och LinkedIn, rankar matchningar med Claude AI och levererar ett kurerat Telegram-sammandrag via schemalagda GitHub Actions.",
-      githubLink: "https://github.com/AbaSheger/job-agent",
       isSideProject: true
     }
   ]
