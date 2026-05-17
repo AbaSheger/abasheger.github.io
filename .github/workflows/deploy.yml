@@ -7,16 +7,12 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    if: ${{ !contains(github.event.head_commit.message, 'chore: publish build output') }}
     
     steps:
       - name: Checkout
@@ -49,16 +45,19 @@ jobs:
           CI: false
           REACT_APP_GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        with:
-          enablement: true
+      - name: Copy build output to repository root
+        run: |
+          rm -rf assets static asset-manifest.json robots.txt sitemap.xml manifest.json og-image.svg
+          cp -R build/. .
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./build
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Commit published build output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html assets static asset-manifest.json robots.txt sitemap.xml manifest.json og-image.svg
+          if git diff --cached --quiet; then
+            echo "Published output is already up to date."
+          else
+            git commit -m "chore: publish build output"
+            git push
+          fi
