@@ -101,9 +101,9 @@ export const Location = () => {
   if (loading) {
     return (
       <div className="inline-flex items-center gap-2 text-sm animate-pulse">
-        <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-blue-200 to-purple-200 dark:from-blue-700 dark:to-purple-700 rounded-full" />
-        <div className="w-16 h-4 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-lg" />
-        <div className="w-12 h-4 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-lg" />
+        <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gray-200 dark:bg-gray-700 rounded-full" />
+        <div className="w-16 h-4 bg-gray-200 dark:bg-gray-700 rounded-lg" />
+        <div className="w-12 h-4 bg-gray-200 dark:bg-gray-700 rounded-lg" />
       </div>
     );
   }
@@ -143,7 +143,7 @@ export const Location = () => {
       {/* Weather */}
       <div className="inline-flex items-center gap-1.5">
         <span className="text-lg">{weatherSymbols[weather.current.symbol]?.icon}</span>
-        <span className="font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">
+        <span className="font-semibold text-blue-700 dark:text-blue-300">
           {weather.current.temp_c}°C
         </span>
         <button

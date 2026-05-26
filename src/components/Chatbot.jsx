@@ -189,9 +189,9 @@ const Chatbot = () => {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Chat window */}
       {isOpen && (
-        <div className="mb-4 w-80 sm:w-96 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col overflow-hidden animate-fadeIn">
+        <div className="mb-4 w-80 sm:w-96 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden animate-fadeIn">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600">
+          <div className="flex items-center justify-between px-4 py-3 bg-blue-700">
             <span className="text-white font-semibold text-sm">{headerText}</span>
             <button
               onClick={handleToggle}
@@ -219,7 +219,7 @@ const Chatbot = () => {
                 <div
                   className={`max-w-[80%] px-3 py-2 rounded-xl text-sm leading-relaxed ${
                     msg.from === 'user'
-                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-br-none'
+                      ? 'bg-blue-700 text-white rounded-br-none'
                       : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-none'
                   }`}
                 >
@@ -267,7 +267,7 @@ const Chatbot = () => {
             <button
               onClick={() => sendMessage()}
               aria-label="Send message"
-              className="px-3 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200"
+              className="px-3 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg transition-colors duration-200"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
@@ -302,7 +302,7 @@ const Chatbot = () => {
             setHasBeenOpened(true);
           }}
           aria-label={isOpen ? 'Close chat' : 'Open chat'}
-          className="relative w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/40 hover:shadow-xl hover:shadow-blue-500/50 hover:scale-110 transition-all duration-300"
+          className="relative w-14 h-14 flex items-center justify-center rounded-full bg-blue-700 hover:bg-blue-800 text-white shadow-lg transition-colors duration-200"
         >
           {isOpen ? (
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

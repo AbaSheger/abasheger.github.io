@@ -198,7 +198,7 @@ export const AIJobMatcher = () => {
     placeholder: isEn
       ? 'Paste a job description here (e.g. "We are looking for a Java Developer with Spring Boot, Docker, and Azure experience...")'
       : 'Klistra in jobbeskrivning här (t.ex. "Vi söker en Java-utvecklare med Spring Boot, Docker och Azure-erfarenhet...")',
-    analyzeBtn: isEn ? '✨ Analyze Match' : '✨ Analysera matchning',
+    analyzeBtn: isEn ? 'Analyze Match' : 'Analysera matchning',
     analyzing: isEn ? 'Analyzing...' : 'Analyserar...',
     resetBtn: isEn ? 'Try Another Role' : 'Prova en annan roll',
     matchedSkills: isEn ? 'Matched Skills' : 'Matchande kompetenser',
@@ -207,7 +207,7 @@ export const AIJobMatcher = () => {
     tooShort: isEn
       ? 'Please paste a job description (at least 50 characters).'
       : 'Vänligen klistra in en jobbeskrivning (minst 50 tecken).',
-    contactCta: isEn ? '📩 Contact Abenezer' : '📩 Kontakta Abenezer',
+    contactCta: isEn ? 'Contact Abenezer' : 'Kontakta Abenezer',
     tryThis: isEn ? 'Quick example:' : 'Snabbexempel:',
     exampleLabel: isEn ? 'Junior Java Developer (Spring Boot + REST)' : 'Junior Java-utvecklare (Spring Boot + REST)',
     disclaimer: isEn
@@ -280,31 +280,21 @@ export const AIJobMatcher = () => {
   return (
     <section
       id="ai-match"
-      className="py-24 px-4 bg-gradient-to-b from-white via-gray-50/50 to-white dark:from-dark-800/20 dark:via-dark-900/40 dark:to-dark-800/20 relative overflow-hidden"
+      className="py-24 px-4 bg-gray-50 dark:bg-dark-900 border-t border-gray-100 dark:border-gray-800"
     >
-      {/* Background decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"></div>
-      </div>
-
       <div className="max-w-3xl mx-auto relative z-10">
-        {/* Section heading */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 flex items-center group">
-          <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white mr-4 shadow-lg shadow-blue-500/25 group-hover:shadow-xl group-hover:shadow-blue-500/40 transition-all duration-300 group-hover:scale-110">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 flex items-center">
+          <span className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 mr-4 border border-gray-200 dark:border-gray-700">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </span>
-          <span className="relative">
-            {ui.sectionTitle}
-            <span className="absolute -bottom-2 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 group-hover:w-full transition-all duration-500 rounded-full"></span>
-          </span>
+          <span>{ui.sectionTitle}</span>
         </h2>
         <p className="text-gray-500 dark:text-gray-400 mb-10 ml-16 text-sm sm:text-base">{ui.subtitle}</p>
 
         {!result ? (
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-6 sm:p-8">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
             {/* Quick example fill */}
             <div className="mb-4 flex items-center gap-3 flex-wrap">
               <span className="text-sm text-gray-500 dark:text-gray-400">{ui.tryThis}</span>
@@ -331,7 +321,7 @@ export const AIJobMatcher = () => {
             <button
               onClick={analyze}
               disabled={loading}
-              className="mt-4 w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+              className="mt-4 w-full py-3 px-6 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <> 
@@ -347,7 +337,7 @@ export const AIJobMatcher = () => {
         ) : (
           <div ref={resultRef} className="space-y-4 animate-fadeIn">
             {/* Score + summary */}
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-6 sm:p-8">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
               <div className="flex flex-col sm:flex-row items-center gap-6">
                 <ScoreRing score={result.score} />
                 <div className="flex-1 text-center sm:text-left">
@@ -363,7 +353,7 @@ export const AIJobMatcher = () => {
 
             {/* Matched skills */}
             {result.matchedSkills && result.matchedSkills.length > 0 && (
-              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-6">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
                 <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">
                   {ui.matchedSkills}
                 </h3>
@@ -371,7 +361,7 @@ export const AIJobMatcher = () => {
                   {result.matchedSkills.map(skill => (
                     <span
                       key={skill}
-                      className="px-3 py-1 text-sm font-medium bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 border border-blue-200/50 dark:border-blue-700/50 rounded-full"
+                      className="px-3 py-1 text-sm font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200/50 dark:border-blue-700/50 rounded-full"
                     >
                       ✓ {skill}
                     </span>
@@ -384,17 +374,12 @@ export const AIJobMatcher = () => {
             {result.highlights && result.highlights.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {result.highlights.map((highlight, i) => {
-                  const colors = [
-                    'from-blue-500 to-cyan-500',
-                    'from-purple-500 to-pink-500',
-                    'from-green-500 to-emerald-500',
-                  ];
                   return (
                     <div
                       key={i}
-                      className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 p-4 flex items-center gap-3"
+                      className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 flex items-center gap-3"
                     >
-                      <div className={`w-8 h-8 shrink-0 rounded-lg bg-gradient-to-br ${colors[i % colors.length]} flex items-center justify-center text-white text-xs font-bold`}> 
+                      <div className="w-8 h-8 shrink-0 rounded-lg bg-blue-700 dark:bg-blue-500 flex items-center justify-center text-white text-xs font-bold"> 
                         {i + 1} 
                       </div>
                       <span className="text-sm text-gray-700 dark:text-gray-200 font-medium">{highlight}</span>
@@ -408,7 +393,7 @@ export const AIJobMatcher = () => {
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="#contact"
-                className="flex-1 py-3 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 hover:-translate-y-0.5 transition-all duration-300 text-center text-sm"
+                className="flex-1 py-3 px-6 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 text-center text-sm"
               >
                 {ui.contactCta}
               </a>

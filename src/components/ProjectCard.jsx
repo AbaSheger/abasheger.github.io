@@ -3,13 +3,13 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 export const ProjectCard = ({ project }) => {
   const { language } = useLanguage();
-  
-  const { 
-    title, 
-    description, 
-    technologies, 
-    image, 
-    liveLink, 
+
+  const {
+    title,
+    description,
+    technologies,
+    image,
+    liveLink,
     githubLink,
     isOpenSource,
     isInternship,
@@ -20,130 +20,96 @@ export const ProjectCard = ({ project }) => {
   } = project;
 
   const getProjectTag = () => {
-    if (isFreelance) return {
-      text: language === 'en' ? 'Freelance' : 'Frilans',
-      gradient: 'from-teal-500 to-cyan-600',
-      bg: 'bg-teal-500'
-    };
-    if (isOpenSource) return {
-      text: language === 'en' ? 'Open Source' : 'Öppen Källkod',
-      gradient: 'from-green-500 to-emerald-600',
-      bg: 'bg-green-500'
-    };
-    if (isInternship) return {
-      text: language === 'en' ? 'Internship' : 'Praktik',
-      gradient: 'from-purple-500 to-violet-600',
-      bg: 'bg-purple-500'
-    };
-    if (isSchoolProject) return {
-      text: language === 'en' ? 'School Project' : 'Skolprojekt',
-      gradient: 'from-blue-500 to-cyan-600',
-      bg: 'bg-blue-500'
-    };
-    if (isSideProject) return {
-      text: language === 'en' ? 'Side Project' : 'Sidoprojekt',
-      gradient: 'from-yellow-500 to-orange-600',
-      bg: 'bg-yellow-500'
-    };
-    if (isDesktopApp) return {
-      text: language === 'en' ? 'Desktop App' : 'Skrivbordsapp',
-      gradient: 'from-gray-500 to-gray-700',
-      bg: 'bg-gray-500'
-    };
+    if (isFreelance) return { text: language === 'en' ? 'Freelance' : 'Frilans', bg: 'bg-teal-600' };
+    if (isOpenSource) return { text: language === 'en' ? 'Open Source' : 'Öppen Källkod', bg: 'bg-green-600' };
+    if (isInternship) return { text: language === 'en' ? 'Internship' : 'Praktik', bg: 'bg-purple-600' };
+    if (isSchoolProject) return { text: language === 'en' ? 'School Project' : 'Skolprojekt', bg: 'bg-blue-600' };
+    if (isSideProject) return { text: language === 'en' ? 'Side Project' : 'Sidoprojekt', bg: 'bg-yellow-600' };
+    if (isDesktopApp) return { text: language === 'en' ? 'Desktop App' : 'Skrivbordsapp', bg: 'bg-gray-600' };
     return null;
   };
 
   const tag = getProjectTag();
-  
+  const headingId = `project-${title.replace(/\s+/g, '-')}`;
+
   return (
-    <div className="group relative h-full" role="article" aria-labelledby={`project-${title.replace(/\s+/g, '-')}`}>
-      {/* Animated glow effect */}
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 rounded-2xl blur opacity-0 group-hover:opacity-60 transition-all duration-500 group-hover:duration-200"></div>
-      
-      <div className="relative h-full bg-white dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50 transition-all duration-500 hover:-translate-y-1">
-        {/* Image section */}
-        <div className="relative overflow-hidden">
+    <article
+      className="h-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md shadow-gray-900/5 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-500 hover:shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:hover:border-blue-400"
+      aria-labelledby={headingId}
+    >
+      {image && (
+        <div className="relative h-48 overflow-hidden border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-900">
+          <img
+            src={image}
+            alt={title}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
+          />
           {tag && (
-            <div className={`absolute top-3 right-3 z-20 px-3 py-1 rounded-full bg-gradient-to-r ${tag.gradient} text-white text-xs font-semibold shadow-lg transform transition-all duration-300 group-hover:scale-105`}>
+            <div className={`absolute right-3 top-3 rounded-full px-3 py-1 text-xs font-semibold text-white shadow-sm ${tag.bg}`}>
               {tag.text}
             </div>
           )}
+        </div>
+      )}
 
-          {/* Image with overlay */}
-          {image ? (
-            <div className="relative h-48 overflow-hidden">
-              <img
-                src={image}
-                alt={title}
-                loading="lazy"
-                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-gray-900/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
-            </div>
-          ) : null}
+      <div className="p-5">
+        <h3
+          id={headingId}
+          className="mb-2 text-lg font-bold text-gray-900 transition-colors duration-200 hover:text-blue-700 dark:text-white dark:hover:text-blue-300"
+        >
+          {title}
+        </h3>
+        <p className="mb-4 line-clamp-2 text-sm text-gray-700 dark:text-gray-400">
+          {description}
+        </p>
+
+        <div className="mb-4 flex flex-wrap gap-1.5" role="list" aria-label="Technologies used">
+          {technologies.slice(0, 5).map((tech) => (
+            <span
+              key={tech}
+              role="listitem"
+              className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs text-gray-700 dark:border-gray-600 dark:bg-gray-700/50 dark:text-gray-300"
+            >
+              {tech}
+            </span>
+          ))}
+          {technologies.length > 5 && (
+            <span className="px-2 py-1 text-xs text-gray-400 dark:text-gray-500">
+              +{technologies.length - 5}
+            </span>
+          )}
         </div>
 
-        {/* Content section */}
-        <div className="p-5">
-          <h3 
-            id={`project-${title.replace(/\s+/g, '-')}`}
-            className="text-lg font-bold mb-2 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300"
-          >
-            {title}
-          </h3>
-          <p className="text-sm text-gray-700 dark:text-gray-400 mb-4 line-clamp-2" aria-label={`Project description: ${description}`}>
-            {description}
-          </p>
-          
-          {/* Technologies */}
-          <div className="flex flex-wrap gap-1.5 mb-4" role="list" aria-label="Technologies used">
-            {technologies.slice(0, 5).map((tech) => (
-              <span
-                key={tech}
-                role="listitem"
-                className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700/50 text-gray-700 dark:text-gray-400 rounded-md border border-gray-200/50 dark:border-gray-600/50 hover:border-blue-300 dark:hover:border-blue-500/50 transition-colors"
-              >
-                {tech}
-              </span>
-            ))}
-            {technologies.length > 5 && (
-              <span className="text-xs px-2 py-1 text-gray-400 dark:text-gray-500">
-                +{technologies.length - 5}
-              </span>
-            )}
-          </div>
-
-          {/* Action buttons */}
-          <div className="flex gap-2 pt-3 border-t border-gray-100 dark:border-gray-700/50">
-            {liveLink && (
-              <a
-                href={liveLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors duration-200 shadow-sm"
-              >
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                {language === 'en' ? 'Live Demo' : 'Se Live'}
-              </a>
-            )}
-            {githubLink && (
-              <a
-                href={githubLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-400 text-xs font-semibold transition-colors duration-200 ${liveLink ? '' : 'flex-1'}`}
-              >
-                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                  <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd"/>
-                </svg>
-                {language === 'en' ? 'Code' : 'Kod'}
-              </a>
-            )}
-          </div>
+        <div className="flex gap-2 border-t border-gray-100 pt-3 dark:border-gray-700/50">
+          {liveLink && (
+            <a
+              href={liveLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-blue-700 px-3 py-2 text-xs font-semibold text-white transition-colors duration-200 hover:bg-blue-800"
+            >
+              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              {language === 'en' ? 'Live Demo' : 'Se Live'}
+            </a>
+          )}
+          {githubLink && (
+            <a
+              href={githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-700 transition-colors duration-200 hover:border-gray-400 dark:border-gray-600 dark:bg-gray-700/50 dark:text-gray-300 dark:hover:border-gray-400 ${liveLink ? '' : 'flex-1'}`}
+            >
+              <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd"/>
+              </svg>
+              {language === 'en' ? 'Code' : 'Kod'}
+            </a>
+          )}
         </div>
       </div>
-    </div>
+    </article>
   );
 };
