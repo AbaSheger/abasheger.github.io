@@ -8,6 +8,8 @@ const borsvyImage = './assets/borsvy.png';
 const lomanStadImage = './assets/loman-stad.png';
 const ecoTrackerImage = './assets/ecotracker.png';
 const jobAgentImage = './assets/job-agent.png';
+const dbschenkerMcpImage = './assets/dbschenker-mcp.svg';
+const guardrail4jImage = './assets/guardrail4j.svg';
 
 
 export const projects = {
@@ -31,6 +33,26 @@ export const projects = {
       image: jobAgentImage,
       description: "Automated daily job-search agent that pulls roles from Jobtech, Remotive, and RemoteOK, ranks matches with Claude AI, and delivers a curated Telegram digest via scheduled GitHub Actions.",
       githubLink: "https://github.com/AbaSheger/job-agent",
+      isSideProject: true
+    },
+    {
+      id: 25,
+      title: "DB Schenker Shipment Tracker MCP",
+      category: "backend",
+      technologies: ["TypeScript", "Node.js", "MCP", "Zod", "Vitest"],
+      image: dbschenkerMcpImage,
+      description: "Model Context Protocol server exposing a track_shipment tool for DB Schenker/DSV shipments. Handles CAPTCHA proof-of-work challenges, retry with backoff, and returns a typed Shipment schema with full tracking history. Built for the Sendify code challenge.",
+      githubLink: "https://github.com/AbaSheger/sendify-dbschenker-mcp",
+      isSideProject: true
+    },
+    {
+      id: 26,
+      title: "Guardrail4J",
+      category: "backend",
+      technologies: ["Java 21", "Spring Boot", "Spring AOP", "Maven"],
+      image: guardrail4jImage,
+      description: "Spring Boot starter for keeping LLM usage inside budget. Add @LLMGuarded to any LLM-calling method to enforce daily/monthly cost limits per user and tenant. Supports ALLOW, WARN, BLOCK, and FALLBACK actions with configurable provider/model price tables and built-in usage monitoring endpoints.",
+      githubLink: "https://github.com/AbaSheger/guardrail4j",
       isSideProject: true
     },
     {
@@ -268,6 +290,26 @@ export const projects = {
       image: jobAgentImage,
       description: "Automatiserad daglig jobbsökningsagent som hämtar jobb från Jobtech, Remotive och RemoteOK, rankar matchningar med Claude AI och levererar ett kurerat Telegram-sammandrag via schemalagda GitHub Actions.",
       githubLink: "https://github.com/AbaSheger/job-agent",
+      isSideProject: true
+    },
+    {
+      id: 25,
+      title: "DB Schenker Fraktspårare MCP",
+      category: "backend",
+      technologies: ["TypeScript", "Node.js", "MCP", "Zod", "Vitest"],
+      image: dbschenkerMcpImage,
+      description: "Model Context Protocol-server som exponerar ett track_shipment-verktyg för DB Schenker/DSV-försändelser. Hanterar CAPTCHA proof-of-work-utmaningar, försök med backoff och returnerar ett typat Shipment-schema med fullständig spårningshistorik. Byggd för Sendify code challenge.",
+      githubLink: "https://github.com/AbaSheger/sendify-dbschenker-mcp",
+      isSideProject: true
+    },
+    {
+      id: 26,
+      title: "Guardrail4J",
+      category: "backend",
+      technologies: ["Java 21", "Spring Boot", "Spring AOP", "Maven"],
+      image: guardrail4jImage,
+      description: "Spring Boot-starter för att hålla LLM-användning inom budget. Lägg till @LLMGuarded på valfri LLM-anropande metod för att tillämpa dagliga/månatliga kostnadsgränser per användare och klient. Stöder ALLOW, WARN, BLOCK och FALLBACK-åtgärder med konfigurerbara pris tabeller per leverantör/modell och inbyggda övervakningsendpoints.",
+      githubLink: "https://github.com/AbaSheger/guardrail4j",
       isSideProject: true
     },
     {

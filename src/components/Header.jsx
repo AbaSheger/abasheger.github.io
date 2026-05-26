@@ -3,10 +3,10 @@ import { LanguageToggle } from './LanguageToggle';
 import ThemeToggle from './ThemeToggle';
 
 export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, menuOpen, toggleMenu, navItems, activeSection }) => {
-  const getLinkClasses = (section) => `relative px-3 py-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 ${
+  const getLinkClasses = (section) => `relative px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
     activeSection === section 
-      ? 'text-blue-600 dark:text-blue-400 font-medium' 
-      : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+      ? 'bg-gray-900 dark:bg-white text-white dark:text-black' 
+      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/10'
   }`;
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
   }, [menuOpen]);
 
   return (
-    <header className="fixed w-full top-0 z-50 bg-white/95 dark:bg-gray-900/95 border-b border-gray-200 dark:border-gray-700 shadow-sm" role="banner">
+    <header className="fixed w-full top-0 z-50 bg-white/90 dark:bg-[#121212]/95 border-b border-gray-200/60 dark:border-white/5 backdrop-blur-md shadow-sm" role="banner">
       {/* Add overlay for mobile menu */}
       {menuOpen && (
         <div 
@@ -109,7 +109,7 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
       {/* Mobile Navigation */}
       <div 
         id="mobile-menu"
-        className={`md:hidden fixed top-16 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 transform transition-transform duration-300 ${
+        className={`md:hidden fixed top-16 left-0 right-0 bg-white dark:bg-[#121212] border-b border-gray-100 dark:border-white/5 transform transition-transform duration-300 ${
           menuOpen ? 'translate-y-0' : '-translate-y-full'
         }`}
         role="navigation"

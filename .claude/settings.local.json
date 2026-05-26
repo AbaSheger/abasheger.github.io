@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo *)",
+      "WebFetch(domain:github.com)",
+      "PowerShell(Invoke-WebRequest -Uri \"https://github.com/AbaSheger/job-agent/raw/main/docs/screenshots/telegram-digest.jpg\" -OutFile \"public/assets/job-agent.jpg\")",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "PowerShell(Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/AbaSheger/job-agent/main/docs/screenshots/system-flow.png\" -OutFile \"public/assets/job-agent.png\")"
+    ]
+  }
+}

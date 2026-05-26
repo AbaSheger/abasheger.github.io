@@ -25,25 +25,28 @@ export const Projects = () => {
   const hiddenCount = filteredProjects.length - filteredProjects.filter(p => p.image).length;
 
   return (
-    <section id="projects" className="py-24 px-4 bg-slate-50 dark:bg-dark-900 border-t border-gray-100 dark:border-gray-800">
+    <section id="projects" className="py-24 px-4 border-t border-gray-100 dark:border-white/5"
+      style={{ background: 'linear-gradient(180deg, #0d0d0f 0%, #111116 50%, #0d0d0f 100%)' }}
+    >
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-xl sm:text-2xl md:text-4xl font-bold mb-12 flex items-center">
-          <span className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 font-mono mr-4 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl sm:text-2xl md:text-4xl font-bold mb-10 flex items-center">
+          <span className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-white dark:bg-[#282828] text-blue-700 dark:text-blue-300 font-mono mr-4 border border-gray-200 dark:border-white/10">
             02
           </span>
           <span>{text.projects.sectionTitle}</span>
         </h2>
 
+        {/* Spotify-style pill filters */}
         <div className="overflow-x-auto pb-4 mb-10 -mx-4 px-4">
-          <div className="flex flex-nowrap sm:flex-wrap gap-3 min-w-max sm:min-w-0">
+          <div className="flex flex-nowrap sm:flex-wrap gap-2 min-w-max sm:min-w-0">
             {projectCategories.map(category => (
               <button
                 key={category.id}
                 onClick={() => setActiveFilter(category.id)}
-                className={`relative px-5 py-2.5 rounded-lg whitespace-nowrap font-medium transition-colors duration-200 border ${
+                className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
                   activeFilter === category.id
-                    ? 'bg-blue-700 border-blue-700 text-white'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400'
+                    ? 'bg-gray-900 dark:bg-white text-white dark:text-black'
+                    : 'bg-gray-200 dark:bg-[#232323] text-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-[#2a2a2a]'
                 }`}
               >
                 {text.projects[category.label]}
@@ -52,7 +55,7 @@ export const Projects = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
           {visibleProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
@@ -62,7 +65,7 @@ export const Projects = () => {
           <div className="flex justify-center mt-10">
             <button
               onClick={() => setShowAll(prev => !prev)}
-              className="flex items-center gap-2 px-6 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-blue-500 dark:hover:border-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors duration-200 shadow-sm"
+              className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-gray-300 dark:border-white/10 bg-transparent text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 font-semibold text-sm transition-all duration-200"
             >
               {showAll ? (
                 <>
@@ -85,7 +88,7 @@ export const Projects = () => {
 
         {filteredProjects.length === 0 && (
           <div className="text-center py-20">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 dark:bg-gray-800 mb-4">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 dark:bg-[#282828] mb-4">
               <span className="text-4xl" aria-hidden="true">?</span>
             </div>
             <p className="text-gray-500 dark:text-gray-400">No projects found in this category</p>

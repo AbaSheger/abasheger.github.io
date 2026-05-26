@@ -2,7 +2,7 @@ import React from 'react';
 
 export const About = ({ text }) => {
   return (
-    <section id="about" className="py-24 px-4 bg-white dark:bg-dark-900 border-t border-gray-100 dark:border-gray-800">
+    <section id="about" className="py-24 px-4 bg-white dark:bg-[#121212] border-t border-gray-100 dark:border-white/5">
       <div className="max-w-5xl mx-auto relative z-10">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-16 flex items-center">
           <span className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 text-blue-700 dark:text-blue-300 font-mono mr-4 border border-gray-200 dark:border-gray-700">
@@ -12,31 +12,13 @@ export const About = ({ text }) => {
         </h2>
         
         <div className="text-gray-600 dark:text-gray-300">
-          {/* Two-column: bio text + profile photo */}
-          <div className="flex flex-col-reverse md:flex-row md:items-start gap-10 mb-8">
-            {/* Left: bio cards */}
-            <div className="space-y-8 flex-1">
-              <div className="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md shadow-gray-900/5">
-                <p className="text-lg leading-relaxed">{text.bio1}</p>
-              </div>
-              <div className="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md shadow-gray-900/5">
-                <p className="text-lg leading-relaxed">{text.bio2}</p>
-              </div>
+          {/* Bio cards */}
+          <div className="space-y-8 mb-8 max-w-3xl">
+            <div className="p-6 rounded-xl bg-white dark:bg-[#181818] border border-gray-200 dark:border-white/5 shadow-md shadow-gray-900/5">
+              <p className="text-lg leading-relaxed">{text.bio1}</p>
             </div>
-
-            {/* Right: circular profile photo */}
-            <div className="flex justify-center md:justify-end flex-shrink-0">
-              <div className="relative w-52 h-52 md:w-64 md:h-64">
-                <div className="absolute inset-0 rounded-full bg-gray-200 dark:bg-gray-700 p-1 shadow-sm">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-white">
-                    <img
-                      src="/assets/profile.jpg"
-                      alt="Abenezer Anglo"
-                      className="w-full h-full object-cover object-top"
-                    />
-                  </div>
-                </div>
-              </div>
+            <div className="p-6 rounded-xl bg-white dark:bg-[#181818] border border-gray-200 dark:border-white/5 shadow-md shadow-gray-900/5">
+              <p className="text-lg leading-relaxed">{text.bio2}</p>
             </div>
           </div>
 
