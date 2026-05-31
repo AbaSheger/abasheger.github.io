@@ -40,4 +40,9 @@ test.describe('Portfolio redesign smoke checks', () => {
       expect(await response.text()).not.toContain('api.groq.com');
     }
   });
+
+  test('contact form exposes a usable email fallback without EmailJS secrets', async ({ page }) => {
+    await page.locator('#contact').scrollIntoViewIfNeeded();
+    await expect(page.getByRole('button', { name: 'Continue in Email App' })).toBeVisible();
+  });
 });

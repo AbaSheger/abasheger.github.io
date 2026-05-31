@@ -4,16 +4,33 @@ import emailjs from '@emailjs/browser';
 export const Contact = ({ text }) => {
   const formRef = useRef();
   const [formStatus, setFormStatus] = useState('idle');
+  const emailJsConfig = {
+    serviceId: process.env.REACT_APP_EMAILJS_SERVICE_ID,
+    templateId: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+    publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+  };
+  const hasEmailJsConfig = Object.values(emailJsConfig).every(Boolean);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!hasEmailJsConfig) {
+      const formData = new FormData(formRef.current);
+      const subject = encodeURIComponent(`Portfolio contact from ${formData.get('from_name')}`);
+      const body = encodeURIComponent(
+        `${formData.get('message')}\n\nReply to: ${formData.get('reply_to')}`
+      );
+      window.location.href = `mailto:merebanglo@gmail.com?subject=${subject}&body=${body}`;
+      return;
+    }
+
     setFormStatus('sending');
 
     emailjs.sendForm(
-      process.env.REACT_APP_EMAILJS_SERVICE_ID,
-      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+      emailJsConfig.serviceId,
+      emailJsConfig.templateId,
       formRef.current,
-      process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      emailJsConfig.publicKey
     ).then(() => {
       setFormStatus('success');
       formRef.current.reset();
@@ -112,7 +129,7 @@ export const Contact = ({ text }) => {
                     </svg>
                     {text.formSending}
                   </>
-                ) : text.formSend}
+                ) : hasEmailJsConfig ? text.formSend : (text.formEmailFallback || 'Continue in Email App')}
               </button>
             </form>
           </div>

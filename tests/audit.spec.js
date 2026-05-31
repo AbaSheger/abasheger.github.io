@@ -30,10 +30,7 @@ test.describe('A. SEO & ATS Signals', () => {
     expect(ogImage).toBeTruthy();
   });
 
-  test('KNOWN GAP — no JSON-LD structured data (schema.org Person)', async ({ page }) => {
-    // EXPECTED TO FAIL.
-    // JSON-LD makes the site machine-readable for AI/recruitment tools.
-    // Fix: add <script type="application/ld+json"> with a Person schema.
+  test('JSON-LD structured data exposes a schema.org Person profile', async ({ page }) => {
     await page.goto('/');
     const ldJson = await page.locator('script[type="application/ld+json"]').count();
     expect(
@@ -42,10 +39,7 @@ test.describe('A. SEO & ATS Signals', () => {
     ).toBeGreaterThan(0);
   });
 
-  test('KNOWN GAP — raw HTML body (no-JS scraper) has no meaningful content', async ({ request }) => {
-    // EXPECTED TO FAIL.
-    // ATS bots that skip JavaScript see an empty React shell.
-    // The CV PDF is what ATS systems actually read, not this page.
+  test('raw HTML body includes a meaningful no-script profile', async ({ request }) => {
     const response = await request.get('http://localhost:3000/');
     const fullHtml = await response.text();
     // Strip the <head> so meta tags don't give false positives
@@ -61,31 +55,28 @@ test.describe('A. SEO & ATS Signals', () => {
     ).toBe(true);
   });
 
-  test('KNOWN GAP — no Twitter Card meta tags', async ({ page }) => {
-    // EXPECTED TO FAIL. Twitter cards improve social sharing visibility.
+  test('Twitter Card meta tags are present', async ({ page }) => {
     await page.goto('/');
     const twitterCard = await page.locator('meta[name="twitter:card"]').count();
     expect(twitterCard, 'Missing Twitter Card meta tags').toBeGreaterThan(0);
   });
 
-  test('KNOWN GAP — no canonical link tag', async ({ page }) => {
-    // EXPECTED TO FAIL.
-    // A canonical tag prevents duplicate content issues for EN/SV language variants.
+  test('canonical link tag is present', async ({ page }) => {
     await page.goto('/');
     const canonical = await page.locator('link[rel="canonical"]').count();
     expect(canonical, 'Missing canonical link tag').toBeGreaterThan(0);
+  });
+
+  test('does not advertise a broken Swedish alternate route', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('link[rel="alternate"][hreflang="sv"]')).toHaveCount(0);
   });
 });
 
 // ─── B. Accessibility Audit ──────────────────────────────────────────────────
 
 test.describe('B. Accessibility', () => {
-  test('REAL BUG — axe-core finds serious WCAG 2 violations', async ({ page }) => {
-    // EXPECTED TO FAIL — these are real bugs found by the audit:
-    // 1. color-contrast: text-gray-600 on bg-gray-100 fails 4.5:1 ratio in project cards
-    //    Fix: use text-gray-700 or darker for card text/tech badges
-    // 2. link-name: scroll-down arrow <a href="#about"> has no accessible text
-    //    Fix: add aria-label="Scroll to About section" to that anchor
+  test('axe-core finds no serious WCAG 2 violations', async ({ page }) => {
     await page.goto('/');
     await page.waitForSelector('#main-content', { timeout: 10_000 });
 

@@ -13,6 +13,7 @@ const mockText = {
   formEmail: 'Your Email',
   formMessage: 'Your Message',
   formSend: 'Send Message',
+  formEmailFallback: 'Continue in Email App',
   formSending: 'Sending...',
   formSuccess: "Message sent!",
   formError: 'Failed to send.',
@@ -24,5 +25,5 @@ const mockText = {
 test('renders Contact section', () => {
   render(<Contact text={mockText} />);
   expect(screen.getByText("Let's Work Together")).toBeInTheDocument();
-  expect(screen.getByText('Send Message')).toBeInTheDocument();
+  expect(screen.getByText('Continue in Email App')).toBeInTheDocument();
 });
