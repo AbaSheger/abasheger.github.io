@@ -43,6 +43,7 @@ jobs:
         run: npm run build
         env:
           CI: false
+          GENERATE_SOURCEMAP: false
 
       - name: Copy build output to repository root
         run: |

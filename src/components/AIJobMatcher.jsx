@@ -10,7 +10,9 @@ const MID_EXPERIENCE = /\b[3-4]\+?\s*(?:years?|yrs?)(?:\s+of)?\s*(?:professional
 const skillAliases = {
   'REST APIs': ['rest api', 'restful api', 'rest services'],
   'GitHub Actions': ['github actions', 'ci/cd'],
-  'Azure DevOps': ['azure devops', 'ci/cd'],
+  'Spring Cloud': ['microservices', 'microservice'],
+  'Docker': ['containers', 'containerization'],
+  'Azure DevOps': ['azure devops', 'ci/cd', 'cloud'],
   'HTML/CSS': ['html', 'css'],
   '.NET': ['.net', 'dotnet'],
   'ASP.NET Core': ['asp.net', 'asp.net core'],
@@ -23,7 +25,10 @@ const skillAliases = {
   'LLM tools': ['llm', 'large language model'],
   'AI-assisted development': ['ai-assisted', 'ai tools', 'copilot'],
   'Desktop Game': ['game development', 'desktop game', 'gameplay', 'gaming'],
-  'libGDX': ['libgdx']
+  'libGDX': ['libgdx'],
+  'Kafka': ['event-driven', 'event streaming'],
+  'GitHub': ['github', 'version control'],
+  'Git': ['git', 'version control']
 };
 
 const knownMissingSkills = [
@@ -157,9 +162,13 @@ const EvidenceSkill = ({ evidence }) => (
       </span>
     </div>
     {evidence.projects.length > 0 && (
-      <p className="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
-        {evidence.projects.slice(0, 3).map(project => project.title).join(' · ')}
-      </p>
+      <div className="mt-2 flex flex-wrap gap-x-2 gap-y-1 text-xs leading-relaxed">
+        {evidence.projects.slice(0, 3).map(project => (
+          <a key={project.id} href={project.githubLink || project.liveLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline dark:text-blue-300">
+            {project.title}
+          </a>
+        ))}
+      </div>
     )}
   </div>
 );
@@ -258,7 +267,7 @@ export const AIJobMatcher = () => {
                   {isEnglish ? 'Approximate evidence score' : 'Ungefärlig evidenspoäng'}
                 </p>
                 <p className="mt-4 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
-                  {isEnglish ? 'Repeated use across portfolio projects increases confidence.' : 'Upprepad användning i portfolioprojekt ökar tillförlitligheten.'}
+                  {isEnglish ? 'Based on demonstrated portfolio evidence, not years of professional experience. Repeated use across projects increases confidence.' : 'Baserad på demonstrerade portfoliobevis, inte antal yrkesverksamma år. Upprepad användning i projekt ökar tillförlitligheten.'}
                 </p>
               </div>
             </div>

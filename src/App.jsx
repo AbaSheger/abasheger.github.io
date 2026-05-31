@@ -189,6 +189,11 @@ const App = () => {
                         {text.hero.description}
                       </p>
 
+                      <p className="mx-auto mb-7 flex max-w-2xl items-start gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-left text-sm font-medium leading-relaxed text-emerald-800 dark:border-emerald-800/60 dark:bg-emerald-950/30 dark:text-emerald-200 lg:mx-0">
+                        <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
+                        <span>{text.hero.targeting}</span>
+                      </p>
+
                       <div className="mb-10 flex flex-wrap justify-center lg:justify-start gap-3 text-sm text-gray-700 dark:text-gray-300">
                         <span className="rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm dark:border-gray-700 dark:bg-gray-800">Java</span>
                         <span className="rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm dark:border-gray-700 dark:bg-gray-800">Spring Boot</span>
