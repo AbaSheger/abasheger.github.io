@@ -8,6 +8,7 @@ const borsvyImage = './assets/borsvy.png';
 const lomanStadImage = './assets/loman-stad.png';
 const ecoTrackerImage = './assets/ecotracker.png';
 const jobAgentImage = './assets/job-agent.png';
+const devflowAgentImage = './assets/devflow-agent.png';
 const dbschenkerMcpImage = './assets/dbschenker-mcp.svg';
 const guardrail4jImage = './assets/guardrail4j.svg';
 
@@ -33,6 +34,17 @@ export const projects = {
       image: jobAgentImage,
       description: "Automated daily job-search agent that pulls roles from Jobtech, Remotive, and RemoteOK, ranks matches with Claude AI, and delivers a curated Telegram digest via scheduled GitHub Actions.",
       githubLink: "https://github.com/AbaSheger/job-agent",
+      isSideProject: true
+    },
+    {
+      id: 27,
+      title: "DevFlow Agent",
+      category: "fullstack",
+      technologies: ["React", "TypeScript", "Vite", "Gemini API", "GitLab API", "Vercel", "Playwright"],
+      image: devflowAgentImage,
+      description: "Hackathon MVP that analyzes GitLab project activity and generates blockers, risks, recommended actions, and standup summaries. Supports public GitLab imports, Gemini-powered analysis, and resilient demo fallback behavior.",
+      liveLink: "https://devflow-agent.vercel.app/",
+      githubLink: "https://github.com/AbaSheger/devflow-agent",
       isSideProject: true
     },
     {
@@ -290,6 +302,17 @@ export const projects = {
       image: jobAgentImage,
       description: "Automatiserad daglig jobbsökningsagent som hämtar jobb från Jobtech, Remotive och RemoteOK, rankar matchningar med Claude AI och levererar ett kurerat Telegram-sammandrag via schemalagda GitHub Actions.",
       githubLink: "https://github.com/AbaSheger/job-agent",
+      isSideProject: true
+    },
+    {
+      id: 27,
+      title: "DevFlow Agent",
+      category: "fullstack",
+      technologies: ["React", "TypeScript", "Vite", "Gemini API", "GitLab API", "Vercel", "Playwright"],
+      image: devflowAgentImage,
+      description: "Hackathon-MVP som analyserar GitLab-projektaktivitet och genererar blockerare, risker, rekommenderade åtgärder och standup-sammanfattningar. Stöder import av publika GitLab-projekt, Gemini-driven analys och robust demo-fallback.",
+      liveLink: "https://devflow-agent.vercel.app/",
+      githubLink: "https://github.com/AbaSheger/devflow-agent",
       isSideProject: true
     },
     {
