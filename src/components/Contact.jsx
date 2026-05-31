@@ -40,9 +40,9 @@ export const Contact = ({ text }) => {
   };
 
   return (
-    <section id="contact" className="py-24 px-4 bg-gray-50 dark:bg-dark-900 border-t border-gray-100 dark:border-gray-800">
+    <section id="contact" className="py-20 px-4 bg-gray-50 dark:bg-dark-900 border-t border-gray-100 dark:border-gray-800 sm:py-24">
       <div className="max-w-7xl mx-auto">
-        <h2 id="contact-title" className="text-2xl sm:text-3xl md:text-4xl font-bold mb-16 flex items-center">
+        <h2 id="contact-title" className="text-2xl sm:text-3xl md:text-4xl font-bold mb-10 flex items-center sm:mb-12">
           <span className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 font-mono mr-4 border border-gray-200 dark:border-gray-700">
             05
           </span>

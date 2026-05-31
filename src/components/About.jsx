@@ -2,9 +2,9 @@ import React from 'react';
 
 export const About = ({ text }) => {
   return (
-    <section id="about" className="py-24 px-4 bg-white dark:bg-[#121212] border-t border-gray-100 dark:border-white/5">
+    <section id="about" className="py-20 px-4 bg-white dark:bg-[#121212] border-t border-gray-100 dark:border-white/5 sm:py-24">
       <div className="max-w-5xl mx-auto relative z-10">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-16 flex items-center">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-10 flex items-center sm:mb-12">
           <span className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 text-blue-700 dark:text-blue-300 font-mono mr-4 border border-gray-200 dark:border-gray-700">
             01
           </span>
@@ -13,19 +13,19 @@ export const About = ({ text }) => {
         
         <div className="text-gray-600 dark:text-gray-300">
           {/* Bio cards */}
-          <div className="space-y-8 mb-8 max-w-3xl">
-            <div className="p-6 rounded-xl bg-white dark:bg-[#181818] border border-gray-200 dark:border-white/5 shadow-md shadow-gray-900/5">
+          <div className="space-y-4 max-w-3xl">
+            <div className="p-5 rounded-xl bg-white dark:bg-[#181818] border border-gray-200 dark:border-white/5 shadow-md shadow-gray-900/5">
               <p className="text-lg leading-relaxed">{text.bio1}</p>
             </div>
-            <div className="p-6 rounded-xl bg-white dark:bg-[#181818] border border-gray-200 dark:border-white/5 shadow-md shadow-gray-900/5">
+            <div className="p-5 rounded-xl bg-white dark:bg-[#181818] border border-gray-200 dark:border-white/5 shadow-md shadow-gray-900/5">
               <p className="text-lg leading-relaxed">{text.bio2}</p>
             </div>
           </div>
 
-          <div className="max-w-3xl">
+          <div className="mt-10 grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
           {/* Education Section */}
-          <div className="mt-16">
-            <h3 className="text-xl font-bold mb-8 text-gray-900 dark:text-white flex items-center gap-3">
+          <div>
+            <h3 className="text-xl font-bold mb-5 text-gray-900 dark:text-white flex items-center gap-3">
               <span className="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -36,7 +36,7 @@ export const About = ({ text }) => {
             </h3>
             
             {/* Timeline-style education list */}
-            <div className="space-y-4 relative">
+            <div className="space-y-3 relative">
               {/* Vertical line */}
               <div className="absolute left-3 top-2 bottom-2 w-0.5 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
               
@@ -46,7 +46,7 @@ export const About = ({ text }) => {
                   <div className="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-white dark:bg-gray-900 border-2 border-blue-500 group-hover:border-purple-500 transition-colors flex items-center justify-center">
                     <div className="w-2 h-2 rounded-full bg-blue-500 group-hover:bg-purple-500 transition-colors"></div>
                   </div>
-                  <div className="flex-1 p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                  <div className="flex-1 p-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                     <p className="text-base font-medium text-gray-700 dark:text-gray-200">
                       {item === text.education.bachelor ? (
                         <>
@@ -62,8 +62,8 @@ export const About = ({ text }) => {
           </div>
 
           {/* Certifications Section */}
-          <div className="mt-16">
-            <h3 className="text-xl font-bold mb-8 text-gray-900 dark:text-white flex items-center gap-3">
+          <div>
+            <h3 className="text-xl font-bold mb-5 text-gray-900 dark:text-white flex items-center gap-3">
               <span className="p-2 rounded-lg bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
@@ -76,12 +76,12 @@ export const About = ({ text }) => {
                 href="https://learn.microsoft.com/en-us/users/AbenezerAnglo-2880/credentials/CF22B85D7993E75D"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-5 p-5 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 transition-colors duration-200 bg-white dark:bg-gray-800 shadow-sm"
+                className="group flex items-center gap-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 transition-colors duration-200 bg-white dark:bg-gray-800 shadow-sm"
               >
                 {/* Microsoft Logo with glow effect */}
                 <div className="relative flex-shrink-0">
-                  <div className="relative w-16 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm transition-colors duration-200 p-2 border border-gray-100">
-                    <svg className="w-12 h-12" viewBox="0 0 23 23" fill="none">
+                  <div className="relative w-12 h-12 flex items-center justify-center bg-white rounded-lg shadow-sm transition-colors duration-200 p-2 border border-gray-100">
+                    <svg className="w-8 h-8" viewBox="0 0 23 23" fill="none">
                       <rect x="0" y="0" width="11" height="11" fill="#F25022"/>
                       <rect x="12" y="0" width="11" height="11" fill="#7FBA00"/>
                       <rect x="0" y="12" width="11" height="11" fill="#00A4EF"/>
@@ -92,7 +92,7 @@ export const About = ({ text }) => {
 
                 <div className="flex-grow min-w-0">
                   <div className="flex items-center gap-3 flex-wrap">
-                    <h4 className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
+                    <h4 className="font-bold text-base text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {text.certifications?.azure || 'Microsoft Certified: Azure Fundamentals'}
                     </h4>
                     <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-full">
@@ -126,22 +126,22 @@ export const About = ({ text }) => {
                 href="https://verify.skilljar.com/c/o3mfxajuryzu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-5 p-5 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-orange-400 dark:hover:border-orange-500 transition-colors duration-200 bg-white dark:bg-gray-800 shadow-sm"
+                className="group flex items-center gap-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-orange-400 dark:hover:border-orange-500 transition-colors duration-200 bg-white dark:bg-gray-800 shadow-sm"
               >
                 <div className="relative flex-shrink-0">
-                  <div className="relative w-16 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm transition-colors duration-200 p-2 border border-gray-100">
+                  <div className="relative w-12 h-12 flex items-center justify-center bg-white rounded-lg shadow-sm transition-colors duration-200 p-2 border border-gray-100">
                     {/* Official Anthropic logo via SimpleIcons CDN */}
                     <img
                       src="https://cdn.simpleicons.org/anthropic/CC785C"
                       alt="Anthropic"
-                      className="w-10 h-10"
+                      className="w-8 h-8"
                     />
                   </div>
                 </div>
 
                 <div className="flex-grow min-w-0">
                   <div className="flex items-center gap-3 flex-wrap">
-                    <h4 className="font-bold text-lg text-gray-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors truncate">
+                    <h4 className="font-bold text-base text-gray-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
                       {text.certifications?.claude || 'Anthropic: Claude in Action'}
                     </h4>
                     <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 rounded-full">

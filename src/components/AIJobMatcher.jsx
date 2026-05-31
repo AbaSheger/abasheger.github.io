@@ -195,7 +195,7 @@ export const AIJobMatcher = () => {
   };
 
   return (
-    <section id="ai-match" className="border-t border-gray-100 bg-gray-50 px-4 py-24 dark:border-gray-800 dark:bg-dark-900">
+    <section id="ai-match" className="border-t border-gray-100 bg-gray-50 px-4 py-20 dark:border-gray-800 dark:bg-dark-900 sm:py-24">
       <div className="mx-auto max-w-5xl">
         <div className="mb-10">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:border-emerald-700/50 dark:bg-emerald-900/20 dark:text-emerald-300">

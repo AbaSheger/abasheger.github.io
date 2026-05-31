@@ -83,7 +83,7 @@ export const Skills = ({ text }) => {
   };
 
   return (
-    <section id="skills" className="border-t border-gray-100 bg-white px-4 py-24 dark:border-gray-800 dark:bg-dark-900">
+    <section id="skills" className="border-t border-gray-100 bg-white px-4 py-20 dark:border-gray-800 dark:bg-dark-900 sm:py-24">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 max-w-3xl">
           <h2 className="flex items-center text-2xl font-bold sm:text-3xl md:text-4xl">

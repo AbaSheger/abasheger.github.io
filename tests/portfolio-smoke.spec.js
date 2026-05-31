@@ -10,6 +10,7 @@ test.describe('Portfolio redesign smoke checks', () => {
   test('featured projects render and archive expands', async ({ page }) => {
     const initialCards = await page.locator('#projects article').count();
     expect(initialCards).toBe(8);
+    await expect(page.locator('#projects article img')).toHaveCount(8);
 
     await page.getByRole('button', { name: /Show more projects/i }).click();
     await expect(page.locator('#projects article')).toHaveCount(27);

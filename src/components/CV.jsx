@@ -11,7 +11,7 @@ export const CV = () => {
   const { text } = useLanguage();
 
   return (
-    <section id="cv" className="bg-white px-4 py-20 dark:bg-dark-800/20" aria-labelledby="cv-title">
+    <section id="cv" className="bg-white px-4 py-16 dark:bg-dark-800/20 sm:py-20" aria-labelledby="cv-title">
       <div className="mx-auto max-w-5xl">
         <h2 id="cv-title" className="mb-8 flex items-center text-2xl font-bold sm:text-3xl">
           <span className="mr-2 inline-block text-right font-mono text-blue-600 dark:text-blue-400" style={{ width: '3ch' }}>04.</span>

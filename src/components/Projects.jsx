@@ -3,7 +3,7 @@ import { ProjectCard } from './ProjectCard';
 import { useLanguage } from '../contexts/LanguageContext';
 import { projects } from '../data/projects';
 
-const FEATURED_PROJECT_IDS = new Set([24, 27, 25, 26, 23, 7, 8, 28]);
+const FEATURED_PROJECT_IDS = new Set([24, 27, 25, 26, 23, 7, 1, 28]);
 
 const projectCategories = [
   { id: 'all', label: 'filterAll' },
@@ -31,7 +31,7 @@ export const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative overflow-hidden border-t border-white/5 bg-[#0d0d0f] px-4 py-24 text-white"
+      className="relative overflow-hidden border-t border-white/5 bg-[#0d0d0f] px-4 py-20 text-white sm:py-24"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.18),transparent_42%),radial-gradient(circle_at_top_right,rgba(14,165,233,0.12),transparent_36%)]" />
       <div className="relative mx-auto max-w-7xl">
