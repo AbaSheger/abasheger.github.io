@@ -171,10 +171,6 @@ export const Header = ({ darkMode, toggleDarkMode, language, toggleLanguage, men
           >
             {navItems.contact}
           </a>
-          <div className="flex items-center justify-between py-2">
-            <LanguageToggle language={language} toggleLanguage={toggleLanguage} isMobile menuOpen={menuOpen} />
-            <ThemeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} isMobile menuOpen={menuOpen} />
-          </div>
         </nav>
       </div>
 

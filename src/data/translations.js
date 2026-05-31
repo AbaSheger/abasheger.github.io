@@ -5,7 +5,7 @@ export const translations = {
       about: "About",
       projects: "Projects",
       skills: "Skills",
-      aiMatch: "AI Match",
+      aiMatch: "Job Match",
       contact: "Contact",
       cv: "CV"
     },
@@ -50,6 +50,7 @@ export const translations = {
       filterBackend: "Backend",
       filterFullstack: "Full Stack",
       filterCloud: "Cloud & DevOps",
+      filterDesktop: "Desktop & Games",
       showMore: "Show more projects",
       showLess: "Show less"
     },
@@ -105,7 +106,7 @@ export const translations = {
       about: "Om Mig",
       projects: "Projekt",
       skills: "Kompetenser",
-      aiMatch: "AI-match",
+      aiMatch: "Jobbmatch",
       contact: "Kontakt",
       cv: "CV"
     },
@@ -150,6 +151,7 @@ export const translations = {
       filterBackend: "Backend",
       filterFullstack: "Fullstack",
       filterCloud: "Moln & DevOps",
+      filterDesktop: "Skrivbord & Spel",
       showMore: "Visa fler projekt",
       showLess: "Visa färre"
     },

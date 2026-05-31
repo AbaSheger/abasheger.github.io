@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { skillCategories } from '../data/skills';
 
-const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
-
 const ALL_SKILLS = skillCategories.flatMap(cat => cat.skills);
 
 // Regex to detect seniority level from a job description
@@ -191,10 +189,10 @@ export const AIJobMatcher = () => {
   const isEn = language !== 'sv';
 
   const ui = {
-    sectionTitle: isEn ? 'AI Job Match' : 'AI-jobbmatchning',
+    sectionTitle: isEn ? 'Private Job Match' : 'Privat jobbmatchning',
     subtitle: isEn
-      ? 'Paste a job description and our AI will instantly analyze how well Abenezer fits the role.'
-      : 'Klistra in en jobbeskrivning så analyserar vår AI hur väl Abenezer matchar rollen.',
+      ? 'Paste a job description for a private, on-device estimate of how well Abenezer fits the role.'
+      : 'Klistra in en jobbeskrivning för en privat uppskattning direkt i webbläsaren av hur väl Abenezer matchar rollen.',
     placeholder: isEn
       ? 'Paste a job description here (e.g. "We are looking for a Java Developer with Spring Boot, Docker, and Azure experience...")'
       : 'Klistra in jobbeskrivning här (t.ex. "Vi söker en Java-utvecklare med Spring Boot, Docker och Azure-erfarenhet...")',
@@ -203,7 +201,7 @@ export const AIJobMatcher = () => {
     resetBtn: isEn ? 'Try Another Role' : 'Prova en annan roll',
     matchedSkills: isEn ? 'Matched Skills' : 'Matchande kompetenser',
     highlights: isEn ? 'Key Strengths' : 'Viktiga styrkor',
-    summary: isEn ? 'AI Analysis' : 'AI-analys',
+    summary: isEn ? 'Match Analysis' : 'Matchningsanalys',
     tooShort: isEn
       ? 'Please paste a job description (at least 50 characters).'
       : 'Vänligen klistra in en jobbeskrivning (minst 50 tecken).',
@@ -211,8 +209,8 @@ export const AIJobMatcher = () => {
     tryThis: isEn ? 'Quick example:' : 'Snabbexempel:',
     exampleLabel: isEn ? 'Junior Java Developer (Spring Boot + REST)' : 'Junior Java-utvecklare (Spring Boot + REST)',
     disclaimer: isEn
-      ? 'AI-generated estimate — for guidance only. Results may not reflect the full picture.'
-      : 'AI-genererad uppskattning — endast vägledande. Resultatet kanske inte speglar hela bilden.',
+      ? 'Private on-device estimate for guidance only. Your pasted text is not sent to a server.'
+      : 'Privat uppskattning direkt i webbläsaren. Din inklistrade text skickas inte till en server.',
   };
 
   const exampleDesc = isEn
@@ -229,40 +227,6 @@ export const AIJobMatcher = () => {
     setError('');
     setLoading(true);
     setResult(null);
-
-    try {
-      if (GROQ_API_KEY) {
-        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${GROQ_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
-            messages: [{ role: 'user', content: buildMatchPrompt(jobDesc, language) }],
-            max_tokens: 400,
-            temperature: 0.2,
-          }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          const content = data.choices?.[0]?.message?.content?.trim() || '';
-          const jsonMatch = content.match(/\{[\s\S]*\}/);
-          if (jsonMatch) {
-            const parsed = JSON.parse(jsonMatch[0]);
-            setResult(enforceSeniorityCap(parsed, jobDesc));
-            setLoading(false);
-            setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
-            return;
-          }
-        }
-      }
-    } catch (err) {
-      console.error('Groq API call failed:', err);
-      // fall through to local fallback
-    }
 
     setTimeout(() => {
       setResult(analyzeLocally(jobDesc, language));

@@ -4,13 +4,11 @@ import { About } from './components/About';
 import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
 import { Contact } from './components/Contact';
-import ThemeToggle from './components/ThemeToggle';
 import { useLanguage } from './contexts/LanguageContext';
 import { CV } from './components/CV';
 import { Location } from './components/Location';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { SkeletonLoader } from './components/SkeletonLoader';
-import Chatbot from './components/Chatbot';
 import { AIJobMatcher } from './components/AIJobMatcher';
 
 // Lazy load the ParticleBackground for better performance
@@ -228,7 +226,7 @@ const App = () => {
                           </div>
                           <div className="grid grid-cols-3 divide-x divide-gray-200 border-t border-gray-200 text-center dark:divide-gray-700 dark:border-gray-700">
                             <div className="p-4">
-                              <div className="text-xl font-bold text-gray-900 dark:text-white">10+</div>
+                              <div className="text-xl font-bold text-gray-900 dark:text-white">25+</div>
                               <div className="mt-1 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Projects</div>
                             </div>
                             <div className="p-4">
@@ -296,9 +294,6 @@ const App = () => {
               </Suspense>
             </div>
 
-            {/* Floating Theme Toggle */}
-            <ThemeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-
             {/* Footer */}
             <footer className="relative py-12 px-4 bg-gray-50 dark:bg-dark-900 border-t border-gray-200 dark:border-gray-700 overflow-hidden">
               
@@ -344,7 +339,6 @@ const App = () => {
             >
               {announcement}
             </div>
-            <Chatbot />
           </main>
         </ErrorBoundary>
       </div>
