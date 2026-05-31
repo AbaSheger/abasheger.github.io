@@ -5,7 +5,7 @@ export const translations = {
       about: "About",
       projects: "Projects",
       skills: "Skills",
-      aiMatch: "Job Match",
+      aiMatch: "Role Fit",
       contact: "Contact",
       cv: "CV"
     },
@@ -106,7 +106,7 @@ export const translations = {
       about: "Om Mig",
       projects: "Projekt",
       skills: "Kompetenser",
-      aiMatch: "Jobbmatch",
+      aiMatch: "Rollmatch",
       contact: "Kontakt",
       cv: "CV"
     },

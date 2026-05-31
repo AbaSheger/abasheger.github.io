@@ -1,381 +1,338 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { skillCategories } from '../data/skills';
+import { projects } from '../data/projects';
 
-const ALL_SKILLS = skillCategories.flatMap(cat => cat.skills);
-
-// Regex to detect seniority level from a job description
 const SENIOR_KEYWORDS = /\b(senior|lead|principal|staff|architect|head of|vp\b|vice president)\b/i;
 const HIGH_EXPERIENCE = /\b([5-9]|1[0-9])\+?\s*(?:years?|yrs?)(?:\s+of)?\s*(?:professional\s*)?(?:experience|exp)\b/i;
 const MID_EXPERIENCE = /\b[3-4]\+?\s*(?:years?|yrs?)(?:\s+of)?\s*(?:professional\s*)?(?:experience|exp)\b/i;
 
-/**
- * Enforce realistic score caps based on seniority level detected in the job description.
- * This runs after AI analysis to prevent the LLM from giving unrealistically high scores
- * to a junior/mid-level candidate for senior roles.
- */
-const enforceSeniorityCap = (result, jobDesc) => {
-  const isSenior = SENIOR_KEYWORDS.test(jobDesc) || HIGH_EXPERIENCE.test(jobDesc);
-  const isMidSenior = !isSenior && MID_EXPERIENCE.test(jobDesc);
-  if (isSenior && result.score > 60) {
-    return { ...result, score: 60 };
-  }
-  if (isMidSenior && result.score > 72) {
-    return { ...result, score: 72 };
-  }
-  return result;
+const skillAliases = {
+  'REST APIs': ['rest api', 'restful api', 'rest services'],
+  'GitHub Actions': ['github actions', 'ci/cd'],
+  'Azure DevOps': ['azure devops', 'ci/cd'],
+  'HTML/CSS': ['html', 'css'],
+  '.NET': ['.net', 'dotnet'],
+  'ASP.NET Core': ['asp.net', 'asp.net core'],
+  'Spring Boot': ['spring boot', 'spring'],
+  'Node.js': ['node.js', 'nodejs', 'node'],
+  'TypeScript': ['typescript', 'ts'],
+  'JavaScript': ['javascript', 'js'],
+  'PostgreSQL': ['postgresql', 'postgres'],
+  'MCP': ['mcp', 'model context protocol'],
+  'LLM tools': ['llm', 'large language model'],
+  'AI-assisted development': ['ai-assisted', 'ai tools', 'copilot'],
+  'Desktop Game': ['game development', 'desktop game', 'gameplay', 'gaming'],
+  'libGDX': ['libgdx']
 };
 
-/** Check if a skill appears as a whole word/phrase in the text (not as a substring of another word). */
-const matchesSkill = (text, skill) => {
-  const lowerSkill = skill.toLowerCase();
-  const lowerText = text.toLowerCase();
-  let startIndex = 0;
-  while (startIndex <= lowerText.length - lowerSkill.length) {
-    const idx = lowerText.indexOf(lowerSkill, startIndex);
-    if (idx === -1) return false;
-    const charBefore = idx > 0 ? lowerText[idx - 1] : ' ';
-    const charAfter = idx + lowerSkill.length < lowerText.length
-      ? lowerText[idx + lowerSkill.length] : ' ';
-    const boundaryBefore = !/[a-z0-9]/i.test(charBefore);
-    const boundaryAfter = !/[a-z0-9]/i.test(charAfter);
-    if (boundaryBefore && boundaryAfter) return true;
-    startIndex = idx + 1;
-  }
-  return false;
+const knownMissingSkills = [
+  'AWS', 'Unity', 'Unreal Engine', 'C++', 'Redis', 'MongoDB', 'Terraform',
+  'Kubernetes', 'GraphQL', 'RabbitMQ', 'Jenkins', 'React Native'
+];
+
+const rolePresets = {
+  en: [
+    ['Junior Java Developer', 'We are looking for a Junior Java Developer to build REST APIs using Java, Spring Boot, PostgreSQL, Docker, Git, JUnit, and Agile Scrum practices.'],
+    ['Backend Developer', 'Backend Developer wanted for REST API and microservice development using Java, Spring Boot, PostgreSQL, Kafka, Docker, GitHub Actions, and cloud deployment.'],
+    ['Full-Stack Developer', 'Full-Stack Developer role using React, TypeScript, JavaScript, Node.js, REST APIs, PostgreSQL, Docker, and Git.'],
+    ['Game Developer', 'Junior Game Developer role focused on Java or C++, game development, gameplay loops, collision detection, desktop games, and Git. Unity experience is a plus.']
+  ],
+  sv: [
+    ['Junior Java-utvecklare', 'Vi söker en junior Java-utvecklare som bygger REST API:er med Java, Spring Boot, PostgreSQL, Docker, Git, JUnit och agila Scrum-metoder.'],
+    ['Backend-utvecklare', 'Backend-utvecklare sökes för REST API:er och mikrotjänster med Java, Spring Boot, PostgreSQL, Kafka, Docker, GitHub Actions och molndistribution.'],
+    ['Fullstack-utvecklare', 'Fullstack-roll med React, TypeScript, JavaScript, Node.js, REST API:er, PostgreSQL, Docker och Git.'],
+    ['Spelutvecklare', 'Junior spelutvecklarroll med fokus på Java eller C++, spelutveckling, gameplay-loopar, kollisionsdetektering, skrivbordsspel och Git. Unity är meriterande.']
+  ]
 };
 
-const buildMatchPrompt = (jobDesc, lang) => {
-  const skillsText = skillCategories
-    .map(cat => `${cat.title} (${cat.proficiency}% proficiency): ${cat.skills.join(', ')}`)
-    .join('\n');
+const normalize = value => value.toLowerCase().replace(/[^\p{L}\p{N}+#./-]+/gu, ' ').trim();
 
-  if (lang === 'sv') {
-    return `Du är en strikt rekryteringsexpert som analyserar hur väl en kandidat matchar en jobbeskrivning.
-
-KANDIDAT: Abenezer Anglo, junior/mellannivå mjukvaruutvecklare, Borlänge Sverige
-ERFARENHETSNIVÅ: Junior till mellannivå-utvecklare. Genomför för närvarande en Java-utvecklarutbildning. Cirka 1-2 års praktisk projekterfarenhet (skola + personliga projekt). Ingen professionell heltidsanställning som utvecklare ännu. Använder aktivt AI-assisterade utvecklingsverktyg (GitHub Copilot, Claude Code) i det dagliga arbetet. Håller på att lära sig Playwright för end-to-end-testning.
-
-KOMPETENSER:\n${skillsText}\n
-JOBBESKRIVNING ATT ANALYSERA:\n${jobDesc}\n
-VIKTIGA REGLER FÖR POÄNGSÄTTNING:\n- Räkna EXAKT hur många av kandidatens kompetenser som nämns i jobbeskrivningen.\n- Om jobbet kräver kompetenser som kandidaten SAKNAR, ge ett LÄGRE poäng.\n- SENIORITETSREGEL (KRITISK): Om jobbtiteln eller beskrivningen innehåller ord som "Senior", "Lead", "Principal", "Staff", "Arkitekt" eller kräver 5+ års erfarenhet, är kandidaten INTE en stark matchning på grund av erfarenhetsnivå. I detta fall är MAXPOÄNGEN 60, oavsett kompetensmatchning. Nämn detta i sammanfattningen.\n- ERFARENHETSREGEL: Om jobbet kräver 3-4 års erfarenhet, är maxpoängen 72.\n- 90-100: Nästan perfekt matchning — kandidaten har ALLA krävda kompetenser OCH rollen är på junior/mellannivå/nyexaminerad.\n- 70-89: Stark matchning — kandidaten har de flesta kompetenser OCH rollen passar junior/mellannivå.\n- 50-69: Delvis matchning — kandidaten har några relevanta kompetenser men saknar viktiga krav, ELLER rollen är mer senior än kandidatens nivå.\n- 30-49: Svag matchning — begränsad överlappning eller betydande senioritetsglapp.\n- 0-29: Mycket svag — helt annan inriktning.\n- Ge ALDRIG automatiskt en hög poäng. Var kritisk och ärlig.\n- Nämn ALLTID i sammanfattningen om rollen är för senior för kandidatens nuvarande erfarenhetsnivå.
-
-Svara EXAKT med följande JSON-format och inget annat:\n{\n  "score": <heltal 0-100 som representerar matchningsprocent>,\n  "matchedSkills": [<upp till 8 specifika matchande tekniker/färdigheter som strängar>],\n  "summary": "<2-3 meningar på svenska om varför Abenezer passar eller inte passar för rollen>",\n  "highlights": ["<styrka 1>", "<styrka 2>", "<styrka 3>"]\n}`;
-  }
-
-  return `You are a strict recruitment expert analyzing how well a candidate matches a job description.
-
-CANDIDATE: Abenezer Anglo, Junior/Mid-level Software Developer, Borlänge Sweden
-EXPERIENCE LEVEL: Junior to mid-level developer. Currently completing a Java developer education program. Approximately 1-2 years of hands-on project experience (school + personal projects). No professional full-time employment as a developer yet. Actively uses AI-assisted development tools (GitHub Copilot, Claude Code) in daily workflow. Currently learning Playwright for end-to-end testing.
-
-SKILLS:\n${skillsText}\n
-JOB DESCRIPTION TO ANALYZE:\n${jobDesc}\n
-IMPORTANT SCORING RULES:\n- Count EXACTLY how many of the candidate's skills are mentioned or required in the job description.\n- If the job requires skills the candidate LACKS, give a LOWER score.\n- SENIORITY RULE (CRITICAL): If the job title or description uses words like "Senior", "Lead", "Principal", "Staff", "Architect", or requires 5+ years of experience, the candidate is NOT a strong match due to experience level. In this case, the MAXIMUM score you may give is 60, regardless of skill overlap. Mention this in the summary.\n- EXPERIENCE RULE: If the job requires 3-4 years of experience, cap the score at 72 maximum.\n- 90-100: Near-perfect match — candidate has ALL required skills AND the role is junior/mid/graduate level.\n- 70-89: Strong match — candidate has most required skills AND the role is appropriate for junior/mid level.\n- 50-69: Partial match — candidate has some relevant skills but is missing key requirements, OR the role is more senior than the candidate's level.\n- 30-49: Weak match — limited skill overlap or significant seniority mismatch.\n- 0-29: Very weak — completely different field or skill set.\n- NEVER default to a high score. Be critical and honest in your assessment.\n- ALWAYS mention in the summary if the role is too senior for the candidate's current experience level.
-
-Respond EXACTLY with the following JSON format and nothing else:\n{\n  "score": <integer 0-100 representing match percentage>,\n  "matchedSkills": [<up to 8 specific matching technologies/skills as strings>],\n  "summary": "<2-3 sentences on why Abenezer is or is not a good fit for this role>",\n  "highlights": ["<strength 1>", "<strength 2>", "<strength 3>"]\n}`;
+const includesPhrase = (text, phrase) => {
+  const normalizedText = ` ${normalize(text)} `;
+  const normalizedPhrase = normalize(phrase);
+  return normalizedPhrase.length > 1 && normalizedText.includes(` ${normalizedPhrase} `);
 };
 
-const analyzeLocally = (jobDesc, lang) => {
-  const categoryResults = skillCategories.map(cat => ({
-    ...cat,
-    matched: cat.skills.filter(skill => matchesSkill(jobDesc, skill))
-  }));
+const buildEvidenceIndex = projectList => {
+  const catalog = new Map();
 
-  const allMatched = categoryResults.flatMap(cat => cat.matched);
+  skillCategories.flatMap(category => category.skills).forEach(skill => {
+    catalog.set(skill, { skill, projects: [], curated: true });
+  });
 
-  // Score based on how many job-relevant skills Abenezer matches.
-  // Dividing by total skills (68) penalises breadth unfairly — a job asking for
-  // 8 skills that Abenezer has all 8 of should score high, not 12%.
-  // Formula: each match contributes ~11 points, capped at 95.
-  const rawScore = allMatched.length === 0
-    ? 10
-    : Math.min(95, allMatched.length * 11);
+  projectList.forEach(project => {
+    project.technologies.forEach(skill => {
+      const evidence = catalog.get(skill) || { skill, projects: [], curated: false };
+      evidence.projects.push(project);
+      catalog.set(skill, evidence);
+    });
+  });
 
-  // Apply seniority cap before building the summary
-  const isSenior = SENIOR_KEYWORDS.test(jobDesc) || HIGH_EXPERIENCE.test(jobDesc);
-  const isMidSenior = !isSenior && MID_EXPERIENCE.test(jobDesc);
-  let score = rawScore;
-  if (isSenior) score = Math.min(rawScore, 60);
-  else if (isMidSenior) score = Math.min(rawScore, 72);
-
-  // Build dynamic summary based on actually matched categories
-  const matchedCats = categoryResults.filter(cat => cat.matched.length > 0);
-  const topSkills = allMatched.slice(0, 4).join(', ');
-
-  let summary, highlights;
-  if (lang === 'sv') {
-    if (allMatched.length === 0) {
-      summary = 'Inga specifika kompetensmatchningar hittades mellan Abenezers profil och denna jobbeskrivning.';
-      highlights = [];
-    } else {
-      const catNames = matchedCats.map(c => c.title).join(', ');
-      summary = `Abenezer matchar ${allMatched.length} av ${ALL_SKILLS.length} kompetenser (${topSkills}). Starkast matchning inom: ${catNames}.`;
-      if (isSenior) summary += ' Observera: Rollen kräver Senior/Lead-erfarenhet som överstiger Abenezers nuvarande junior/mellannivå-profil.';
-      else if (isMidSenior) summary += ' Observera: Rollen kräver 3-4 års erfarenhet vilket är mer än Abenezers nuvarande nivå.';
-      highlights = matchedCats.slice(0, 3).map(cat =>
-        `${cat.title}: ${cat.matched.slice(0, 2).join(', ')} (${cat.matched.length}/${cat.skills.length})`
-      );
-    }
-  } else {
-    if (allMatched.length === 0) {
-      summary = `No specific skill matches were found between Abenezer's profile and this job description.`;
-      highlights = [];
-    } else {
-      const catNames = matchedCats.map(c => c.title).join(', ');
-      summary = `Abenezer matches ${allMatched.length} of ${ALL_SKILLS.length} skills (${topSkills}). Strongest overlap in: ${catNames}.`;
-      if (isSenior) summary += ' Note: This role requires Senior/Lead experience beyond Abenezer\'s current junior/mid-level profile.';
-      else if (isMidSenior) summary += ' Note: This role requires 3-4 years of experience, which is more than Abenezer\'s current level.';
-      highlights = matchedCats.slice(0, 3).map(cat =>
-        `${cat.title}: ${cat.matched.slice(0, 2).join(', ')} (${cat.matched.length}/${cat.skills.length})`
-      );
-    }
-  }
-
-  return { score, matchedSkills: allMatched.slice(0, 8), summary, highlights };
+  return [...catalog.values()];
 };
 
-const ScoreRing = ({ score }) => {
-  const radius = 54;
-  const circumference = 2 * Math.PI * radius;
-  const [animatedScore, setAnimatedScore] = useState(0);
-  const offset = circumference - (animatedScore / 100) * circumference;
+const matchesEvidence = (jobDescription, evidence) => {
+  const aliases = skillAliases[evidence.skill] || [];
+  return [evidence.skill, ...aliases].some(alias => includesPhrase(jobDescription, alias));
+};
 
-  useEffect(() => {
-    const timer = setTimeout(() => setAnimatedScore(score), 150);
-    return () => clearTimeout(timer);
-  }, [score]);
+const alignmentForScore = (score, isEnglish) => {
+  if (score >= 72) return { label: isEnglish ? 'Strong alignment' : 'Stark matchning', tone: 'emerald' };
+  if (score >= 45) return { label: isEnglish ? 'Partial alignment' : 'Delvis matchning', tone: 'blue' };
+  return { label: isEnglish ? 'Limited alignment' : 'Begränsad matchning', tone: 'amber' };
+};
 
-  const ringColor =
-    score >= 75 ? '#22c55e' :
-    score >= 50 ? '#3b82f6' :
-    score >= 30 ? '#f59e0b' : '#ef4444';
+const analyzeRole = (jobDescription, projectList, isEnglish) => {
+  const index = buildEvidenceIndex(projectList);
+  const matchedEvidence = index
+    .filter(evidence => matchesEvidence(jobDescription, evidence))
+    .map(evidence => ({
+      ...evidence,
+      strength: evidence.projects.length >= 2 ? 'strong' : 'relevant'
+    }))
+    .sort((left, right) => right.projects.length - left.projects.length || left.skill.localeCompare(right.skill));
 
-  return (
-    <div className="relative w-36 h-36 flex items-center justify-center shrink-0">
-      <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
-        <circle
-          cx="60" cy="60" r={radius}
-          stroke="currentColor"
-          strokeWidth="8"
-          fill="none"
-          className="text-gray-200 dark:text-gray-700"
-        />
-        <circle
-          cx="60" cy="60" r={radius}
-          stroke={ringColor}
-          strokeWidth="8"
-          fill="none"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-          strokeLinecap="round"
-          style={{ transition: 'stroke-dashoffset 1.2s ease-out' }}
-        />
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-3xl font-bold" style={{ color: ringColor }}>{animatedScore}%</span>
-        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Match</span>
-      </div>
+  const strongMatches = matchedEvidence.filter(evidence => evidence.strength === 'strong');
+  const relevantMatches = matchedEvidence.filter(evidence => evidence.strength === 'relevant');
+  const relevantProjects = [...new Map(
+    matchedEvidence.flatMap(evidence => evidence.projects).map(project => [project.id, project])
+  ).values()].slice(0, 6);
+  const growthAreas = knownMissingSkills.filter(skill => includesPhrase(jobDescription, skill)).slice(0, 6);
+  const isSenior = SENIOR_KEYWORDS.test(jobDescription) || HIGH_EXPERIENCE.test(jobDescription);
+  const isMidSenior = !isSenior && MID_EXPERIENCE.test(jobDescription);
+
+  const evidencePoints = matchedEvidence.reduce((total, evidence) => {
+    const projectEvidence = Math.min(evidence.projects.length, 3) * 4;
+    return total + 8 + projectEvidence;
+  }, 0);
+  let score = Math.min(92, evidencePoints);
+  if (matchedEvidence.length === 0) score = 10;
+  if (isSenior) score = Math.min(score, 60);
+  else if (isMidSenior) score = Math.min(score, 72);
+
+  const alignment = alignmentForScore(score, isEnglish);
+  const seniorityNote = isSenior
+    ? (isEnglish
+      ? 'The role appears senior and likely exceeds the current junior-to-mid profile.'
+      : 'Rollen verkar vara senior och överstiger sannolikt den nuvarande junior- till mellannivåprofilen.')
+    : isMidSenior
+      ? (isEnglish
+        ? 'The role asks for 3-4 years of experience, so the experience requirement should be discussed.'
+        : 'Rollen kräver 3-4 års erfarenhet, så erfarenhetskravet bör diskuteras.')
+      : null;
+
+  const summary = matchedEvidence.length === 0
+    ? (isEnglish
+      ? 'No direct portfolio evidence was found for the requested stack. Review the growth areas and project archive before drawing a conclusion.'
+      : 'Inga direkta portfoliobevis hittades för den efterfrågade teknikstacken. Granska utvecklingsområdena och projektarkivet innan du drar en slutsats.')
+    : (isEnglish
+      ? `${matchedEvidence.length} matching skills were found, supported by ${relevantProjects.length} portfolio projects. Repeated use across projects is treated as stronger evidence than a single mention.`
+      : `${matchedEvidence.length} matchande kompetenser hittades med stöd av ${relevantProjects.length} portfolioprojekt. Upprepad användning i flera projekt räknas som starkare bevis än ett enstaka omnämnande.`);
+
+  return {
+    score,
+    alignment,
+    summary,
+    seniorityNote,
+    strongMatches,
+    relevantMatches,
+    growthAreas,
+    relevantProjects
+  };
+};
+
+const toneClasses = {
+  emerald: 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-700/50 dark:bg-emerald-900/20 dark:text-emerald-300',
+  blue: 'border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-700/50 dark:bg-blue-900/20 dark:text-blue-300',
+  amber: 'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-700/50 dark:bg-amber-900/20 dark:text-amber-300'
+};
+
+const EvidenceSkill = ({ evidence }) => (
+  <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+    <div className="flex items-center justify-between gap-3">
+      <span className="font-semibold text-gray-900 dark:text-white">{evidence.skill}</span>
+      <span className="rounded-full bg-blue-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+        {evidence.projects.length} project{evidence.projects.length === 1 ? '' : 's'}
+      </span>
     </div>
-  );
-};
+    {evidence.projects.length > 0 && (
+      <p className="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+        {evidence.projects.slice(0, 3).map(project => project.title).join(' · ')}
+      </p>
+    )}
+  </div>
+);
 
 export const AIJobMatcher = () => {
   const { language } = useLanguage();
-  const [jobDesc, setJobDesc] = useState('');
+  const [jobDescription, setJobDescription] = useState('');
   const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const resultRef = useRef(null);
-  const isEn = language !== 'sv';
+  const isEnglish = language !== 'sv';
+  const projectList = projects[language] || projects.en;
+  const presets = rolePresets[language] || rolePresets.en;
 
-  const ui = {
-    sectionTitle: isEn ? 'Private Job Match' : 'Privat jobbmatchning',
-    subtitle: isEn
-      ? 'Paste a job description for a private, on-device estimate of how well Abenezer fits the role.'
-      : 'Klistra in en jobbeskrivning för en privat uppskattning direkt i webbläsaren av hur väl Abenezer matchar rollen.',
-    placeholder: isEn
-      ? 'Paste a job description here (e.g. "We are looking for a Java Developer with Spring Boot, Docker, and Azure experience...")'
-      : 'Klistra in jobbeskrivning här (t.ex. "Vi söker en Java-utvecklare med Spring Boot, Docker och Azure-erfarenhet...")',
-    analyzeBtn: isEn ? 'Analyze Match' : 'Analysera matchning',
-    analyzing: isEn ? 'Analyzing...' : 'Analyserar...',
-    resetBtn: isEn ? 'Try Another Role' : 'Prova en annan roll',
-    matchedSkills: isEn ? 'Matched Skills' : 'Matchande kompetenser',
-    highlights: isEn ? 'Key Strengths' : 'Viktiga styrkor',
-    summary: isEn ? 'Match Analysis' : 'Matchningsanalys',
-    tooShort: isEn
-      ? 'Please paste a job description (at least 50 characters).'
-      : 'Vänligen klistra in en jobbeskrivning (minst 50 tecken).',
-    contactCta: isEn ? 'Contact Abenezer' : 'Kontakta Abenezer',
-    tryThis: isEn ? 'Quick example:' : 'Snabbexempel:',
-    exampleLabel: isEn ? 'Junior Java Developer (Spring Boot + REST)' : 'Junior Java-utvecklare (Spring Boot + REST)',
-    disclaimer: isEn
-      ? 'Private on-device estimate for guidance only. Your pasted text is not sent to a server.'
-      : 'Privat uppskattning direkt i webbläsaren. Din inklistrade text skickas inte till en server.',
-  };
-
-  const exampleDesc = isEn
-    ? `We are looking for a Junior Java Developer to join our team. You will build and maintain REST APIs using Spring Boot and Java. Experience with MySQL, Git, and basic Docker knowledge is a plus. Familiarity with Agile/Scrum methodologies and JUnit testing is valued. This is a great opportunity for a motivated developer with 0-2 years of experience.`
-    : `Vi söker en junior Java-utvecklare till vårt team. Du kommer att bygga och underhålla REST API:er med Spring Boot och Java. Erfarenhet av MySQL, Git och grundläggande Docker-kunskaper är meriterande. Kännedom om Agile/Scrum och JUnit-testning värderas. Detta är en utmärkt möjlighet för en motiverad utvecklare med 0-2 års erfarenhet.`;
-
-  const analyze = async () => {
-    const trimmed = jobDesc.trim();
-    if (!trimmed || trimmed.length < 50) {
-      setError(ui.tooShort);
+  const analyze = () => {
+    if (jobDescription.trim().length < 40) {
+      setError(isEnglish ? 'Paste a longer job description to analyze the role.' : 'Klistra in en längre jobbeskrivning för att analysera rollen.');
       return;
     }
-
     setError('');
-    setLoading(true);
-    setResult(null);
-
-    setTimeout(() => {
-      setResult(analyzeLocally(jobDesc, language));
-      setLoading(false);
-      setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
-    }, 1200);
-  };
-
-  const reset = () => {
-    setResult(null);
-    setJobDesc('');
-    setError('');
+    setResult(analyzeRole(jobDescription, projectList, isEnglish));
+    setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
   };
 
   return (
-    <section
-      id="ai-match"
-      className="py-24 px-4 bg-gray-50 dark:bg-dark-900 border-t border-gray-100 dark:border-gray-800"
-    >
-      <div className="max-w-3xl mx-auto relative z-10">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 flex items-center">
-          <span className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-white dark:bg-gray-800 text-blue-700 dark:text-blue-300 mr-4 border border-gray-200 dark:border-gray-700">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </span>
-          <span>{ui.sectionTitle}</span>
-        </h2>
-        <p className="text-gray-500 dark:text-gray-400 mb-10 ml-16 text-sm sm:text-base">{ui.subtitle}</p>
+    <section id="ai-match" className="border-t border-gray-100 bg-gray-50 px-4 py-24 dark:border-gray-800 dark:bg-dark-900">
+      <div className="mx-auto max-w-5xl">
+        <div className="mb-10">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:border-emerald-700/50 dark:bg-emerald-900/20 dark:text-emerald-300">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            {isEnglish ? 'Runs locally in your browser' : 'Körs lokalt i din webbläsare'}
+          </div>
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+            {isEnglish ? 'Role Fit Explorer' : 'Utforska rollmatchning'}
+          </h2>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-gray-500 dark:text-gray-400 sm:text-base">
+            {isEnglish
+              ? 'Paste a job description to compare it with demonstrated skills and project evidence. The explorer updates automatically as new portfolio projects are added.'
+              : 'Klistra in en jobbeskrivning för att jämföra den med demonstrerade kompetenser och projektbevis. Utforskaren uppdateras automatiskt när nya portfolioprojekt läggs till.'}
+          </p>
+        </div>
 
         {!result ? (
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
-            {/* Quick example fill */}
-            <div className="mb-4 flex items-center gap-3 flex-wrap">
-              <span className="text-sm text-gray-500 dark:text-gray-400">{ui.tryThis}</span>
-              <button
-                onClick={() => { setJobDesc(exampleDesc); setError(''); }}
-                className="text-xs px-3 py-1.5 rounded-full border border-blue-300 dark:border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
-              >
-                {ui.exampleLabel}
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-8">
+            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-400">
+              {isEnglish ? 'Try a role preset' : 'Prova en roll'}
+            </p>
+            <div className="mb-5 flex flex-wrap gap-2">
+              {presets.map(([label, description]) => (
+                <button
+                  key={label}
+                  onClick={() => { setJobDescription(description); setError(''); }}
+                  className="rounded-full border border-blue-200 bg-blue-50 px-3 py-2 text-xs font-semibold text-blue-700 transition hover:border-blue-400 hover:bg-blue-100 dark:border-blue-700/50 dark:bg-blue-900/20 dark:text-blue-300 dark:hover:bg-blue-900/40"
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <textarea
+              value={jobDescription}
+              onChange={event => { setJobDescription(event.target.value); setError(''); }}
+              rows={7}
+              placeholder={isEnglish ? 'Paste a job description here...' : 'Klistra in en jobbeskrivning här...'}
+              className="w-full resize-none rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-600 dark:bg-gray-700/50 dark:text-gray-100"
+            />
+            {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-xs text-gray-400">
+                {isEnglish ? 'Private by design: pasted text never leaves this page.' : 'Privat som standard: inklistrad text lämnar aldrig sidan.'}
+              </p>
+              <button onClick={analyze} className="rounded-lg bg-blue-700 px-6 py-3 text-sm font-bold text-white transition hover:bg-blue-800">
+                {isEnglish ? 'Explore role fit' : 'Utforska rollmatchning'}
               </button>
             </div>
-
-            <textarea
-              value={jobDesc}
-              onChange={e => { setJobDesc(e.target.value); setError(''); }}
-              placeholder={ui.placeholder}
-              rows={6}
-              className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-sm resize-none"
-            />
-
-            {error && (
-              <p className="mt-2 text-sm text-red-500">{error}</p>
-            )}
-
-            <button
-              onClick={analyze}
-              disabled={loading}
-              className="mt-4 w-full py-3 px-6 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <> 
-                  <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                  </svg>
-                  {ui.analyzing}
-                </>
-              ) : ui.analyzeBtn}
-            </button>
           </div>
         ) : (
-          <div ref={resultRef} className="space-y-4 animate-fadeIn">
-            {/* Score + summary */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
-              <div className="flex flex-col sm:flex-row items-center gap-6">
-                <ScoreRing score={result.score} />
-                <div className="flex-1 text-center sm:text-left">
-                  <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">
-                    {ui.summary}
-                  </h3>
-                  <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm sm:text-base">
-                    {result.summary}
-                  </p>
+          <div ref={resultRef} className="space-y-5 animate-fadeIn">
+            <div className="grid gap-4 lg:grid-cols-[1.3fr_0.7fr]">
+              <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <div className={`inline-flex rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-widest ${toneClasses[result.alignment.tone]}`}>
+                  {result.alignment.label}
                 </div>
+                <h3 className="mt-4 text-xl font-bold text-gray-900 dark:text-white">
+                  {isEnglish ? 'Evidence-based overview' : 'Evidensbaserad översikt'}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">{result.summary}</p>
+                {result.seniorityNote && (
+                  <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-700/50 dark:bg-amber-900/20 dark:text-amber-300">
+                    {result.seniorityNote}
+                  </p>
+                )}
+              </div>
+              <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <div className="text-4xl font-black text-blue-700 dark:text-blue-300">{result.score}%</div>
+                <p className="mt-2 text-xs uppercase tracking-widest text-gray-400">
+                  {isEnglish ? 'Approximate evidence score' : 'Ungefärlig evidenspoäng'}
+                </p>
+                <p className="mt-4 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+                  {isEnglish ? 'Repeated use across portfolio projects increases confidence.' : 'Upprepad användning i portfolioprojekt ökar tillförlitligheten.'}
+                </p>
               </div>
             </div>
 
-            {/* Matched skills */}
-            {result.matchedSkills && result.matchedSkills.length > 0 && (
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">
-                  {ui.matchedSkills}
+            {result.strongMatches.length > 0 && (
+              <div>
+                <h3 className="mb-3 text-sm font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+                  {isEnglish ? 'Strong matches' : 'Starka matchningar'}
+                </h3>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {result.strongMatches.map(evidence => <EvidenceSkill key={evidence.skill} evidence={evidence} />)}
+                </div>
+              </div>
+            )}
+
+            {result.relevantMatches.length > 0 && (
+              <div>
+                <h3 className="mb-3 text-sm font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+                  {isEnglish ? 'Relevant experience' : 'Relevant erfarenhet'}
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {result.matchedSkills.map(skill => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 text-sm font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200/50 dark:border-blue-700/50 rounded-full"
-                    >
-                      ✓ {skill}
+                  {result.relevantMatches.map(evidence => (
+                    <span key={evidence.skill} className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700 dark:border-blue-700/50 dark:bg-blue-900/20 dark:text-blue-300">
+                      {evidence.skill}
                     </span>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Key highlights */}
-            {result.highlights && result.highlights.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {result.highlights.map((highlight, i) => {
-                  return (
-                    <div
-                      key={i}
-                      className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 flex items-center gap-3"
+            {result.relevantProjects.length > 0 && (
+              <div>
+                <h3 className="mb-3 text-sm font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+                  {isEnglish ? 'Supporting projects' : 'Stödjande projekt'}
+                </h3>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {result.relevantProjects.map(project => (
+                    <a
+                      key={project.id}
+                      href={project.liveLink || project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-xl border border-gray-200 bg-white p-4 transition hover:-translate-y-1 hover:border-blue-400 hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
                     >
-                      <div className="w-8 h-8 shrink-0 rounded-lg bg-blue-700 dark:bg-blue-500 flex items-center justify-center text-white text-xs font-bold"> 
-                        {i + 1} 
-                      </div>
-                      <span className="text-sm text-gray-700 dark:text-gray-200 font-medium">{highlight}</span>
-                    </div>
-                  );
-                })}
+                      <div className="font-bold text-gray-900 dark:text-white">{project.title}</div>
+                      <p className="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">{project.technologies.slice(0, 4).join(' · ')}</p>
+                    </a>
+                  ))}
+                </div>
               </div>
             )}
 
-            {/* Actions */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href="#contact"
-                className="flex-1 py-3 px-6 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 text-center text-sm"
-              >
-                {ui.contactCta}
+            {result.growthAreas.length > 0 && (
+              <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-700/50 dark:bg-amber-900/10">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-amber-800 dark:text-amber-300">
+                  {isEnglish ? 'Growth areas requested by this role' : 'Utvecklingsområden som rollen efterfrågar'}
+                </h3>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {result.growthAreas.map(skill => <span key={skill} className="rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">{skill}</span>)}
+                </div>
+              </div>
+            )}
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <a href="#contact" className="flex-1 rounded-lg bg-blue-700 px-6 py-3 text-center text-sm font-bold text-white transition hover:bg-blue-800">
+                {isEnglish ? 'Contact Abenezer' : 'Kontakta Abenezer'}
               </a>
               <button
-                onClick={reset}
-                className="flex-1 py-3 px-6 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all duration-300 text-sm"
+                onClick={() => { setResult(null); setJobDescription(''); }}
+                className="flex-1 rounded-lg border border-gray-200 bg-white px-6 py-3 text-sm font-bold text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
               >
-                {ui.resetBtn}
+                {isEnglish ? 'Explore another role' : 'Utforska en annan roll'}
               </button>
             </div>
-
-            {/* Disclaimer */}
-            <p className="text-center text-xs text-gray-400 dark:text-gray-500 flex items-center justify-center gap-1.5">
-              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              {ui.disclaimer}
-            </p>
           </div>
         )}
       </div>
