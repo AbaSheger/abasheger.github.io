@@ -12,7 +12,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    if: ${{ !contains(github.event.head_commit.message, 'chore: publish build output') }}
+    if: "${{ !contains(github.event.head_commit.message, 'chore: publish build output') }}"
     
     steps:
       - name: Checkout
