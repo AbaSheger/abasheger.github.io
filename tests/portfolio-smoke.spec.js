@@ -45,4 +45,12 @@ test.describe('Portfolio redesign smoke checks', () => {
     await page.locator('#contact').scrollIntoViewIfNeeded();
     await expect(page.getByRole('button', { name: 'Continue in Email App' })).toBeVisible();
   });
+
+  test('hero and skills expose the focused multi-role positioning', async ({ page }) => {
+    await expect(page.locator('#hero')).toContainText('Java/backend, .NET, integration, and QA automation');
+    await page.locator('#skills').scrollIntoViewIfNeeded();
+    await expect(page.locator('#skills')).toContainText('.NET Development');
+    await expect(page.locator('#skills')).toContainText('Integration & Delivery');
+    await expect(page.locator('#skills')).toContainText('Quality Assurance');
+  });
 });

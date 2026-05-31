@@ -22,6 +22,7 @@ const skillAliases = {
   'JavaScript': ['javascript', 'js'],
   'PostgreSQL': ['postgresql', 'postgres'],
   'MCP': ['mcp', 'model context protocol'],
+  'System Integration': ['system integration', 'integration developer', 'integrations', 'api integration'],
   'LLM tools': ['llm', 'large language model'],
   'AI-assisted development': ['ai-assisted', 'ai tools', 'copilot'],
   'Desktop Game': ['game development', 'desktop game', 'gameplay', 'gaming'],

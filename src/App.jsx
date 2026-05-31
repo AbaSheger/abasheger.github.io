@@ -197,8 +197,8 @@ const App = () => {
                       <div className="mb-10 flex flex-wrap justify-center lg:justify-start gap-3 text-sm text-gray-700 dark:text-gray-300">
                         <span className="rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm dark:border-gray-700 dark:bg-gray-800">Java</span>
                         <span className="rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm dark:border-gray-700 dark:bg-gray-800">Spring Boot</span>
-                        <span className="rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm dark:border-gray-700 dark:bg-gray-800">React</span>
-                        <span className="rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm dark:border-gray-700 dark:bg-gray-800">Azure</span>
+                        <span className="rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm dark:border-gray-700 dark:bg-gray-800">.NET</span>
+                        <span className="rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm dark:border-gray-700 dark:bg-gray-800">System Integration</span>
                       </div>
                       
                       <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">

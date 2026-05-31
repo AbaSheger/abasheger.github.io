@@ -37,6 +37,6 @@ export const skillCategories = [
     title: 'Agile & Other',
     icon: 'users',
     proficiency: 80,
-    skills: ['Scrum', 'Kanban', 'Team Collaboration', 'Problem Solving', 'AI-assisted development', 'GitHub Copilot', 'Claude Code', 'Prompt Engineering', 'LLM tools', 'MCP', 'LLM Budget Control', 'AI Safety']
+    skills: ['Scrum', 'Kanban', 'Team Collaboration', 'Problem Solving', 'System Integration', 'AI-assisted development', 'GitHub Copilot', 'Claude Code', 'Prompt Engineering', 'LLM tools', 'MCP', 'LLM Budget Control', 'AI Safety']
   }
 ];

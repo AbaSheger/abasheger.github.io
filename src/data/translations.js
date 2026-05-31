@@ -15,7 +15,7 @@ export const translations = {
       greeting: "Hi, my name is",
       title: "Software Developer",
       description: "Building scalable, reliable systems for efficient data management. Based in Borlänge, Sweden.",
-      targeting: "Open to junior backend, Java, full-stack, and entry-level game development opportunities.",
+      targeting: "Open to junior software development roles, especially Java/backend, .NET, integration, and QA automation.",
       contactBtn: "Contact Me",
       projectsBtn: "View Projects"
     },
@@ -118,7 +118,7 @@ export const translations = {
       greeting: "Hej, mitt namn är",
       title: "Mjukvaruutvecklare",
       description: "Utvecklar skalbara, pålitliga system för effektiv datahantering. Baserad i Borlänge, Sverige.",
-      targeting: "Öppen för juniorroller inom backend, Java, fullstack och spelutveckling på ingångsnivå.",
+      targeting: "Öppen för juniorroller inom mjukvaruutveckling, särskilt Java/backend, .NET, integration och testautomatisering.",
       contactBtn: "Kontakta Mig",
       projectsBtn: "Se Projekt"
     },

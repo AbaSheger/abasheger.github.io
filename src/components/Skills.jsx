@@ -2,19 +2,63 @@ import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { skillCategories } from '../data/skills';
 
-const coreSkills = [
-  ['Java', 'Primary'],
-  ['Spring Boot', 'Primary'],
-  ['REST APIs', 'Primary'],
-  ['PostgreSQL', 'Working knowledge'],
-  ['Docker', 'Working knowledge'],
-  ['GitHub Actions', 'Working knowledge'],
-  ['React', 'Working knowledge'],
-  ['TypeScript', 'Working knowledge'],
-  ['Kafka', 'Exploring'],
-  ['MCP', 'Exploring'],
-  ['Playwright', 'Exploring'],
-  ['libGDX', 'Exploring']
+const focusAreas = [
+  {
+    id: 'backend',
+    title: { en: 'Backend Development', sv: 'Backendutveckling' },
+    summary: {
+      en: 'Primary focus on Java services, APIs, and data-backed applications.',
+      sv: 'Primärt fokus på Java-tjänster, API:er och datadrivna applikationer.'
+    },
+    skills: [
+      ['Java', 'Primary'],
+      ['Spring Boot', 'Primary'],
+      ['REST APIs', 'Primary'],
+      ['PostgreSQL', 'Working knowledge']
+    ]
+  },
+  {
+    id: 'dotnet',
+    title: { en: '.NET Development', sv: '.NET-utveckling' },
+    summary: {
+      en: 'Practical experience from API, desktop, and coursework projects.',
+      sv: 'Praktisk erfarenhet från API-, skrivbords- och kursprojekt.'
+    },
+    skills: [
+      ['C#', 'Working knowledge'],
+      ['.NET', 'Working knowledge'],
+      ['ASP.NET Core', 'Working knowledge'],
+      ['EF Core', 'Working knowledge']
+    ]
+  },
+  {
+    id: 'integration',
+    title: { en: 'Integration & Delivery', sv: 'Integration & leverans' },
+    summary: {
+      en: 'Experience connecting systems and shipping reliable application workflows.',
+      sv: 'Erfarenhet av att koppla samman system och leverera tillförlitliga applikationsflöden.'
+    },
+    skills: [
+      ['System Integration', 'Working knowledge'],
+      ['Docker', 'Working knowledge'],
+      ['GitHub Actions', 'Working knowledge'],
+      ['Kafka', 'Exploring']
+    ]
+  },
+  {
+    id: 'quality',
+    title: { en: 'Quality Assurance', sv: 'Kvalitetssäkring' },
+    summary: {
+      en: 'Testing practice across backend projects with growing automation coverage.',
+      sv: 'Testning i backendprojekt med växande erfarenhet av automatisering.'
+    },
+    skills: [
+      ['JUnit', 'Working knowledge'],
+      ['Mockito', 'Working knowledge'],
+      ['Playwright', 'Exploring'],
+      ['TDD', 'Exploring']
+    ]
+  }
 ];
 
 const levelStyles = {
@@ -28,8 +72,8 @@ export const Skills = ({ text }) => {
   const [showAdditional, setShowAdditional] = useState(false);
   const isEnglish = language !== 'sv';
   const allSkills = [...new Set(skillCategories.flatMap(category => category.skills))];
-  const coreSkillNames = new Set(coreSkills.map(([skill]) => skill));
-  const additionalSkills = allSkills.filter(skill => !coreSkillNames.has(skill));
+  const featuredSkillNames = new Set(focusAreas.flatMap(area => area.skills.map(([skill]) => skill)));
+  const additionalSkills = allSkills.filter(skill => !featuredSkillNames.has(skill));
 
   const localLevel = level => {
     if (isEnglish) return level;
@@ -50,19 +94,25 @@ export const Skills = ({ text }) => {
           </h2>
           <p className="mt-5 text-sm leading-relaxed text-gray-500 dark:text-gray-400 sm:text-base">
             {isEnglish
-              ? 'Core technologies are grouped by demonstrated focus. Additional tools remain available without competing for attention.'
-              : 'Kärntekniker grupperas efter demonstrerat fokus. Ytterligare verktyg finns tillgängliga utan att konkurrera om uppmärksamheten.'}
+              ? 'Capabilities grouped by practical experience. Java remains the primary focus, supported by .NET, integration, and test automation work.'
+              : 'Kompetenser grupperade efter praktisk erfarenhet. Java är huvudfokus, kompletterat av .NET, integration och testautomatisering.'}
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {coreSkills.map(([skill, level]) => (
-            <div key={skill} className="flex items-center justify-between gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4 transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/80 dark:hover:border-blue-700">
-              <span className="font-bold text-gray-900 dark:text-white">{skill}</span>
-              <span className={`rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${levelStyles[level]}`}>
-                {localLevel(level)}
-              </span>
-            </div>
+        <div className="grid gap-5 md:grid-cols-2">
+          {focusAreas.map(area => (
+            <article key={area.id} className="rounded-2xl border border-gray-200 bg-gray-50/70 p-5 transition hover:border-blue-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/70 dark:hover:border-blue-700">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white">{area.title[language] || area.title.en}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400">{area.summary[language] || area.summary.en}</p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {area.skills.map(([skill, level]) => (
+                  <span key={skill} className={`rounded-full border px-3 py-1.5 text-xs font-bold ${levelStyles[level]}`}>
+                    {skill}
+                    <span className="ml-2 text-[9px] uppercase tracking-wide opacity-70">{localLevel(level)}</span>
+                  </span>
+                ))}
+              </div>
+            </article>
           ))}
         </div>
 
