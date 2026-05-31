@@ -9,6 +9,7 @@ const lomanStadImage = './assets/loman-stad.png';
 const ecoTrackerImage = './assets/ecotracker.png';
 const jobAgentImage = './assets/job-agent.png';
 const devflowAgentImage = './assets/devflow-agent.png';
+const collectorDemoImage = './assets/collector-demo.png';
 const dbschenkerMcpImage = './assets/dbschenker-mcp.svg';
 const guardrail4jImage = './assets/guardrail4j.svg';
 
@@ -280,6 +281,16 @@ export const projects = {
       description: "Flutter mobile/web app for eco-friendly activity tracking with animated splash screen and an eco map screen.",
       githubLink: "https://github.com/AbaSheger/EcoTracker",
       isSideProject: true
+    },
+    {
+      id: 28,
+      title: "Collector Demo",
+      category: "desktop",
+      technologies: ["Java 17", "libGDX", "Gradle", "Desktop Game"],
+      image: collectorDemoImage,
+      description: "Small Java/libGDX desktop game demonstrating a complete 2D gameplay loop with keyboard input, frame-rate-independent movement, collision detection, score tracking, viewport handling, and resource cleanup.",
+      githubLink: "https://github.com/AbaSheger/java-libgdx-collector-demo",
+      isDesktopApp: true
     }
   ],
   sv: [
@@ -548,6 +559,16 @@ export const projects = {
       description: "Flutter mobil/webbapp för miljövänlig aktivitetsspårning med animerad startskärm och en ekokartskärm.",
       githubLink: "https://github.com/AbaSheger/EcoTracker",
       isSideProject: true
+    },
+    {
+      id: 28,
+      title: "Collector Demo",
+      category: "desktop",
+      technologies: ["Java 17", "libGDX", "Gradle", "Skrivbordsspel"],
+      image: collectorDemoImage,
+      description: "Litet Java/libGDX-skrivbordsspel som demonstrerar en komplett 2D-spelloop med tangentbordsstyrning, bildrutefrekvensoberoende rörelse, kollisionsdetektering, poängräkning, viewport-hantering och resursrensning.",
+      githubLink: "https://github.com/AbaSheger/java-libgdx-collector-demo",
+      isDesktopApp: true
     }
   ]
 };
