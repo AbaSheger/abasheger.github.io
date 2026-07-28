@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Privacy Policy for Offboarding Transfer Utility, an Atlassian Forge app for Jira Cloud."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0b1f3a" />
+    <link
+      rel="canonical"
+      href="https://abasheger.github.io/offboarding-transfer-utility/privacy/"
+    />
+    <link rel="stylesheet" href="../assets/policy.css" />
+    <title>Privacy Policy | Offboarding Transfer Utility</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to policy</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand-row">
+          <a class="brand" href="/">
+            <span class="brand-mark" aria-hidden="true">↗</span>
+            <span>Offboarding Transfer Utility</span>
+          </a>
+          <nav class="page-nav" aria-label="Policy navigation">
+            <a href="./" aria-current="page">Privacy</a>
+            <a href="../support/">Support</a>
+            <a href="/">Portfolio</a>
+          </nav>
+        </div>
+
+        <div class="hero">
+          <p class="eyebrow">Trust &amp; transparency</p>
+          <h1>Privacy Policy</h1>
+          <p class="lede">
+            How Offboarding Transfer Utility processes Jira data, what it keeps,
+            and the controls available to Jira administrators.
+          </p>
+          <span class="effective-date">Effective July 13, 2026</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="page-shell">
+      <aside class="toc" aria-label="On this page">
+        <p class="toc-title">On this page</p>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#data-processed">Data processed</a></li>
+          <li><a href="#data-stored">Data stored</a></li>
+          <li><a href="#purpose">Purpose</a></li>
+          <li><a href="#hosting">Hosting and sharing</a></li>
+          <li><a href="#retention">Retention and deletion</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#requests">Privacy requests</a></li>
+          <li><a href="#changes">Policy changes</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ol>
+      </aside>
+
+      <article class="content">
+        <section id="overview" class="summary-card">
+          <h2>Overview</h2>
+          <p>
+            This policy describes how Offboarding Transfer Utility (the
+            <strong>App</strong>) processes information when it is installed on a
+            Jira Cloud site. The Marketplace partner identified on the App’s
+            Atlassian Marketplace listing is the App provider.
+          </p>
+          <div class="fact-grid" aria-label="Privacy summary">
+            <div class="fact">
+              <h3>Forge hosted</h3>
+              <p>Jira data and App storage remain on Atlassian infrastructure.</p>
+            </div>
+            <div class="fact">
+              <h3>Limited retention</h3>
+              <p>Transfer audit records expire automatically after 180 days.</p>
+            </div>
+            <div class="fact">
+              <h3>No external tracking</h3>
+              <p>No external remotes, analytics, advertising, or tracking.</p>
+            </div>
+            <div class="fact">
+              <h3>Administrator control</h3>
+              <p>Jira administrators can delete all retained audit history.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="data-processed">
+          <h2>Data the App processes</h2>
+          <p>
+            The App processes only the information needed to discover supported
+            Jira assets, perform an administrator-requested transfer, report the
+            outcome, and maintain the transfer audit.
+          </p>
+          <ul>
+            <li>
+              Atlassian account IDs and display names for the initiating
+              administrator, departing user, and successor.
+            </li>
+            <li>
+              Jira asset identifiers and names for filters, dashboards,
+              projects, components, and issues.
+            </li>
+            <li>
+              Transfer timestamps, category counts, outcomes, and bounded Jira
+              error messages.
+            </li>
+          </ul>
+          <div class="notice">
+            <p>
+              <strong>Scanned asset details are transient.</strong> They are held
+              in the administrator’s current App page session and sent to Forge
+              resolvers for the requested transfer. The App does not write a
+              separate asset inventory to storage.
+            </p>
+          </div>
+        </section>
+
+        <section id="data-stored">
+          <h2>Data stored by the App</h2>
+          <p>
+            The App writes one audit record for each completed transfer run to
+            Atlassian Forge Key-Value Store (KVS). Each record contains:
+          </p>
+          <ul>
+            <li>
+              Account IDs and display names for the initiating administrator,
+              departing user, and successor.
+            </li>
+            <li>The time of the transfer.</li>
+            <li>
+              Attempted, successful, and failed counts for each supported asset
+              category.
+            </li>
+            <li>Up to 25 bounded error messages per category.</li>
+          </ul>
+          <p>
+            The App does not store passwords, API tokens, customer credentials,
+            or other secrets.
+          </p>
+        </section>
+
+        <section id="purpose">
+          <h2>Purpose and legal basis</h2>
+          <p>
+            The App processes this data only to perform Jira asset transfers
+            requested by a Jira administrator, report partial or failed changes,
+            provide an operational audit trail, and meet Atlassian user-privacy
+            lifecycle requirements.
+          </p>
+          <p>
+            The customer that installs the App determines the applicable legal
+            basis for using it within its organization and remains responsible
+            for its Jira users, content, retention obligations, and offboarding
+            decisions.
+          </p>
+        </section>
+
+        <section id="hosting">
+          <h2>Hosting, location, and sharing</h2>
+          <p>
+            The App runs entirely on Atlassian Forge. It reads from and writes to
+            the customer’s Jira Cloud site, and it stores audit records in Forge
+            KVS.
+          </p>
+          <ul>
+            <li>No external remotes or network egress are configured.</li>
+            <li>No independent third-party analytics or subprocessors are used.</li>
+            <li>The App does not sell personal data or serve advertising.</li>
+            <li>No customer credentials or secrets are collected or retained.</li>
+          </ul>
+          <p>
+            Atlassian processes data as the Jira Cloud and Forge platform
+            provider under Atlassian’s applicable terms and data-processing
+            commitments.
+          </p>
+        </section>
+
+        <section id="retention">
+          <h2>Retention, deletion, and account lifecycle</h2>
+          <div class="notice retention">
+            <p>
+              <strong>180-day retention:</strong> every new audit record is saved
+              with a 180-day time to live and expires automatically.
+            </p>
+          </div>
+          <p>
+            A Jira administrator can immediately delete all retained audit
+            records for the site from the App’s <strong>Transfer history</strong>
+            section. This deletion cannot be undone through the App.
+          </p>
+          <p>
+            A weekly Forge function reports the Atlassian accounts referenced
+            by current audit records to Atlassian’s Privacy API. When Atlassian
+            reports an account as closed, the App removes the stored account ID
+            and replaces the display name with “Deleted user.” When Atlassian
+            reports profile data as changed, the App refreshes the retained
+            display name without extending the record’s original retention
+            period.
+          </p>
+        </section>
+
+        <section id="security">
+          <h2>Security and access controls</h2>
+          <p>The App uses the following controls:</p>
+          <ul>
+            <li>Atlassian authentication and tenant-isolated Forge storage.</li>
+            <li>A native Jira administration page built with Forge UI Kit.</li>
+            <li>
+              An independent check for Jira’s global
+              <strong>ADMINISTER</strong> permission on every user-invoked
+              resolver.
+            </li>
+            <li>
+              Jira product requests made as the invoking user, so Jira applies
+              that administrator’s own permissions to reads and writes.
+            </li>
+            <li>
+              Strict resolver input validation, bounded scans and transfer
+              batches, controlled write concurrency, and explicit response
+              checks.
+            </li>
+            <li>No personal data written to application logs.</li>
+          </ul>
+        </section>
+
+        <section id="requests">
+          <h2>Access, correction, and privacy requests</h2>
+          <p>
+            Jira administrators can view retained transfer history, delete all
+            retained history, and use Jira’s own administration controls for
+            current user and asset data.
+          </p>
+          <p>
+            A user may submit an access, correction, or deletion request by
+            emailing
+            <a
+              href="mailto:nordappshq@proton.me?subject=Offboarding%20Transfer%20Utility%20privacy%20request"
+              >nordappshq@proton.me</a
+            >. The customer’s Jira administrator may need to verify the
+            requester’s identity, authority, and site before information is
+            disclosed or changed.
+          </p>
+        </section>
+
+        <section id="changes">
+          <h2>Changes to this policy</h2>
+          <p>
+            Material changes will be published at this URL with a revised
+            effective date. The current effective date appears at the top of
+            this page.
+          </p>
+        </section>
+
+        <section id="contact">
+          <div class="support-card">
+            <p class="eyebrow" style="color: #0c66e4">Privacy contact</p>
+            <h2>Questions or requests?</h2>
+            <p>
+              Email the App support contact at
+              <a
+                href="mailto:nordappshq@proton.me?subject=Offboarding%20Transfer%20Utility%20privacy%20request"
+                >nordappshq@proton.me</a
+              >. Include the Jira site URL and a clear description of the
+              request, but do not send passwords, API tokens, or unnecessary
+              Jira content.
+            </p>
+            <div class="support-actions">
+              <a
+                class="button"
+                href="mailto:nordappshq@proton.me?subject=Offboarding%20Transfer%20Utility%20privacy%20request"
+              >
+                Email privacy support
+              </a>
+              <a class="button secondary" href="../support/">View support policy</a>
+            </div>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>Offboarding Transfer Utility · Jira Cloud · Atlassian Forge</p>
+        <div class="footer-links">
+          <a href="./">Privacy</a>
+          <a href="../support/">Support</a>
+          <a href="/">Portfolio</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
