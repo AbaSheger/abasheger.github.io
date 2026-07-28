@@ -50,14 +50,28 @@ jobs:
 
       - name: Copy build output to repository root
         run: |
-          rm -rf assets static asset-manifest.json robots.txt sitemap.xml manifest.json og-image.svg
+          rm -rf assets static asset-manifest.json robots.txt sitemap.xml manifest.json og-image.svg offboarding-transfer-utility
           cp -R build/. .
+          test -f offboarding-transfer-utility/privacy/index.html
+          test -f offboarding-transfer-utility/support/index.html
+          test -f offboarding-transfer-utility/assets/policy.css
 
       - name: Commit published build output
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html assets static asset-manifest.json robots.txt sitemap.xml manifest.json og-image.svg
+          git add \
+            index.html \
+            assets \
+            static \
+            asset-manifest.json \
+            robots.txt \
+            sitemap.xml \
+            manifest.json \
+            og-image.svg \
+            offboarding-transfer-utility/privacy \
+            offboarding-transfer-utility/support \
+            offboarding-transfer-utility/assets
           if git diff --cached --quiet; then
             echo "Published output is already up to date."
           else
