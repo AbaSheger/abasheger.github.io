@@ -73,14 +73,28 @@
             when the App is installed and hosted through Atlassian Forge.
           </p>
           <div class="support-actions">
-            <a
+            <button
               class="button"
+              type="button"
+              data-copy-email="nordappshq@proton.me"
+              aria-describedby="support-copy-status"
+            >
+              Copy support email
+            </button>
+            <a
+              class="button secondary"
               href="mailto:nordappshq@proton.me?subject=Offboarding%20Transfer%20Utility%20support"
             >
-              Email support
+              Open email app
             </a>
             <a class="button secondary" href="../privacy/">Read the privacy policy</a>
           </div>
+          <p
+            id="support-copy-status"
+            class="copy-status"
+            role="status"
+            aria-live="polite"
+          ></p>
         </section>
 
         <section id="include">
@@ -245,13 +259,27 @@
             remediation process.
           </p>
           <div class="support-actions">
-            <a
+            <button
               class="button"
+              type="button"
+              data-copy-email="nordappshq@proton.me"
+              aria-describedby="security-copy-status"
+            >
+              Copy security email
+            </button>
+            <a
+              class="button secondary"
               href="mailto:nordappshq@proton.me?subject=Security%20report%20%E2%80%94%20Offboarding%20Transfer%20Utility"
             >
-              Report a security issue
+              Open email app
             </a>
           </div>
+          <p
+            id="security-copy-status"
+            class="copy-status"
+            role="status"
+            aria-live="polite"
+          ></p>
         </section>
       </article>
     </main>
@@ -266,5 +294,64 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      (() => {
+        const fallbackCopy = (text) => {
+          const textArea = document.createElement("textarea");
+          textArea.value = text;
+          textArea.setAttribute("readonly", "");
+          textArea.style.position = "fixed";
+          textArea.style.opacity = "0";
+          document.body.appendChild(textArea);
+          textArea.select();
+
+          try {
+            if (!document.execCommand("copy")) {
+              throw new Error("Copy command was not accepted.");
+            }
+          } finally {
+            textArea.remove();
+          }
+        };
+
+        const copyText = async (text) => {
+          if (navigator.clipboard && window.isSecureContext) {
+            try {
+              await navigator.clipboard.writeText(text);
+              return;
+            } catch {
+              fallbackCopy(text);
+              return;
+            }
+          }
+
+          fallbackCopy(text);
+        };
+
+        document.querySelectorAll("[data-copy-email]").forEach((button) => {
+          const defaultLabel = button.textContent.trim();
+
+          button.addEventListener("click", async () => {
+            const email = button.dataset.copyEmail;
+            const status = document.getElementById(
+              button.getAttribute("aria-describedby"),
+            );
+
+            try {
+              await copyText(email);
+              button.textContent = "Email copied";
+              status.textContent = `Copied ${email} to your clipboard.`;
+              window.setTimeout(() => {
+                button.textContent = defaultLabel;
+              }, 2500);
+            } catch {
+              status.textContent =
+                `Copying was blocked. Select and copy ${email} from the text above.`;
+            }
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
