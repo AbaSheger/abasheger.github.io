@@ -315,6 +315,23 @@ const App = () => {
                     <span className="w-1 h-1 rounded-full bg-gray-400"></span>
                     <span>{text.footer.copyright}</span>
                   </p>
+                  <nav
+                    className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2"
+                    aria-label={text.footer.productLinksLabel}
+                  >
+                    <a
+                      href="/offboarding-transfer-utility/privacy/"
+                      className="font-medium text-blue-700 underline-offset-4 transition-colors hover:text-blue-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:text-blue-300 dark:hover:text-blue-200 dark:focus-visible:ring-offset-dark-900"
+                    >
+                      {text.footer.offboardingPrivacy}
+                    </a>
+                    <a
+                      href="/offboarding-transfer-utility/support/"
+                      className="font-medium text-blue-700 underline-offset-4 transition-colors hover:text-blue-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:text-blue-300 dark:hover:text-blue-200 dark:focus-visible:ring-offset-dark-900"
+                    >
+                      {text.footer.offboardingSupport}
+                    </a>
+                  </nav>
                   <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">Built with React & Tailwind CSS</p>
                 </div>
               </div>

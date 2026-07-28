@@ -91,7 +91,10 @@ export const translations = {
     
     // Footer
     footer: {
-      copyright: "All rights reserved."
+      copyright: "All rights reserved.",
+      productLinksLabel: "Offboarding Transfer Utility links",
+      offboardingPrivacy: "Offboarding Transfer Utility Privacy",
+      offboardingSupport: "Offboarding Transfer Utility Support"
     },
     
     weather: {
@@ -194,7 +197,10 @@ export const translations = {
     
     // Footer
     footer: {
-      copyright: "Alla rättigheter förbehållna."
+      copyright: "Alla rättigheter förbehållna.",
+      productLinksLabel: "Länkar för Offboarding Transfer Utility",
+      offboardingPrivacy: "Offboarding Transfer Utility – integritet",
+      offboardingSupport: "Offboarding Transfer Utility – support"
     },
     
     weather: {
