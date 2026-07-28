@@ -382,15 +382,20 @@ h3 {
 }
 
 .button {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
   padding: 0.65rem 1rem;
+  border: 0;
   border-radius: 0.45rem;
   background: var(--brand);
   color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
   font-size: 0.92rem;
   font-weight: 750;
+  line-height: inherit;
   text-decoration: none;
 }
 
@@ -407,6 +412,14 @@ h3 {
 
 .button.secondary:hover {
   background: var(--brand-soft);
+}
+
+.copy-status {
+  min-height: 1.65em;
+  margin: 0.6rem 0 0;
+  color: var(--success);
+  font-size: 0.88rem;
+  font-weight: 650;
 }
 
 .site-footer {
