@@ -94,7 +94,9 @@ export const translations = {
       copyright: "All rights reserved.",
       productLinksLabel: "Offboarding Transfer Utility links",
       offboardingPrivacy: "Offboarding Transfer Utility Privacy",
-      offboardingSupport: "Offboarding Transfer Utility Support"
+      offboardingSupport: "Offboarding Transfer Utility Support",
+      offboardingDocs: "Offboarding Transfer Utility Docs",
+      offboardingTerms: "Offboarding Transfer Utility Terms"
     },
     
     weather: {
@@ -200,7 +202,9 @@ export const translations = {
       copyright: "Alla rättigheter förbehållna.",
       productLinksLabel: "Länkar för Offboarding Transfer Utility",
       offboardingPrivacy: "Offboarding Transfer Utility – integritet",
-      offboardingSupport: "Offboarding Transfer Utility – support"
+      offboardingSupport: "Offboarding Transfer Utility – support",
+      offboardingDocs: "Offboarding Transfer Utility – dokumentation",
+      offboardingTerms: "Offboarding Transfer Utility – villkor"
     },
     
     weather: {

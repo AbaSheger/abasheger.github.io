@@ -331,6 +331,18 @@ const App = () => {
                     >
                       {text.footer.offboardingSupport}
                     </a>
+                    <a
+                      href="/offboarding-transfer-utility/docs/"
+                      className="font-medium text-blue-700 underline-offset-4 transition-colors hover:text-blue-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:text-blue-300 dark:hover:text-blue-200 dark:focus-visible:ring-offset-dark-900"
+                    >
+                      {text.footer.offboardingDocs}
+                    </a>
+                    <a
+                      href="/offboarding-transfer-utility/terms/"
+                      className="font-medium text-blue-700 underline-offset-4 transition-colors hover:text-blue-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:text-blue-300 dark:hover:text-blue-200 dark:focus-visible:ring-offset-dark-900"
+                    >
+                      {text.footer.offboardingTerms}
+                    </a>
                   </nav>
                   <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">Built with React & Tailwind CSS</p>
                 </div>
