@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Administrator documentation for Offboarding Transfer Utility for Jira Cloud."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0b1f3a" />
+    <link
+      rel="canonical"
+      href="https://abasheger.github.io/offboarding-transfer-utility/docs/"
+    />
+    <link rel="stylesheet" href="../assets/policy.css" />
+    <title>Documentation | Offboarding Transfer Utility</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to documentation</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand-row">
+          <a class="brand" href="/">
+            <span class="brand-mark" aria-hidden="true">↗</span>
+            <span>Offboarding Transfer Utility</span>
+          </a>
+          <nav class="page-nav" aria-label="Product navigation">
+            <a href="../privacy/">Privacy</a>
+            <a href="../support/">Support</a>
+            <a href="./" aria-current="page">Docs</a>
+            <a href="../terms/">Terms</a>
+            <a href="/">Portfolio</a>
+          </nav>
+        </div>
+
+        <div class="hero">
+          <p class="eyebrow">Administrator guide</p>
+          <h1>Transfer Jira ownership with a reviewed workflow</h1>
+          <p class="lede">
+            Find a departing user's supported Jira assets, select a successor,
+            review the exact scope, and transfer ownership or assignments.
+          </p>
+          <span class="effective-date">Jira Cloud · Atlassian Forge</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="page-shell">
+      <aside class="toc" aria-label="On this page">
+        <p class="toc-title">On this page</p>
+        <ol>
+          <li><a href="#requirements">Access and requirements</a></li>
+          <li><a href="#workflow">Three-step workflow</a></li>
+          <li><a href="#assets">Supported assets</a></li>
+          <li><a href="#history">Transfer history</a></li>
+          <li><a href="#safety">Review and safety</a></li>
+          <li><a href="#help">Get help</a></li>
+        </ol>
+      </aside>
+
+      <article class="content">
+        <section id="requirements" class="summary-card">
+          <h2>Access and requirements</h2>
+          <p>
+            Offboarding Transfer Utility is a Jira administration page. A Jira
+            administrator opens <strong>Jira settings</strong>, selects
+            <strong>Apps</strong>, and then opens
+            <strong>Offboarding Transfer Utility</strong>.
+          </p>
+          <div class="fact-grid" aria-label="Access requirements">
+            <div class="fact">
+              <h3>Jira administrator</h3>
+              <p>
+                The invoking user must have Jira's global administrator
+                permission. The App verifies this permission for every
+                user-invoked operation.
+              </p>
+            </div>
+            <div class="fact">
+              <h3>Licensed access</h3>
+              <p>
+                An active Atlassian Marketplace subscription or a valid trial is
+                required to scan, transfer, view history, or delete history.
+              </p>
+            </div>
+          </div>
+          <div class="notice">
+            <p>
+              If the App displays <strong>License required</strong>, ask a site
+              administrator to start a trial or activate the subscription, then
+              refresh the page.
+            </p>
+          </div>
+        </section>
+
+        <section id="workflow">
+          <h2>The three-step workflow</h2>
+          <div class="fact-grid">
+            <div class="fact">
+              <h3>1. Select departing user</h3>
+              <p>
+                Search for and select the Jira user who is leaving. The App
+                scans the supported Jira categories and presents the asset
+                footprint for review.
+              </p>
+            </div>
+            <div class="fact">
+              <h3>2. Choose successor</h3>
+              <p>
+                Select the Jira user who should receive ownership or open-issue
+                assignments. The successor must be different from the departing
+                user.
+              </p>
+            </div>
+            <div class="fact">
+              <h3>3. Review and transfer</h3>
+              <p>
+                Review the departing user, successor, and category totals in the
+                confirmation dialog. The App does not begin changes until the
+                administrator confirms the transfer.
+              </p>
+            </div>
+            <div class="fact">
+              <h3>Result</h3>
+              <p>
+                The completion state reports successful and failed counts by
+                category. Review any item-level errors before retrying or making
+                manual Jira changes.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="assets">
+          <h2>Supported Jira assets</h2>
+          <p>
+            The App scans and transfers the following categories when they are
+            associated with the selected departing user:
+          </p>
+          <ul>
+            <li><strong>Filters:</strong> ownership of supported Jira filters.</li>
+            <li>
+              <strong>Dashboards:</strong> ownership of supported Jira
+              dashboards.
+            </li>
+            <li>
+              <strong>Project leads:</strong> the lead assigned to Jira
+              projects.
+            </li>
+            <li>
+              <strong>Component leads:</strong> the lead assigned to Jira
+              project components.
+            </li>
+            <li>
+              <strong>Open assigned issues:</strong> open Jira issues currently
+              assigned to the departing user.
+            </li>
+          </ul>
+          <p>
+            Jira applies its own permissions and product rules to every change.
+            An individual item can fail even when other categories complete
+            successfully.
+          </p>
+        </section>
+
+        <section id="history">
+          <h2>Administrator-only transfer history</h2>
+          <p>
+            Transfer history is available only to licensed Jira administrators.
+            The App stores one audit record for each completed transfer run in
+            Atlassian Forge storage. A record identifies the administrator,
+            departing user, successor, timestamp, category counts, outcomes,
+            and bounded error details.
+          </p>
+          <div class="notice retention">
+            <p>
+              <strong>180-day retention:</strong> audit records expire
+              automatically 180 days after creation. A Jira administrator can
+              also delete all retained transfer history immediately from the
+              App.
+            </p>
+          </div>
+          <p>
+            Asset details found during a scan are transient and are not retained
+            as a separate inventory. For the complete data-handling description,
+            read the <a href="../privacy/">Privacy Policy</a>.
+          </p>
+        </section>
+
+        <section id="safety">
+          <h2>Review and transfer safety</h2>
+          <div class="notice warning">
+            <p>
+              <strong>The App cannot automatically undo a transfer.</strong>
+              Confirm the selected users and asset totals carefully. A partial
+              result means successful items may already have changed even when
+              other items failed.
+            </p>
+          </div>
+          <p>
+            After a partial failure, review the reported category and error,
+            then rescan the departing user before deciding whether a retry is
+            appropriate.
+          </p>
+        </section>
+
+        <section id="help">
+          <div class="support-card">
+            <p class="eyebrow" style="color: #0c66e4">Support</p>
+            <h2>Need help with a scan or transfer?</h2>
+            <p>
+              Read the support policy for contact details, response targets,
+              transfer-safety guidance, privacy requests, and security reports.
+            </p>
+            <div class="support-actions">
+              <a class="button" href="../support/">View support information</a>
+              <a class="button secondary" href="../terms/">Read the terms</a>
+            </div>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>Offboarding Transfer Utility · Jira Cloud · Atlassian Forge</p>
+        <div class="footer-links">
+          <a href="../privacy/">Privacy</a>
+          <a href="../support/">Support</a>
+          <a href="./">Docs</a>
+          <a href="../terms/">Terms</a>
+          <a href="/">Portfolio</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
