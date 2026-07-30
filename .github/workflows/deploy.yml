@@ -54,6 +54,8 @@ jobs:
           cp -R build/. .
           test -f offboarding-transfer-utility/privacy/index.html
           test -f offboarding-transfer-utility/support/index.html
+          test -f offboarding-transfer-utility/docs/index.html
+          test -f offboarding-transfer-utility/terms/index.html
           test -f offboarding-transfer-utility/assets/policy.css
 
       - name: Commit published build output
@@ -71,6 +73,8 @@ jobs:
             og-image.svg \
             offboarding-transfer-utility/privacy \
             offboarding-transfer-utility/support \
+            offboarding-transfer-utility/docs \
+            offboarding-transfer-utility/terms \
             offboarding-transfer-utility/assets
           if git diff --cached --quiet; then
             echo "Published output is already up to date."
